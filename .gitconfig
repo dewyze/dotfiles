@@ -1,0 +1,18 @@
+[user]
+	name = John DeWyze
+	email = jdewzy@gmail.com
+[alias]
+  co = checkout
+  st = status
+  ch = cherry -v origin
+  br = branch
+  oneline = log --pretty=format:\"%h %ad%x20%s%x20%28%an%x29\" --date=short
+
+  staged = diff --cached
+  unstaged = diff
+
+  pile = stash --include-untracked
+[core]
+	editor = vim
+[push]
+	default = simple
