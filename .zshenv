@@ -1,5 +1,16 @@
 source ~/.aliases
 
+autoload -U compinit
+compinit
+
+autoload -U colors
+colors
+
+autoload -U select-word-style
+select-word-style bash
+
+bindkey -e
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 

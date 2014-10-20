@@ -62,6 +62,7 @@ function! <SID>SynStack()
     endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+" ====
 
 " File Types
 autocmd BufNewFile,BufReadPost *.go set filetype=go
@@ -69,7 +70,6 @@ autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType java setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType cs setlocal tabstop=4 shiftwidth=4 softtabstop=4
-autocmd FileType go setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType tex setlocal textwidth=78
 autocmd BufNewFile,BufRead *.txt setlocal textwidth=78
 autocmd FileType ruby runtime ruby_mappings.vim
@@ -86,8 +86,7 @@ autocmd BufRead,InsertLeave * match ExtraWhitespace /\s\+$/
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType c,cpp,eruby,html,go,java,javascript,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-" Highlight too-long lines
-autocmd BufRead,InsertEnter,InsertLeave * 2match LineLengthError /\%126v.*/
+" Highlight too-long linesError /\%126v.*/
 highlight LineLengthError ctermbg=black guibg=black
 autocmd ColorScheme * highlight LineLengthError ctermbg=black guibg=black
 
@@ -114,12 +113,17 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'Townk/vim-autoclose'
+" Plugin 'Townk/vim-autoclose'
 Plugin 'godlygeek/tabular'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 Plugin 'fatih/vim-go'
+let g:go_highlight_operators = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+
 Plugin 'pgr0ss/vimux-ruby-test'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-endwise'
@@ -134,11 +138,6 @@ Plugin 'epmatsw/ag.vim'
 Plugin 'tpope/vim-commentary'
 map <silent> <LocalLeader>cc :Commentary<CR>
 map <silent> <LocalLeader>uc :Commentary<CR>
-
-Plugin 'mileszs/ack.vim'
-let g:AckAllFiles = 0
-let g:AckCmd = 'ack --type-add ruby=.feature --ignore-dir=tmp 2> /dev/null'
-map <LocalLeader>aw :Ack '<C-R><C-W>'
 
 Plugin 'jlanzarotta/bufexplorer'
 let html_use_css=1
@@ -166,6 +165,13 @@ nmap <silent> <LocalLeader>vs vip<LocalLeader>vs<CR>
 
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_match_window_reversed = 0
+
+Plugin 'mileszs/ack.vim'
+let g:AckAllFiles = 0
+let g:AckCmd = 'ack --type-add ruby=.feature --ignore-dir=tmp 2> /dev/null'
+map <LocalLeader>aw :Ack '<C-R><C-W>'
 map <silent> <LocalLeader>mr :CtrlPMRU<CR>
 
 Plugin 'scrooloose/syntastic'

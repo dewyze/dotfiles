@@ -1,11 +1,3 @@
-autoload -U compinit
-compinit
-
-autoload -U colors
-colors
-
-autoload -U select-word-style
-select-word-style bash
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
@@ -82,11 +74,17 @@ simple_git_prompt_info() {
   echo " (@${ref#refs/heads/})"
 }
 
+function tmux-s {
+  tmux -S /tmp/$1 new-session -s $1 -d
+  chmod 777 /tmp/$1
+  tmux -S /tmp/$1 attach -t $1
+}
+
 setopt prompt_subst
 
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
+PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}[%{$(free)]%}%{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
 → '
 
 export GREP_OPTIONS='--color'
