@@ -30,6 +30,8 @@ set smartcase
 set wildignore+=*.pyc,*.o,*.class,*.lo,.git,vendor/*,node_modules/**,bower_components/**
 set tags+=gems.tags
 
+runtime macros/matchit.vim
+
 if version >= 703
   set undodir=~/.vim/undodir
   set undofile
@@ -48,6 +50,8 @@ augroup markdown
   au!
   au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 augroup END
+
+" highlight CursorLine ctermbg=52 ctermfg=None
 
 " ==== Syntax Highlight Reveal ====
 " Adds to statusline
@@ -177,6 +181,7 @@ map <silent> <LocalLeader>mr :CtrlPMRU<CR>
 Plugin 'scrooloose/syntastic'
 let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_mode_map = { "mode": "passive" }
 
 let g:no_html_toolbar = 'yes'
 let g:netrw_banner = 0
