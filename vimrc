@@ -62,23 +62,26 @@ endfunc
 " ====
 
 " File Types
+autocmd! bufwritepost .vimrc source $MYVIMRC
 autocmd BufNewFile,BufReadPost *.go set filetype=go
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType java setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType cs setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType go setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType tex setlocal textwidth=78
 autocmd FileType ruby runtime ruby_mappings.vim
 autocmd BufNewFile,BufRead *.txt setlocal textwidth=78
 autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 if version >= 700
-    autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en_us
-    autocmd FileType tex setlocal spell spelllang=en_us
+  autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en_us
+  autocmd FileType tex setlocal spell spelllang=en_us
 endif
 
 " Autoremove trailing spaces when saving the buffer
-autocmd FileType c,cpp,eruby,html,go,java,javascript,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,eruby,html,ghmarkdown,go,java,javascript,md,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " Highlight too-long linesError /\%126v.*/
 highlight LineLengthError ctermbg=black guibg=black
