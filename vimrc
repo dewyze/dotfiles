@@ -1,5 +1,4 @@
 " ========= Setup ========
-
 set nocompatible
 
 if &shell == "/usr/bin/sudosh"
@@ -11,7 +10,6 @@ compiler ruby
 syntax on
 
 " ========= Options ========
-
 set background=dark
 set backspace=indent,eol,start
 set cursorline
@@ -75,17 +73,8 @@ autocmd BufNewFile,BufRead *.txt setlocal textwidth=78
 autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-if version >= 700
-  autocmd BufNewFile,BufRead *.txt setlocal spell spelllang=en_us
-  autocmd FileType tex setlocal spell spelllang=en_us
-endif
-
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType c,cpp,eruby,html,ghmarkdown,go,java,javascript,md,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
-
-" Highlight too-long linesError /\%126v.*/
-highlight LineLengthError ctermbg=black guibg=black
-autocmd ColorScheme * highlight LineLengthError ctermbg=black guibg=black
 
 " Status
 set laststatus=2
@@ -96,7 +85,7 @@ set statusline+=%-40f\                    " relative path
 set statusline+=%=                        " seperate between right- and left-aligned
 set statusline+=%1*%y%*%*\                " file type
 set statusline+=%10(L(%l/%L)%)\           " line
-set statusline+=%P                        " percentage of file
+set statusline+=%2(C(%v/125)%)\           " column
 
 " ========= Plugin Options ========
 set rtp+=$GOROOT/misc/vim
@@ -106,6 +95,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'godlygeek/tabular'
+Plugin 'henrik/vim-indexed-search'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
@@ -126,6 +116,7 @@ let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+let g:go_fmt_command = "goimports"
 
 Plugin 'tpope/vim-commentary'
 map <silent> <LocalLeader>cc :Commentary<CR>
