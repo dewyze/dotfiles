@@ -48,7 +48,7 @@ au BufWinLeave * colorscheme Tomorrow-Night
 
 " ==== Syntax Highlight Reveal ====
 set laststatus=2
-set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}
+" set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}
 
 nmap <Leader>sI :call <SID>SynStack()<CR>
 function! <SID>SynStack()
@@ -109,7 +109,10 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'jgdavey/vim-turbux'
 Plugin 'epmatsw/ag.vim'
-" Plugin 'bling/vim-airline'
+Plugin 'bling/vim-airline'
+
+Plugin 'edkolev/tmuxline.vim'
+let g:airline_powerline_fonts = 1 
 
 Plugin 'fatih/vim-go'
 let g:go_highlight_operators = 1
