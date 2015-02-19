@@ -76,7 +76,7 @@ simple_git_prompt_info() {
 
 function tmux-s {
   tmux -S ~/dev/tmuxen/$1 new-session -s $1 -d
-  chmod 777 /tmp/$1
+  chmod 777 ~/dev/tmuxen/$1
   tmux -S ~/dev/tmuxen/$1 attach -t $1
 }
 
