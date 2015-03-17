@@ -17,7 +17,7 @@ task :setup do
       File.rename(old_dotfile, "#{old_dotfile}.jd.bak")
     end
 
-    sym_link = File.join(working_dir,".#{filename}")
+    sym_link = File.join(working_dir,"#{filename}")
 
     ln_s sym_link, old_dotfile
   end
