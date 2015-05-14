@@ -65,6 +65,9 @@ autocmd BufNewFile,BufReadPost *.go set filetype=go
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType java setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType less setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType cs setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType tex setlocal textwidth=78
@@ -75,6 +78,11 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType c,cpp,eruby,html,ghmarkdown,go,java,javascript,md,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
+
+" Fix indenting for html files
+let g:html_indent_inctags = "html,head,body"
+let g:html_indent_script1 = "inc" 
+let g:html_indent_style1 = "inc"
 
 " Status
 set laststatus=2
@@ -110,6 +118,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'jgdavey/vim-turbux'
 Plugin 'epmatsw/ag.vim'
 Plugin 'bling/vim-airline'
+Plugin 'groenewege/vim-less'
 
 Plugin 'edkolev/tmuxline.vim'
 let g:airline_powerline_fonts = 1 
@@ -164,11 +173,14 @@ let g:syntastic_mode_map = { "mode": "passive" }
 map <silent> <LocalLeader>rt :!ctags -R --exclude=".git\|.svn\|log\|tmp\|db\|pkg" --extra=+f --langmap=Lisp:+.clj<CR>
 map <silent> <LocalLeader>nh :nohls<CR>
 map <silent> <LocalLeader>bd :bufdo :bd<CR>
+" imap </ </<C-X><C-O>
 cnoremap <Tab> <C-L><C-D>
 
 " ========= Insert Shortcuts ========
 
 imap <C-L> <SPACE>=><SPACE>
+imap <C-E>= <lt>%=  %><esc>hhi
+imap <C-E>- <lt>%  %><esc>hhi
 
 " ========= Functions ========
 
