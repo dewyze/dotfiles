@@ -60,7 +60,7 @@ endfunc
 " ====
 
 " File Types
-autocmd! bufwritepost .vimrc source $MYVIMRC
+" autocmd! bufwritepost .vimrc source $MYVIMRC
 autocmd BufNewFile,BufReadPost *.go set filetype=go
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
@@ -74,6 +74,7 @@ autocmd FileType tex setlocal textwidth=78
 autocmd FileType ruby runtime ruby_mappings.vim
 autocmd BufNewFile,BufRead *.txt setlocal textwidth=78
 autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+autocmd FileType md setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Autoremove trailing spaces when saving the buffer
@@ -119,6 +120,10 @@ Plugin 'jgdavey/vim-turbux'
 Plugin 'epmatsw/ag.vim'
 Plugin 'bling/vim-airline'
 Plugin 'groenewege/vim-less'
+Plugin 'ekalinin/Dockerfile.vim'
+
+" Plugin 'suan/vim-instant-markdown'
+" let g:instant_markdown_slow = 1
 
 Plugin 'edkolev/tmuxline.vim'
 let g:airline_powerline_fonts = 1 
