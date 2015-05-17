@@ -7,7 +7,6 @@ endif
 
 filetype off
 compiler ruby
-syntax on
 
 " ========= Options ========
 set background=dark
@@ -28,6 +27,7 @@ set wrap
 
 set textwidth=0 nosmartindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set wildignore+=*.pyc,*.o,*.class,*.lo,.git,vendor/*,node_modules/**,bower_components/**
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip 
 
 let g:rubycomplete_buffer_loading = 1
 
@@ -119,6 +119,7 @@ Plugin 'jgdavey/vim-turbux'
 Plugin 'epmatsw/ag.vim'
 Plugin 'bling/vim-airline'
 Plugin 'groenewege/vim-less'
+Plugin 'mattn/emmet-vim'
 
 Plugin 'edkolev/tmuxline.vim'
 let g:airline_powerline_fonts = 1 
@@ -157,6 +158,7 @@ let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
 map <silent> <LocalLeader>mr :CtrlPMRU<CR>
 map <silent> <C-p><C-b> :CtrlPBuffer<CR>
+map <silent> <leader>ff :CtrlP<CR>
 
 Plugin 'mileszs/ack.vim'
 let g:AckAllFiles = 0
@@ -195,4 +197,5 @@ command! -nargs=0 GitGrepWord :call GitGrepWord()
 nnoremap <silent> <Leader>gw :GitGrepWord<CR>
 
 call vundle#end()            " required
+syntax on
 filetype plugin indent on    " required
