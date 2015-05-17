@@ -1,5 +1,7 @@
 task :default => :setup
 
+IGNORE = %w(Rakefile README.md)
+
 desc 'symlink files into home directory'
 task :setup do
   home_dir = File.expand_path("~")
@@ -8,10 +10,9 @@ task :setup do
 
   my_dotfiles.each do |file|
     filename = File.basename(file)
-    full_name = File.expand_path(file)
     new_dotfile = File.join(home_dir,".#{filename}")
 
-    next if filename =~ /Rakefile/ || filename =~ /README\.md$/
+    next if IGNORE.include?(filename)
 
     if File.exist?(new_dotfile)
       File.rename(new_dotfile, "#{old_dotfile}.jd.bak")
@@ -31,11 +32,9 @@ task :teardown do
 
   my_dotfiles.each do |file|
     filename = File.basename(file)
-    full_name = File.expand_path(file)
     dotfile = File.join(home_dir,".#{filename}")
 
-    next if filename =~ /Rakefile/ || filename =~ /README\.txt$/
-
+    next if IGNORE.include?(filename)
 
     rm_rf(dotfile) if File.symlink?(dotfile) || File.exist?(dotfile)
 
