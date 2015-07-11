@@ -10,17 +10,17 @@ task :setup do
 
   my_dotfiles.each do |file|
     filename = File.basename(file)
-    new_dotfile = File.join(home_dir,".#{filename}")
+    old_dotfile = File.join(home_dir,".#{filename}")
 
     next if IGNORE.include?(filename)
 
-    if File.exist?(new_dotfile)
-      File.rename(new_dotfile, "#{old_dotfile}.jd.bak")
+    if File.exist?(old_dotfile)
+      File.rename(old_dotfile, "#{old_dotfile}.jd.bak")
     end
 
     sym_link = File.join(working_dir,"#{filename}")
 
-    ln_s sym_link, new_dotfile
+    ln_s sym_link, old_dotfile
   end
 end
 
