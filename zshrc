@@ -36,7 +36,8 @@ git_remote_difference() {
   branch=$(git symbolic-ref HEAD --quiet)
   if [ -z $branch ]; then return; fi
 
-  remote=$(git remote show)
+  # remote=$(git remote show)
+  remote="origin"
   ahead_by=`echo $(git log --oneline $remote/${branch#refs/heads/}..HEAD 2> /dev/null | wc -l)`
   behind_by=`echo $(git log --oneline HEAD..$remote/${branch#refs/heads/} 2> /dev/null | wc -l)`
 

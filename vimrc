@@ -80,6 +80,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType c,cpp,eruby,html,ghmarkdown,go,java,javascript,md,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
 
+
 " Fix indenting for html files
 let g:html_indent_inctags = "html,head,body"
 let g:html_indent_script1 = "inc" 
@@ -200,6 +201,10 @@ function! GitGrepWord()
 endfunction
 command! -nargs=0 GitGrepWord :call GitGrepWord()
 nnoremap <silent> <Leader>gw :GitGrepWord<CR>
+"
+" Cursorline coloring for bright environments
+" autocmd BufEnter * highlight CursorLine ctermbg=Yellow ctermfg=Black cterm=bold
+" utocmd BufLeave * highlight CursorLine ctermbg=Yellow ctermfg=None cterm=bold 
 
 call vundle#end()            " required
 syntax on
