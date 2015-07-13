@@ -78,7 +78,7 @@ autocmd FileType md setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Autoremove trailing spaces when saving the buffer
-autocmd FileType c,cpp,eruby,html,ghmarkdown,go,java,javascript,md,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,eruby,html,ghmarkdown,go,java,javascript,less,md,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 
 " Fix indenting for html files

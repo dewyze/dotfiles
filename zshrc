@@ -84,8 +84,12 @@ function tmux-s {
 
 setopt prompt_subst
 
+export LOCALE="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
+export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34:cd=34:su=0:sg=0:tw=0:ow=0:"
 PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}[%{$(free)]%} %{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
 → '
 
