@@ -70,6 +70,7 @@ autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType less setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType cs setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType go setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType elixir setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType tex setlocal textwidth=78
 autocmd FileType ruby runtime ruby_mappings.vim
 autocmd BufNewFile,BufRead *.txt setlocal textwidth=78
@@ -109,6 +110,7 @@ Plugin 'henrik/vim-indexed-search'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
+Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-rails'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'pgr0ss/vimux-ruby-test'
