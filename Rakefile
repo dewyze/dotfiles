@@ -1,6 +1,6 @@
 task :default => :setup
 
-IGNORE = %w(Rakefile README.md)
+IGNORE = %w(Rakefile README.md Tomorrow-Night.vim)
 
 desc 'symlink files into home directory'
 task :setup do
