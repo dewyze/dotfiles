@@ -37,7 +37,7 @@ btmux_list () {
   ps -o ruser,command -ax | grep '[n]ew-session -s' | ruby -ne '$_ =~ /^(\w+).*-s (\w+)/; puts "#{$1} started #{$2}"'
 }
 
-alias bmux-start=bmux_start()
-alias bmuxs=bmux_start()
-alias bmux-list=bmux_list()
-alias bmuxl=bmux_list()
+alias bmux-start="bmux_start"
+alias bmuxs="bmux_start"
+alias bmux-list="bmux_list"
+alias bmuxl="bmux_list"
