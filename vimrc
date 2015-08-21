@@ -42,7 +42,7 @@ endif
 set undolevels=1000 "maximum number of changes that can be undone
 
 " Color
-colorscheme Tomorrow-Night
+" colorscheme Tomorrow-Night
 au FileType diff colorscheme desert
 au FileType git colorscheme desert
 au BufWinLeave * colorscheme Tomorrow-Night
@@ -103,7 +103,6 @@ set statusline+=%2(C(%v/125)%)\           " column
 set rtp+=$GOROOT/misc/vim
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'godlygeek/tabular'
