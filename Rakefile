@@ -26,7 +26,7 @@ namespace "configs" do
     end
 
     colors_folder = File.expand_path("~/.vim/colors")
-    mkdir(colors_folder) unless File.exist?(colors_folder)
+    mkdir_p(colors_folder) unless File.exist?(colors_folder)
     copy("Tomorrow-Night.vim", colors_folder)
   end
 
@@ -82,10 +82,10 @@ namespace "plugins" do
       puts "Installing #{name}"
 
       if config[:type] == :git && config[:install_dir]
-        parent_dir = File.dirname(config[:install_dir])
         install_dir = File.expand_path(config[:install_dir])
+        parent_dir = File.dirname(install_dir)
 
-        rm_rf(File.expand_path(config[:install_dir]))
+        rm_rf(File.expand_path(install_dir))
         mkdir_p(parent_dir) unless File.exist?(parent_dir)
 
         system("git clone #{config[:uri]} #{install_dir}")
