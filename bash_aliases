@@ -7,9 +7,13 @@ alias cd5.="cd ../../../../.."
 alias cd6.="cd ../../../../../.."
 
 bmux_start () {
- tmux -S /tmp/$1 new-session -s $1 -d
- chmod 777 /tmp/$1
- tmux -S /tmp/$1 attach -t $1
+  if [[ -n $1 ]]; then
+    tmux -S /tmp/$1 new-session -s $1 -d 
+    chmod 777 /tmp/$1
+    tmux -S /tmp/$1 attach -t $1
+  else
+    echo "Please specify the name of a tmux to start"
+  fi
 }
 
 bmux_list () {
