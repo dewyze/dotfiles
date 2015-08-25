@@ -1,74 +1,49 @@
-task :default => :setup
+task :default => "install"
 
-IGNORE = %w(Rakefile README.md Tomorrow-Night.vim)
+namespace "configs" do
 
-PREREQ_REPOSITORIES = {
-  "Vundler" => {
-    :type => :git,
-    :uri => "https://github.com/VundleVim/Vundle.vim.git",
-    :install_dir => "~/.vim/bundle/Vundle.vim",
-    :commands => {
-      :post_install => ["vim +PluginInstall +qall"]
-    }
-  }
-}
+  IGNORE = %w(Rakefile README.md Tomorrow-Night.vim)
 
+  desc 'symlink files into home directory'
+  task :install do
+    home_dir = File.expand_path("~")
+    working_dir = File.expand_path(File.dirname(__FILE__))
+    my_dotfiles = Dir.glob(File.join(working_dir,"*"))
 
-task :install do
-  Rake::Task["setup"].invoke
-  Rake::Task["prepare"].invoke
-end
+    my_dotfiles.each do |file|
+      filename = File.basename(file)
+      old_dotfile = File.join(home_dir,".#{filename}")
 
-task :uninstall do
-  Rake::Task["unprepare"].invoke
-  Rake::Task["teardown"].invoke
-end
+      next if IGNORE.include?(filename)
 
+      if File.exist?(old_dotfile)
+        File.rename(old_dotfile, "#{old_dotfile}.jd.bak")
+      end
 
-desc 'install prereqs'
-task :prepare do
-  PREREQ_REPOSITORIES.each do |name, config|
-    puts "Installing #{name}"
+      sym_link = File.join(working_dir,"#{filename}")
 
-    if config[:type] == :git && config[:install_dir]
-      parent_dir = File.dirname(config[:install_dir])
-      rm_rf(File.expand_path(config[:install_dir]))
-      mkdir_p(parent_dir) unless File.exist?(parent_dir)
-      system("git clone #{config[:uri]} #{config[:install_dir]}")
-    end
-
-    if config[:commands] && config[:commands][:post_install]
-      config[:commands][:post_install].each { |command| system(command) }
+      ln_s sym_link, old_dotfile
     end
   end
-end
 
-desc 'remove prereqs'
-task :unprepare do
-  PREREQ_REPOSITORIES.each do |name, config|
-    puts "Uninstalling #{name}"
-    if config[:type] == :git
-      install_dir = File.expand_path(config[:install_dir])
-      rm_rf(install_dir) if config[:install_dir] && File.directory?(install_dir)
-    end
-  end
-end
+  desc 'remove symlinks, add old files'
+  task :uninstall do
+    home_dir = File.expand_path("~")
+    working_dir = File.expand_path(File.dirname(__FILE__))
+    my_dotfiles = Dir.glob(File.join(working_dir,"*"))
 
+    my_dotfiles.each do |file|
+      filename = File.basename(file)
+      dotfile = File.join(home_dir,".#{filename}")
 
-desc 'symlink files into home directory'
-task :setup do
-  home_dir = File.expand_path("~")
-  dotfiles_dir = File.expand_path(File.dirname(__FILE__))
-  my_dotfiles = Dir.glob(File.join(dotfiles_dir,"*"))
+      next if IGNORE.include?(filename)
 
-  my_dotfiles.each do |file|
-    filename = File.basename(file)
-    old_dotfile = File.join(home_dir,".#{filename}")
+      rm_rf(dotfile) if File.symlink?(dotfile) || File.exist?(dotfile)
 
-    next if IGNORE.include?(filename)
-
-    if File.exist?(old_dotfile)
-      File.rename(old_dotfile, "#{old_dotfile}.jd.bak")
+      old_dotfile = File.join(home_dir,".#{filename}.jd.bak")
+      if File.exist?(old_dotfile)
+        File.rename(old_dotfile,dotfile)
+      end
     end
 
     sym_link = File.join(dotfiles_dir,"#{filename}")
@@ -82,18 +57,54 @@ task :teardown do
   home_dir = File.expand_path("~")
   dotfiles_dir = File.expand_path(File.dirname(__FILE__))
   my_dotfiles = Dir.glob(File.join(dotfiles_dir,"*"))
+  end
+end
 
-  my_dotfiles.each do |file|
-    filename = File.basename(file)
-    dotfile = File.join(home_dir,".#{filename}")
+namespace "plugins" do
+  PLUGIN_REPOSITORIES = {
+    "Vundler" => {
+      :type => :git,
+      :uri => "https://github.com/VundleVim/Vundle.vim.git",
+      :install_dir => "~/.vim/bundle/Vundle.vim",
+      :commands => {
+        :post_install => ["vim +PluginInstall +qall"]
+      }
+    }
+  }
 
-    next if IGNORE.include?(filename)
+  desc 'install prereqs'
+  task :install  do
+    PLUGIN_REPOSITORIES.each do |name, config|
+      puts "Installing #{name}"
 
-    rm_rf(dotfile) if File.symlink?(dotfile) || File.exist?(dotfile)
+      if config[:type] == :git && config[:install_dir]
+        parent_dir = File.dirname(config[:install_dir])
+        install_dir = File.expand_path(config[:install_dir])
 
-    old_dotfile = File.join(home_dir,".#{filename}.jd.bak")
-    if File.exist?(old_dotfile)
-      File.rename(old_dotfile,dotfile)
+        rm_rf(File.expand_path(config[:install_dir]))
+        mkdir_p(parent_dir) unless File.exist?(parent_dir)
+
+        system("git clone #{config[:uri]} #{install_dir}")
+      end
+
+      if config[:commands] && config[:commands][:post_install]
+        config[:commands][:post_install].each { |command| system(command) }
+      end
+    end
+  end
+
+  desc 'remove prereqs'
+  task :uninstall do
+    PLUGIN_REPOSITORIES.each do |name, config|
+      puts "Uninstalling #{name}"
+      if config[:type] == :git
+        install_dir = File.expand_path(config[:install_dir])
+        rm_rf(install_dir) if config[:install_dir] && File.directory?(install_dir)
+      end
     end
   end
 end
+
+task :install => ["configs:install", "plugins:install"]
+task :uninstall => ["plugins:uninstall", "configs:uninstall"]
+task "all:install" => [:install]
