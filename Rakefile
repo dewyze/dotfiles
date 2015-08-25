@@ -24,6 +24,10 @@ namespace "configs" do
 
       ln_s sym_link, old_dotfile
     end
+
+    colors_folder = File.expand_path("~/.vim/colors")
+    mkdir(colors_folder) unless File.exist?(colors_folder)
+    copy("Tomorrow-Night.vim", colors_folder)
   end
 
   desc 'remove symlinks, add old files'

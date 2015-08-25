@@ -42,7 +42,7 @@ endif
 set undolevels=1000 "maximum number of changes that can be undone
 
 " Color
-" colorscheme Tomorrow-Night
+colorscheme Tomorrow-Night
 au FileType diff colorscheme desert
 au FileType git colorscheme desert
 au BufWinLeave * colorscheme Tomorrow-Night
