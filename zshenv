@@ -18,6 +18,7 @@ PATH=/usr/local/bin:$PATH
 export PATH
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH=/Applications/Postgres.app/Contents/Versions/9.4/bin:$PATH
 
 export GOPATH=$HOME/dev/go
 # export PATH=$PATH:$GOPATH/bin  # This is for being able to execute go scripts from anywhere

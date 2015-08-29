@@ -10,6 +10,7 @@ compiler ruby
 
 " ========= Options ========
 set background=dark
+set foldlevel=99
 set backspace=indent,eol,start
 set cursorline
 set dir=/tmp//
@@ -79,7 +80,7 @@ autocmd FileType md setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Autoremove trailing spaces when saving the buffer
-autocmd FileType c,cpp,eruby,html,ghmarkdown,go,java,javascript,less,md,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,elixir,eruby,html,ghmarkdown,go,java,javascript,less,md,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 
 " Fix indenting for html files
@@ -112,7 +113,8 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-rails'
-Plugin 'jlanzarotta/bufexplorer'
+" Plugin 'jlanzarotta/bufexplorer'
+Plugin 'crookedneighbor/bufexplorer'
 Plugin 'pgr0ss/vimux-ruby-test'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-endwise'

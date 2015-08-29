@@ -5,8 +5,8 @@ IGNORE = %w(Rakefile README.md Tomorrow-Night.vim)
 desc 'symlink files into home directory'
 task :setup do
   home_dir = File.expand_path("~")
-  working_dir = File.expand_path(File.dirname(__FILE__))
-  my_dotfiles = Dir.glob(File.join(working_dir,"*"))
+  dotfiles_dir = File.expand_path(File.dirname(__FILE__))
+  my_dotfiles = Dir.glob(File.join(dotfiles_dir,"*"))
 
   my_dotfiles.each do |file|
     filename = File.basename(file)
@@ -18,7 +18,7 @@ task :setup do
       File.rename(old_dotfile, "#{old_dotfile}.jd.bak")
     end
 
-    sym_link = File.join(working_dir,"#{filename}")
+    sym_link = File.join(dotfiles_dir,"#{filename}")
 
     ln_s sym_link, old_dotfile
   end
@@ -27,8 +27,8 @@ end
 desc 'remove symlinks, add old files'
 task :teardown do
   home_dir = File.expand_path("~")
-  working_dir = File.expand_path(File.dirname(__FILE__))
-  my_dotfiles = Dir.glob(File.join(working_dir,"*"))
+  dotfiles_dir = File.expand_path(File.dirname(__FILE__))
+  my_dotfiles = Dir.glob(File.join(dotfiles_dir,"*"))
 
   my_dotfiles.each do |file|
     filename = File.basename(file)
