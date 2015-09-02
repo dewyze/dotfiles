@@ -24,3 +24,10 @@ alias bmux-start="bmux_start"
 alias bmuxs="bmux_start"
 alias bmux-list="bmux_list"
 alias bmuxl="bmux_list"
+
+# Local Bash Aliases
+# You will probably have system-specific settings. Simply add them
+# to ~/.bash_aliases.local (which is not included with this repository.
+if [ -f ~/.bash_aliases.local ]; then
+    . ~/.bash_aliases.local
+fi

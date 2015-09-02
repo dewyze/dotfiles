@@ -112,3 +112,10 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# Local Bash Settings
+# You will probably have system-specific settings. Simply add them
+# to ~/.bashrc.local (which is not included with this repository.
+if [ -f ~/.bashrc.local ]; then
+    . ~/.bashrc.local
+fi
