@@ -1,4 +1,3 @@
-source ~/.aliases
 
 autoload -U compinit
 compinit
@@ -11,14 +10,14 @@ select-word-style bash
 
 bindkey -e
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export PATH=/usr/local/bin:$PATH
 
-PATH=/usr/local/bin:$PATH
-export PATH
+[[ -s "/usr/local/heroku/bin" ]] && export PATH="/usr/local/heroku/bin:$PATH"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH=/Applications/Postgres.app/Contents/Versions/9.4/bin:$PATH
+[[ -s "$HOME/.rvm/bin" ]] && export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-export GOPATH=$HOME/dev/go
+[[ -s "$HOME/dev/go" ]] && export GOPATH=$HOME/dev/go
 # export PATH=$PATH:$GOPATH/bin  # This is for being able to execute go scripts from anywhere
+
+[[ -s "$HOME/.zsh_aliases" ]] && source ~/.zsh_aliases

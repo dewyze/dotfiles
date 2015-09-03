@@ -96,3 +96,8 @@ PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}[%{$(free)]%} %{$fg_bold[blu
 export GREP_OPTIONS='--color'
 export EDITOR=vim
 export LESS='XFR'
+
+[[ -s "$HOME/.bin" ]] && export PATH=$HOME/.bin:$PATH
+[[ -s "$HOME/.bin.local/" ]] && export PATH=$HOME/.bin:$PATH
+
+
