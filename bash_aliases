@@ -1,33 +1,16 @@
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
 
-alias cd.="cd .."
-alias cd2.="cd ../.."
-alias cd3.="cd ../../.."
-alias cd4.="cd ../../../.."
-alias cd5.="cd ../../../../.."
-alias cd6.="cd ../../../../../.."
-
-bmux_start () {
-  if [[ -n $1 ]]; then
-    tmux -S /tmp/$1 new-session -s $1 -d 
-    chmod 777 /tmp/$1
-    tmux -S /tmp/$1 attach -t $1
-  else
-    echo "Please specify the name of a tmux to start"
-  fi
-}
-
-bmux_list () {
-  ps -o ruser,command -ax | grep '[n]ew-session -s' | ruby -ne '$_ =~ /^(\w+).*-s (\w+)/; puts "#{$1} started #{$2}"'
-}
-
-alias bmux-start="bmux_start"
-alias bmuxs="bmux_start"
-alias bmux-list="bmux_list"
-alias bmuxl="bmux_list"
-
-# Local Bash Aliases
-# You will probably have system-specific settings. Simply add them
-# to ~/.bash_aliases.local (which is not included with this repository.
-if [ -f ~/.bash_aliases.local ]; then
-    . ~/.bash_aliases.local
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
