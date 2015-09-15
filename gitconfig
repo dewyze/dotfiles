@@ -1,0 +1,38 @@
+[color]
+  ui = auto
+[alias]
+  ci = commit
+  co = checkout
+  st = status
+  ch = cherry -v origin
+  br = branch
+  aa = add --all --verbose .
+  addall = add -A .
+  hist = log --graph --abbrev-commit --pretty=format:'%C(red)%h%C(reset) - %s %C(green)(%cr) %C(blue)<%an>%C(magenta)%d%C(reset)'
+  oneline = log --pretty=format:\"%h %ad%x20%s%x20%x28%an%x29\" --date=short
+  current = log --pretty=format:'%ad %h %d' --abbrev-commit --date=short -1
+  cur = log --pretty=format:'%ad %h %d' --abbrev-commit --date=short -1
+  ls = ls-files
+  pr = pull --rebase
+
+  # show difference between the HEAD and the index
+  staged = diff --cached
+  dc = diff --cached
+  ds = diff --staged
+
+  # show difference between working tree and the index
+  unstaged = diff
+
+  pile = stash --include-untracked
+
+  # git-duet aliases (must have https://github.com/git-duet/git-duet installed)
+  dci = duet-commit
+[push]
+  default = current
+[core]
+  autocrlf = input
+  excludesfile = ~/.gitignore
+[pager]
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
