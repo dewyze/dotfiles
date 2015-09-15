@@ -1,5 +1,5 @@
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 setopt prompt_subst
 
@@ -15,8 +15,8 @@ export LESS='XFR'
 
 ### Aliases
 
-[[ -s "$HOME/.aliases_shared" ]] && source "$HOME/.aliases_shared"
-[[ -s "$HOME/.zsh_aliases" ]] && source "$HOME/.zsh_aliases"
+[[ -s "$HOME/.aliases_shared" ]] && . "$HOME/.aliases_shared"
+[[ -s "$HOME/.zsh_aliases" ]] && . "$HOME/.zsh_aliases"
 
 # Local Zsh Aliases
 # You will probably have system-specific settings. Simply add them
