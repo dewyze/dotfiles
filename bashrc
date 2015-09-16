@@ -83,6 +83,10 @@ xterm*|rxvt*)
     ;;
 esac
 
+if [ -f ~/.rvm/scripts/rvm ]; then
+  source ~/.rvm/scripts/rvm
+fi
+
 # Alias definitions.
 # Aliases tend to be long and complicated so they exist elsewhere!
 
