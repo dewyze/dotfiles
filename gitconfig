@@ -31,7 +31,7 @@
   default = current
 [core]
   autocrlf = input
-  excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore_global
 [pager]
   log = diff-highlight | less
   show = diff-highlight | less
