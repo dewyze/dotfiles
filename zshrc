@@ -6,6 +6,14 @@ setopt prompt_subst
 export LOCALE="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
+platform='unknown'
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+   platform='linux'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+   platform='freebsd'
+fi
+
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34:cd=34:su=0:sg=0:tw=0:ow=0:"
@@ -25,10 +33,13 @@ if [ -f ~/.zsh_aliases.local ]; then
     . ~/.zsh_aliases.local
 fi
 
-
-PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}[%{$(free)]%} %{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
+if [[ "$platform" == "osx" ]]; then
+  PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}[%{$(free)]%} %{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
 → '
-
+else
+  PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}%{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
+→ '
+fi
 
 [[ -s "$HOME/.bin" ]] && export PATH=$HOME/.bin:$PATH
 [[ -s "$HOME/.bin.local/" ]] && export PATH=$HOME/.bin:$PATH

@@ -34,6 +34,16 @@ if ! shopt -oq posix; then
   fi
 fi
 
+platform='unknown'
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+  platform='linux'
+elif [[ "$unamestr" == 'FreeBSD' ]]; then
+        platform='freebsd'
+else
+  platform='osx'
+fi
+
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
