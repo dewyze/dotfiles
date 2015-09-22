@@ -208,7 +208,7 @@ nnoremap <silent> <Leader>gw :GitGrepWord<CR>
 "
 " Cursorline coloring for bright environments
 " autocmd BufEnter * highlight CursorLine ctermbg=Yellow ctermfg=Black cterm=bold
-" utocmd BufLeave * highlight CursorLine ctermbg=Yellow ctermfg=None cterm=bold 
+" autocmd BufLeave * highlight CursorLine ctermbg=Yellow ctermfg=None cterm=bold 
 
 call vundle#end()            " required
 syntax on
