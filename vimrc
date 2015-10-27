@@ -187,12 +187,14 @@ map <silent> <LocalLeader>nh :nohls<CR>
 map <silent> <LocalLeader>bd :bufdo :bd<CR>
 " imap </ </<C-X><C-O>
 cnoremap <Tab> <C-L><C-D>
+nmap <CR><CR> i<CR><esc>w            
 
 " ========= Insert Shortcuts ========
 
 imap <C-L> <SPACE>=><SPACE>
 imap <C-E>= <lt>%=  %><esc>hhi
 imap <C-E>- <lt>%  %><esc>hhi
+imap jj <ESC>                        
 
 " ========= Functions ========
 
