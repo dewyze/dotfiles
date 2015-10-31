@@ -56,14 +56,6 @@ namespace "configs" do
   end
 end
 
-desc 'remove symlinks, add old files'
-task :teardown do
-  home_dir = File.expand_path("~")
-  dotfiles_dir = File.expand_path(File.dirname(__FILE__))
-  my_dotfiles = Dir.glob(File.join(dotfiles_dir,"*"))
-  end
-end
-
 namespace "plugins" do
   PLUGIN_REPOSITORIES = {
     "Vundler" => {
