@@ -58,9 +58,9 @@ safesource $HOME/.aliases_shared.local
 safesource $HOME/.zsh_aliases.local
 
 # Script Directory (CORE)
-safepathprepend ~/.bin
+safepathprepend $HOME/.bin
 ## Local (LOCAL)
-safepathprepend ~/.bin.local
+safepathprepend $HOME/.bin.local
 
 #Common Tools
 

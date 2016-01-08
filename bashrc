@@ -115,21 +115,21 @@ safesource() {
 
 # Bash Settings (LOCAL)
 ## The local version of this file
-safesource ~/.bashrc.local
+safesource $HOME/.bashrc.local
 
 # Alias definitions (CORE)
 ## Aliases tend to be long and complicated so they exist elsewhere!
-safesource ~/.aliases_shared
-safesource ~/.bash_aliases
+safesource $HOME/.aliases_shared
+safesource $HOME/.bash_aliases
 ## (LOCAL)
-safesource ~/.aliases_shared.local
-safesource ~/.bash_aliases.local
+safesource $HOME/.aliases_shared.local
+safesource $HOME/.bash_aliases.local
 
 # Script Directory (CORE)
-safepathprepend ~/.bin
+safepathprepend $HOME/.bin
 ## Local (LOCAL)
-safepathprepend ~/.bin.local
+safepathprepend $HOME/.bin.local
 
 # Common Tools
-safesource ~/.rvm/scripts/rvm
+safesource $HOME/.rvm/scripts/rvm
 
