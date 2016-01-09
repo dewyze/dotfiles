@@ -93,31 +93,43 @@ xterm*|rxvt*)
     ;;
 esac
 
-if [ -f ~/.rvm/scripts/rvm ]; then
-  source ~/.rvm/scripts/rvm
-fi
+# HELPER FUNCTIONS
 
-# Alias definitions.
-# Aliases tend to be long and complicated so they exist elsewhere!
+safepathappend() {
+  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+    PATH="${PATH:+"$PATH:"}$1"
+  fi
+}
 
-if [ -f ~/.aliases_shared ]; then
-    . ~/.aliases_shared
-fi
+safepathprepend() {
+  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+    PATH="$1${PATH:+":$PATH"}"
+  fi
+}
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+safesource() {
+  if [ -f "$1" ]; then
+    source $1
+  fi
+}
 
-# Local Bash Aliases
-# You will probably have system-specific settings. Simply add them
-# to ~/.bash_aliases.local (which is not included with this repository.
-if [ -f ~/.bash_aliases.local ]; then
-    . ~/.bash_aliases.local
-fi
+# Bash Settings (LOCAL)
+## The local version of this file
+safesource $HOME/.bashrc.local
 
-# Local Bash Settings
-# You will probably have system-specific settings. Simply add them
-# to ~/.bashrc.local (which is not included with this repository.
-if [ -f ~/.bashrc.local ]; then
-    . ~/.bashrc.local
-fi
+# Alias definitions (CORE)
+## Aliases tend to be long and complicated so they exist elsewhere!
+safesource $HOME/.aliases_shared
+safesource $HOME/.bash_aliases
+## (LOCAL)
+safesource $HOME/.aliases_shared.local
+safesource $HOME/.bash_aliases.local
+
+# Script Directory (CORE)
+safepathprepend $HOME/.bin
+## Local (LOCAL)
+safepathprepend $HOME/.bin.local
+
+# Common Tools
+safesource $HOME/.rvm/scripts/rvm
+
