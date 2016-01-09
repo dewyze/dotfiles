@@ -24,9 +24,9 @@ The configs assume a standard shell invocation process and currently support `ba
   (system) -> .zshrc
     (bashrc) -> .zshrc.local (if you created it)
     (bashrc) -> .aliases_shared
-    (bashrc) -> .bash_aliases
+    (bashrc) -> .zsh_aliases
     (bashrc) -> .aliases_shared.local (if you created it)
-    (bashrc) -> .bash_aliases.local (if you created it)
+    (bashrc) -> .zsh_aliases.local (if you created it)
 ```
 
 ### BASH
