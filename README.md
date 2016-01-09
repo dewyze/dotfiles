@@ -22,7 +22,7 @@ The configs assume a standard shell invocation process and currently support `ba
 ```
   (system) -> .zshenv
   (system) -> .zshrc
-    (bashrc) -> bashrc.local (if you created it)
+    (bashrc) -> .zshrc.local (if you created it)
     (bashrc) -> .aliases_shared
     (bashrc) -> .bash_aliases
     (bashrc) -> .aliases_shared.local (if you created it)
@@ -32,7 +32,7 @@ The configs assume a standard shell invocation process and currently support `ba
 ### BASH
 ```
   (system) -> .bashrc
-    (bashrc) -> bashrc.local (if you created it)
+    (bashrc) -> .bashrc.local (if you created it)
     (bashrc) -> .aliases_shared
     (bashrc) -> .bash_aliases
     (bashrc) -> .aliases_shared.local (if you created it)
