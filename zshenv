@@ -27,4 +27,3 @@ safepathappend $HOME/.rvm/bin
 
 ## Common Applications
 safepathappend /usr/local/heroku/bin
-safepathappend /Applications/Postgres.app/Contents/Versions/9.4/bin
