@@ -65,4 +65,4 @@ safepathprepend $HOME/.bin.local
 #Common Tools
 
 ## Load RVM into a shell session *as a function*
-safepathappend $HOME/.rvm/scripts/rvm
+safesource $HOME/.rvm/scripts/rvm
