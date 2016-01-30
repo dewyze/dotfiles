@@ -203,6 +203,10 @@ nnoremap <silent> <Leader>gw :GitGrepWord<CR>
 " autocmd BufEnter * highlight CursorLine ctermbg=Yellow ctermfg=Black cterm=bold
 " autocmd BufLeave * highlight CursorLine ctermbg=Yellow ctermfg=None cterm=bold 
 
+if filereadable(glob("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
+
 call vundle#end()            " required
 syntax on
 filetype plugin indent on    " required
