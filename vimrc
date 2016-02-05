@@ -112,7 +112,6 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-rails'
-" Plugin 'jlanzarotta/bufexplorer'
 Plugin 'crookedneighbor/bufexplorer'
 Plugin 'pgr0ss/vimux-ruby-test'
 Plugin 'plasticboy/vim-markdown'
@@ -122,17 +121,10 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'jgdavey/vim-turbux'
 Plugin 'epmatsw/ag.vim'
-Plugin 'bling/vim-airline'
 Plugin 'groenewege/vim-less'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'mattn/emmet-vim'
-
-" Plugin 'suan/vim-instant-markdown'
-" let g:instant_markdown_slow = 1
-
 Plugin 'edkolev/tmuxline.vim'
-let g:airline_powerline_fonts = 1 
-
 Plugin 'fatih/vim-go'
 let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
