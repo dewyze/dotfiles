@@ -49,10 +49,6 @@ namespace "configs" do
         File.rename(old_dotfile,dotfile)
       end
     end
-
-    sym_link = File.join(dotfiles_dir,"#{filename}")
-
-    ln_s sym_link, old_dotfile
   end
 end
 
