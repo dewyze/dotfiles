@@ -22,11 +22,11 @@ The configs assume a standard shell invocation process and currently support `ba
 ```
   (system) -> .zshenv
   (system) -> .zshrc
-    (bashrc) -> .zshrc.local (if you created it)
-    (bashrc) -> .aliases_shared
-    (bashrc) -> .zsh_aliases
-    (bashrc) -> .aliases_shared.local (if you created it)
-    (bashrc) -> .zsh_aliases.local (if you created it)
+    (zshrc) -> .zshrc.local (if you created it)
+    (zshrc) -> .aliases_shared
+    (zshrc) -> .zsh_aliases
+    (zshrc) -> .aliases_shared.local (if you created it)
+    (zshrc) -> .zsh_aliases.local (if you created it)
 ```
 
 ### BASH
@@ -40,6 +40,9 @@ The configs assume a standard shell invocation process and currently support `ba
 ```
 
 The shell configs are intended to be used on top of one another without much/any overhead. Our goal was to create a clean environment whether you start in `bash` and `tmux`(`bmuxs`) into `zsh` or go straight into `zsh`.
+
+## Tmuxline
+This uses [tmuxline.vim](https://github.com/edkolev/tmuxline.vim). Tmuxline can be used to match against [vim-airline](https://github.com/vim-airline/vim-airline), [powerline](https://github.com/powerline/powerline), [vim-lightline](https://github.com/itchyny/lightline.vim) or any other certain type of status line. Currently this defaults to the style of the normal vim status line, but you can use another status line in your `.vimrc.local` and create a `.tmuxline.conf.local` which will be referenced instead to make a tmux status line that matches a vim one.
 
 ## Uninstall
 

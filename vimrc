@@ -125,6 +125,7 @@ Plugin 'groenewege/vim-less'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'edkolev/tmuxline.vim'
+let g:tmuxline_powerline_separators = 0
 Plugin 'fatih/vim-go'
 let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
