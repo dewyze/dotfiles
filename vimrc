@@ -72,6 +72,8 @@ autocmd FileType go setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType java setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType json setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType less setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType md setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
@@ -80,7 +82,7 @@ autocmd FileType ruby runtime ruby_mappings.vim
 autocmd FileType yml setlocal filetype=yaml
 
 " Autoremove trailing spaces when saving the buffer
-autocmd FileType c,cpp,elixir,eruby,html,ghmarkdown,go,java,javascript,less,md,php,ruby,yaml autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,elixir,eruby,html,ghmarkdown,go,java,javascript,json,less,md,php,ruby,yaml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 
 " Fix indenting for html files
@@ -110,6 +112,7 @@ Plugin 'henrik/vim-indexed-search'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
+Plugin 'elzr/vim-json'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-rails'
 Plugin 'crookedneighbor/bufexplorer'
@@ -119,6 +122,8 @@ Plugin 'tpope/vim-endwise'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-ragtag'
+Plugin 'tpope/vim-repeat'
 Plugin 'jgdavey/vim-turbux'
 Plugin 'epmatsw/ag.vim'
 Plugin 'groenewege/vim-less'
