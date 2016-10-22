@@ -28,7 +28,7 @@ set wrap
 
 set textwidth=0 nosmartindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set wildignore+=*.pyc,*.o,*.class,*.lo,.git,vendor/*,node_modules/**,bower_components/**
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip 
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 let g:rubycomplete_buffer_loading = 1
 
@@ -62,30 +62,30 @@ endfunc
 
 " File Types
 " autocmd! bufwritepost .vimrc source $MYVIMRC
+autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 autocmd BufNewFile,BufReadPost *.go set filetype=go
-autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
-autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+autocmd FileType cs setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType elixir setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType gitcommit set tw=72
+autocmd FileType go setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType java setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4
-autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType less setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType cs setlocal tabstop=4 shiftwidth=4 softtabstop=4
-autocmd FileType go setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType elixir setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType tex setlocal textwidth=78
-autocmd FileType ruby runtime ruby_mappings.vim
-autocmd BufNewFile,BufRead *.txt setlocal textwidth=78
-autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 autocmd FileType md setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType ruby runtime ruby_mappings.vim
+autocmd FileType yml setlocal filetype=yaml
 
 " Autoremove trailing spaces when saving the buffer
-autocmd FileType c,cpp,elixir,eruby,html,ghmarkdown,go,java,javascript,less,md,php,ruby autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,elixir,eruby,html,ghmarkdown,go,java,javascript,less,md,php,ruby,yaml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 
 " Fix indenting for html files
 let g:html_indent_inctags = "html,head,body"
-let g:html_indent_script1 = "inc" 
+let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
 " Status
@@ -125,6 +125,9 @@ Plugin 'groenewege/vim-less'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'edkolev/tmuxline.vim'
+Plugin 'lambdatoast/elm.vim'
+Plugin 'suan/vim-instant-markdown.git'
+
 let g:tmuxline_powerline_separators = 0
 Plugin 'fatih/vim-go'
 let g:go_highlight_operators = 1
@@ -133,8 +136,8 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_fmt_command = "goimports"
 
-Plugin 'tpope/vim-commentary'
-map <silent> <LocalLeader>cc :Commentary<CR>
+Plugin 'tomtom/tcomment_vim'
+map <silent> <LocalLeader>cc :TComment<CR>
 
 Plugin 'scrooloose/nerdtree'
 let NERDTreeIgnore=['\.pyc', '\.o', '\.class', '\.lo']
@@ -186,7 +189,7 @@ nmap <CR><CR> i<CR><esc>w
 imap <C-L> <SPACE>=><SPACE>
 imap <C-E>= <lt>%=  %><esc>hhi
 imap <C-E>- <lt>%  %><esc>hhi
-imap jj <ESC>                        
+imap jj <C-C>
 
 " ========= Functions ========
 
@@ -199,10 +202,6 @@ function! GitGrepWord()
 endfunction
 command! -nargs=0 GitGrepWord :call GitGrepWord()
 nnoremap <silent> <Leader>gw :GitGrepWord<CR>
-"
-" Cursorline coloring for bright environments
-" autocmd BufEnter * highlight CursorLine ctermbg=Yellow ctermfg=Black cterm=bold
-" autocmd BufLeave * highlight CursorLine ctermbg=Yellow ctermfg=None cterm=bold 
 
 if filereadable(glob("~/.vimrc.local"))
   source ~/.vimrc.local
