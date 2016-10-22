@@ -182,7 +182,9 @@ map <silent> <LocalLeader>nh :nohls<CR>
 map <silent> <LocalLeader>bd :bufdo :bd<CR>
 " imap </ </<C-X><C-O>
 cnoremap <Tab> <C-L><C-D>
-nmap <CR><CR> i<CR><esc>w            
+nmap <CR><CR> i<CR><esc>w
+nmap <C-W>M <C-W>\| <C-W>_
+nmap <C-W>m <C-W>=
 
 " ========= Insert Shortcuts ========
 
