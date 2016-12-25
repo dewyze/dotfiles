@@ -117,6 +117,7 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-rails'
 Plugin 'crookedneighbor/bufexplorer'
 Plugin 'pgr0ss/vimux-ruby-test'
+Plugin 'pitluga/vimux-nose-test'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-endwise'
 Plugin 'jtratner/vim-flavored-markdown'
@@ -154,7 +155,12 @@ map <silent> <LocalLeader>nf :NERDTreeFind<CR>
 Plugin 'benmills/vimux'
 Plugin 'benmills/vimux-golang'
 let g:VimuxUseNearestPane = 1
+map <silent> <LocalLeader>rp :wa<CR> :VimuxRunCommand('python ' . shellescape(@%, 1) )<CR>
+map <silent> <LocalLeader>rr :wa<CR> :VimuxRunCommand('ruby ' . shellescape(@%, 1) )<CR>
+map <silent> <LocalLeader>rs :wa<CR> :VimuxRunCommand('$SHELL ' . shellescape(@%, 1) )<CR>
 map <silent> <LocalLeader>rl :wa<CR> :VimuxRunLastCommand<CR>
+map <silent> <LocalLeader>rb :wa<CR> :RunAllNoseTests<CR>
+map <silent> <LocalLeader>rf :wa<CR> :RunFocusedNoseTests<CR>
 map <silent> <LocalLeader>vi :wa<CR> :VimuxInspectRunner<CR>
 map <silent> <LocalLeader>vk :wa<CR> :VimuxInterruptRunner<CR>
 map <silent> <LocalLeader>vx :wa<CR> :VimuxClosePanes<CR>
