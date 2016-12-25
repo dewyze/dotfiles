@@ -167,6 +167,11 @@ map <silent> <LocalLeader>vx :wa<CR> :VimuxClosePanes<CR>
 map <silent> <LocalLeader>vp :VimuxPromptCommand<CR>
 vmap <silent> <LocalLeader>vs "vy :call VimuxRunCommand(@v)<CR>
 nmap <silent> <LocalLeader>vs vip<LocalLeader>vs<CR>
+"  === Custom test suites ===
+"  Use `alias vim_test_integration='your config'` and `alias vim_test_unit='your config'`
+"  This provides a linkable way to define custom, complex test suite configurations
+map <silent> <LocalLeader>ri :wa<CR> :VimuxRunCommand('vim_test_integration')<CR>
+map <silent> <LocalLeader>ru :wa<CR> :VimuxRunCommand('vim_test_unit')<CR>
 
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_show_hidden = 1
