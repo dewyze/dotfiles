@@ -175,6 +175,7 @@ let g:ctrlp_match_window_reversed = 0
 map <silent> <LocalLeader>mr :CtrlPMRU<CR>
 map <silent> <C-p><C-b> :CtrlPBuffer<CR>
 map <silent> <leader>ff :CtrlP<CR>
+map <silent> <leader>fr :CtrlPClearCache<CR>
 
 Plugin 'mileszs/ack.vim'
 let g:AckAllFiles = 0
