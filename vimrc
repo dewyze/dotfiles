@@ -82,7 +82,7 @@ autocmd FileType ruby runtime ruby_mappings.vim
 autocmd FileType yml setlocal filetype=yaml
 
 " Autoremove trailing spaces when saving the buffer
-autocmd FileType c,cpp,elixir,eruby,html,ghmarkdown,go,java,javascript,json,less,md,php,ruby,yaml autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,elixir,eruby,html,ghmarkdown,go,java,javascript,json,less,md,php,python,ruby,yaml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 
 " Fix indenting for html files
