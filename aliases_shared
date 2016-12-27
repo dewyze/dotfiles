@@ -9,11 +9,39 @@ alias ll='ls -halF'
 alias la='ls -A'
 alias l='ls -CF'
 
+tmux_public() {
+  if [ -n "$TMUX" ]; then
+    tmux_filepath=${TMUX%%,*}
+    chmod 777 $tmux_filepath
+  else
+    echo "You must run this command from within a tmux session"
+  fi
+}
+
+tmux_secure() {
+  if [ -n "$1" ]; then
+    chmod 700 /tmp/$1
+    echo "Set session to be private ($1)"
+  else
+    echo "Please specify the name of a tmux to secure"
+  fi
+}
+
 tmux_start () {
   if [ -n "$1" ]; then
     tmux -S /tmp/$1 new-session -s $1 -d
-    chmod 777 /tmp/$1
+    tmux_secure $1
+
     tmux -S /tmp/$1 attach -t $1
+
+    # After detaching/exiting from the tmux
+    # Check if the session is still active to decide whether to clean or secure
+    if ps -o ruser,command -ax | grep -q "[n]ew-session -s $1" ; then
+      tmux_secure $1
+    else
+      rm /tmp/$1
+      echo "Deleted unused session ($1)"
+    fi
   else
     echo "Please specify the name of a tmux to start"
   fi
@@ -27,6 +55,8 @@ alias tmux-start='tmux_start'
 alias tmuxs='tmux_start'
 alias tmux-list='tmux_list'
 alias tmuxl='tmux_list'
+alias tmux-public='tmux_public'
+alias tmuxpub='tmux_public'
 
 alias bmux-start="echo 'DEPRECATED: SWITCH TO tmux-start' && tmux_start"
 alias bmuxs="echo 'DEPRECATED: SWITCH TO tmuxs' && tmux_start"
