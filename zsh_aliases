@@ -4,13 +4,13 @@ timeout () {
 }
 
 git_untracked_count() {
-  count=`echo $(timeout git ls-files --other --exclude-standard | wc -l)`
+  count=`echo $(timeout git ls-files --other --exclude-standard 2>/dev/null | wc -l)`
   if [ $count -eq 0 ]; then return; fi
   echo " %{$fg_bold[yellow]%}?%{$fg_no_bold[black]%}:%{$reset_color$fg[yellow]%}$count%{$reset_color%}"
 }
 
 git_modified_count() {
-  count=`echo $(timeout git ls-files -md | wc -l)`
+  count=`echo $(timeout git ls-files -md 2>/dev/null | wc -l)`
   if [ $count -eq 0 ]; then return; fi
   echo " %{$fg_bold[red]%}M%{$fg_no_bold[black]%}:%{$reset_color$fg[red]%}$count%{$reset_color%}"
 }
