@@ -27,7 +27,7 @@ set tags+=gems.tags
 set wrap
 
 set textwidth=0 nosmartindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-set wildignore+=*.pyc,*.o,*.class,*.lo,.git,vendor/*,node_modules/**,bower_components/**
+set wildignore+=*.pyc,*.o,*.class,*.lo,.git,vendor/*,node_modules/**,bower_components/**,elm-stuff/**,elm.js
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 let g:rubycomplete_buffer_loading = 1
@@ -82,7 +82,7 @@ autocmd FileType ruby runtime ruby_mappings.vim
 autocmd FileType yml setlocal filetype=yaml
 
 " Autoremove trailing spaces when saving the buffer
-autocmd FileType c,cpp,elixir,eruby,html,ghmarkdown,go,java,javascript,json,less,md,php,python,ruby,yaml autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType c,cpp,elixir,elm,eruby,html,ghmarkdown,go,java,javascript,json,less,md,php,python,ruby,yaml autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 
 " Fix indenting for html files
@@ -131,7 +131,6 @@ Plugin 'groenewege/vim-less'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'edkolev/tmuxline.vim'
-Plugin 'lambdatoast/elm.vim'
 Plugin 'suan/vim-instant-markdown.git'
 
 let g:tmuxline_powerline_separators = 0
@@ -146,7 +145,7 @@ Plugin 'tomtom/tcomment_vim'
 map <silent> <LocalLeader>cc :TComment<CR>
 
 Plugin 'scrooloose/nerdtree'
-let NERDTreeIgnore=['\.pyc', '\.o', '\.class', '\.lo']
+let NERDTreeIgnore=['\.pyc', '\.o', '\.class', '\.lo',"elm-stuff","elm.js"]
 let NERDTreeHijackNetrw = 0
 map <silent> <LocalLeader>nt :NERDTreeToggle<CR>
 map <silent> <LocalLeader>nr :NERDTree<CR>
@@ -182,15 +181,24 @@ map <silent> <C-p><C-b> :CtrlPBuffer<CR>
 map <silent> <leader>ff :CtrlP<CR>
 map <silent> <leader>fr :CtrlPClearCache<CR>
 
-Plugin 'mileszs/ack.vim'
-let g:AckAllFiles = 0
-let g:AckCmd = 'ack --type-add ruby=.feature --ignore-dir=tmp 2> /dev/null'
-map <LocalLeader>aw :Ack '<C-R><C-W>'
+if executable('rg')
+  let g:ctrlp_user_command = 'rg --files %s'
+endif
 
 Plugin 'scrooloose/syntastic'
 let g:syntastic_python_python_exec = '/usr/local/bin/python3'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_mode_map = { "mode": "passive" }
+
+Plugin 'elmcast/elm-vim'
+let g:elm_setup_keybindings = 0
+nmap <buffer> <LocalLeader>m <Plug>(elm-make)
+nmap <buffer> <LocalLeader>b <Plug>(elm-make-main)
+nmap <buffer> <LocalLeader>t <Plug>(elm-test)
+nmap <buffer> <LocalLeader>r <Plug>(elm-repl)
+nmap <buffer> <LocalLeader>e <Plug>(elm-error-detail)
+" nmap <buffer> <LocalLeader>d <Plug>(elm-show-docs)
+" nmap <buffer> <LocalLeader>w <Plug>(elm-browse-docs)
 
 " ========= Shortcuts ========
 
@@ -202,6 +210,7 @@ cnoremap <Tab> <C-L><C-D>
 nmap <CR><CR> i<CR><esc>w
 nmap <C-W>M <C-W>\| <C-W>_
 nmap <C-W>m <C-W>=
+nnoremap <LocalLeader>p :set paste!<CR>
 
 " ========= Insert Shortcuts ========
 
