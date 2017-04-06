@@ -72,14 +72,14 @@ autocmd FileType go setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType java setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4
-autocmd FileType json setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType json setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType less setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType md setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType ruby runtime ruby_mappings.vim
-autocmd FileType yml setlocal filetype=yaml
+autocmd FileType yml setlocal filetype=yaml expandtab
 
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType c,cpp,elixir,elm,eruby,html,ghmarkdown,go,java,javascript,json,less,md,php,python,ruby,yaml autocmd BufWritePre <buffer> :%s/\s\+$//e
@@ -112,7 +112,6 @@ Plugin 'henrik/vim-indexed-search'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'pangloss/vim-javascript'
-Plugin 'elzr/vim-json'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-rails'
 Plugin 'crookedneighbor/bufexplorer'
@@ -132,6 +131,9 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'suan/vim-instant-markdown.git'
+
+Plugin 'elzr/vim-json'
+let g:vim_json_syntax_conceal = 0
 
 let g:tmuxline_powerline_separators = 0
 Plugin 'fatih/vim-go'
