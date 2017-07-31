@@ -71,7 +71,7 @@ autocmd FileType gitcommit set tw=72
 autocmd FileType go setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType java setlocal tabstop=4 shiftwidth=4 softtabstop=4
-autocmd FileType javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType json setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType less setlocal tabstop=2 shiftwidth=2 softtabstop=2
