@@ -44,10 +44,11 @@ autocmd FileType json setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 autocmd FileType md setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType ruby runtime ruby_mappings.vim
+autocmd FileType elm setlocal expandtab
 autocmd FileType yml setlocal filetype=yaml expandtab
 
 " Autoremove trailing spaces when saving the buffer
-autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType ruby,elm,yml,javscript,json,go,md,slim,css,scss,js autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " Status
 set laststatus=2
