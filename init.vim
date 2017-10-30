@@ -1,17 +1,28 @@
 " ========= Setup ========
 set nocompatible
-syntax on
 
 " ========= Options ========
 set cursorline
+set guicursor=
 set hidden
 set ignorecase
-set smartcase
 set number
 set scrolloff=5
 set showmatch
+set smartcase
 set tags+=gems.tags
-set guicursor=
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+
+if !has('nvim')
+  set background=dark
+  set backspace=indent,eol,start
+  set dir=/tmp//
+  set hlsearch
+  set incsearch
+  set undodir=~/.vim/undodir
+endif
 
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set wildignore+=*.pyc,*.o,*.class,*.lo,.git,vendor/*,node_modules/**,bower_components/**,elm-stuff/**,elm.js
@@ -37,14 +48,18 @@ endfunc
 autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 autocmd BufNewFile,BufReadPost *.go set filetype=go
 autocmd BufnewFile,BufRead *.slim setlocal filetype=slim
+autocmd FileType elixir setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType elm setlocal expandtab
 autocmd FileType gitcommit set tw=72
 autocmd FileType go setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType java setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType json setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
 autocmd FileType md setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType ruby runtime ruby_mappings.vim
-autocmd FileType elm setlocal expandtab
 autocmd FileType yml setlocal filetype=yaml expandtab
 
 " Autoremove trailing spaces when saving the buffer
@@ -185,9 +200,11 @@ endfunction
 command! -nargs=0 GitGrepWord :call GitGrepWord()
 nnoremap <silent> <Leader>gw :GitGrepWord<CR>
 
-" if filereadable(glob("~/.config/nvim/init.vim.local"))
-"   source ~/.config/nvim/init.vim.local
-" endif
+if has('nvim') && filereadable(glob("~/.config/nvim/init.vim.local"))
+  source ~/.config/nvim/init.vim.local
+elseif !has('nvim') && filereadable(glob("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
 
 let g:airline_powerline_fonts = 1
 let g:tmuxline_powerline_separators = 1
