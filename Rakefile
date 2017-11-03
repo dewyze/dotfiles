@@ -55,12 +55,10 @@ namespace "configs" do
 end
 
 namespace "plugins" do
-  VIM = "vim"
-  NVIM = "nvim"
-  VIM_FILE = "~/.vim/autoload/plug.vim"
-  VIM_DIR = "~/.vim/plugged"
-  NVIM_FILE = "~/.local/share/nvim/site/autoload/plug.vim"
-  NVIM_DIR = "~/.config/nvim/plugged"
+  USE_NVIM = system("which nvim > /dev/null")
+  VIM_COMMAND = USE_NVIM ? "nvim" : "vim"
+  VIM_FILE = USE_NVIM ? "~/.local/share/nvim/site/autoload/plug.vim" : "~/.vim/autoload/plug.vim"
+  VIM_DIR = USE_NVIM ? "~/.config/nvim/plugged" : "~/.vim/plugged"
 
   desc "install prereqs"
   task :install  do
@@ -70,42 +68,24 @@ namespace "plugins" do
     flags = "--create-dirs"
     uri = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-    if system("which nvim > /dev/null")
-      vim = NVIM
-      file = File.expand_path(NVIM_FILE)
-      dir = File.expand_path(NVIM_DIR)
-    else
-      vim = VIM
-      file = File.expand_path(VIM_FILE)
-      dir = File.expand_path(VIM_DIR)
-    end
+    convert_to_backup(VIM_FILE)
+    convert_to_backup(VIM_DIR)
 
-    convert_to_backup(file)
-    convert_to_backup(dir)
-
-    curl = "#{command} #{file} #{flags} #{uri}"
+    curl = "#{command} #{VIM_FILE} #{flags} #{uri}"
 
     system(curl)
-    system("#{vim} +PlugInstall +qall")
+    system("#{VIM_COMMAND} +PlugInstall +qall")
   end
 
   desc "remove prereqs"
   task :uninstall do
     puts "Removing vim plugins"
 
-    if system("which nvim > /dev/null")
-      file = File.expand_path(NVIM_FILE)
-      dir = File.expand_path(NVIM_DIR)
-    else
-      file = File.expand_path(VIM_FILE)
-      dir = File.expand_path(VIM_DIR)
-    end
+    FileUtils.rm_rf(VIM_DIR)
+    FileUtils.rm_rf(VIM_FILE)
 
-    FileUtils.rm_rf(dir)
-    FileUtils.rm_rf(file)
-
-    restore_backup(dir)
-    restore_backup(file)
+    restore_backup(VIM_DIR)
+    restore_backup(VIM_FILE)
   end
 end
 
