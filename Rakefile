@@ -2,98 +2,90 @@ task :default => "install"
 
 namespace "configs" do
 
-  IGNORE = %w(Rakefile README.md Tomorrow-Night.vim bin)
+  IGNORE = %w(Rakefile README.md bin init.vim)
+  USE_NVIM = system("which nvim > /dev/null")
+  SPECIAL_CONFIG = {
+    "vimrc" => {
+      symlink: USE_NVIM ? "init.vim" : ".vimrc",
+      dest: USE_NVIM ? "~/.config/nvim" : "~",
+    },
+    "Tomorrow-Night.vim" => {
+      symlink: "Tomorrow-Night.vim",
+      dest: USE_NVIM ? "~/.config/nvim/local-plugins/color-schemes/colors" : ".vim/colors",
+    },
+  }
 
   desc "symlink files into home directory"
   task :install do
-    home_dir = File.expand_path("~")
-    working_dir = File.expand_path(File.dirname(__FILE__))
-    my_dotfiles = Dir.glob(File.join(working_dir,"*"))
+    working_dir = File.dirname(__FILE__)
+    for_each_dotfile(working_dir) do |file, dotfile_path|
+      convert_to_backup(dotfile_path)
 
-    my_dotfiles.each do |file|
-      filename = File.basename(file)
-      old_dotfile = File.join(home_dir,".#{filename}")
-
-      next if IGNORE.include?(filename)
-
-      if File.exist?(old_dotfile)
-        File.rename(old_dotfile, "#{old_dotfile}.jd.bak")
-      end
-
-      sym_link = File.join(working_dir,"#{filename}")
-
-      ln_s sym_link, old_dotfile
+      FileUtils.ln_s(file, dotfile_path)
     end
-
-    colors_folder = File.expand_path("~/.vim/colors")
-    mkdir_p(colors_folder) unless File.exist?(colors_folder)
-    copy("Tomorrow-Night.vim", colors_folder)
   end
 
   desc "remove symlinks, add old files"
   task :uninstall do
-    home_dir = File.expand_path("~")
-    working_dir = File.expand_path(File.dirname(__FILE__))
-    my_dotfiles = Dir.glob(File.join(working_dir,"*"))
+    working_dir = File.dirname(__FILE__)
+    for_each_dotfile(working_dir) do |_, dotfile_path|
+      FileUtils.rm_rf(dotfile_path) if File.symlink?(dotfile_path) || File.exist?(dotfile_path)
 
+      restore_backup(dotfile_path)
+    end
+  end
+
+  def for_each_dotfile(dir, &block)
+    my_dotfiles = Dir.glob(File.join(dir,"*"))
     my_dotfiles.each do |file|
       filename = File.basename(file)
-      dotfile = File.join(home_dir,".#{filename}")
 
       next if IGNORE.include?(filename)
 
-      rm_rf(dotfile) if File.symlink?(dotfile) || File.exist?(dotfile)
+      config = SPECIAL_CONFIG[filename] || { dest: "~", symlink: ".#{filename}" }
+      dest = File.expand_path(config[:dest])
 
-      old_dotfile = File.join(home_dir,".#{filename}.jd.bak")
-      if File.exist?(old_dotfile)
-        File.rename(old_dotfile,dotfile)
-      end
+      FileUtils.mkdir_p(dest) unless File.directory?(dest)
+
+      dotfile_path = File.join(dest, config[:symlink])
+
+      yield file, dotfile_path
     end
   end
 end
 
 namespace "plugins" do
-  PLUGIN_REPOSITORIES = {
-    "Vundler" => {
-      :type => :git,
-      :uri => "https://github.com/VundleVim/Vundle.vim.git",
-      :install_dir => "~/.vim/bundle/Vundle.vim",
-      :commands => {
-        :post_install => ["vim +PluginInstall +qall"]
-      }
-    }
-  }
+  USE_NVIM = system("which nvim > /dev/null")
+  VIM_COMMAND = USE_NVIM ? "nvim" : "vim"
+  VIM_FILE = USE_NVIM ? "~/.local/share/nvim/site/autoload/plug.vim" : "~/.vim/autoload/plug.vim"
+  VIM_DIR = USE_NVIM ? "~/.config/nvim/plugged" : "~/.vim/plugged"
 
   desc "install prereqs"
   task :install  do
-    PLUGIN_REPOSITORIES.each do |name, config|
-      puts "Installing #{name}"
+    puts "Installing vim plugins"
 
-      if config[:type] == :git && config[:install_dir]
-        install_dir = File.expand_path(config[:install_dir])
-        parent_dir = File.dirname(install_dir)
+    command = "curl -fLo"
+    flags = "--create-dirs"
+    uri = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-        rm_rf(File.expand_path(install_dir))
-        mkdir_p(parent_dir) unless File.exist?(parent_dir)
+    convert_to_backup(VIM_FILE)
+    convert_to_backup(VIM_DIR)
 
-        system("git clone #{config[:uri]} #{install_dir}")
-      end
+    curl = "#{command} #{VIM_FILE} #{flags} #{uri}"
 
-      if config[:commands] && config[:commands][:post_install]
-        config[:commands][:post_install].each { |command| system(command) }
-      end
-    end
+    system(curl)
+    system("#{VIM_COMMAND} +PlugInstall +qall")
   end
 
   desc "remove prereqs"
   task :uninstall do
-    PLUGIN_REPOSITORIES.each do |name, config|
-      puts "Uninstalling #{name}"
-      if config[:type] == :git
-        install_dir = File.expand_path(config[:install_dir])
-        rm_rf(install_dir) if config[:install_dir] && File.directory?(install_dir)
-      end
-    end
+    puts "Removing vim plugins"
+
+    FileUtils.rm_rf(VIM_DIR)
+    FileUtils.rm_rf(VIM_FILE)
+
+    restore_backup(VIM_DIR)
+    restore_backup(VIM_FILE)
   end
 end
 
@@ -116,7 +108,7 @@ namespace "scripts" do
       end
     end
 
-    ln_s("#{SCRIPT_DIR}/bin", INSTALL_DIR)
+    FileUtils.ln_s("#{SCRIPT_DIR}/bin", INSTALL_DIR)
   end
 
   task :uninstall do
@@ -131,3 +123,12 @@ end
 task :install => ["scripts:install","configs:install", "plugins:install"]
 task :uninstall => ["plugins:uninstall", "configs:uninstall", "scripts:uninstall"]
 task "all:install" => [:install]
+
+def convert_to_backup(file)
+  File.rename(file, "#{file}.bak") if File.exist?(file)
+end
+
+def restore_backup(file)
+  backup_file = "#{file}.bak"
+  File.rename(backup_file, file) if File.exist?(backup_file)
+end
