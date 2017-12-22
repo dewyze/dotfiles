@@ -1,11 +1,11 @@
 task :default => "install"
 
-namespace "configs" do
+USE_NVIM = system("which nvim > /dev/null")
 
-  IGNORE = %w(Rakefile README.md bin init.vim)
-  USE_NVIM = system("which nvim > /dev/null")
+namespace "configs" do
+  IGNORE = %w(Rakefile README.md bin vimrc)
   SPECIAL_CONFIG = {
-    "vimrc" => {
+    "init.vim" => {
       symlink: USE_NVIM ? "init.vim" : ".vimrc",
       dest: USE_NVIM ? "~/.config/nvim" : "~",
     },
@@ -55,9 +55,8 @@ namespace "configs" do
 end
 
 namespace "plugins" do
-  USE_NVIM = system("which nvim > /dev/null")
   VIM_COMMAND = USE_NVIM ? "nvim" : "vim"
-  VIM_FILE = USE_NVIM ? "~/.local/share/nvim/site/autoload/plug.vim" : "~/.vim/autoload/plug.vim"
+  VIM_FILE = USE_NVIM ? "~/.config/nvim/autoload/plug.vim" : "~/.vim/autoload/plug.vim"
   VIM_DIR = USE_NVIM ? "~/.config/nvim/plugged" : "~/.vim/plugged"
 
   desc "install prereqs"
@@ -93,6 +92,7 @@ namespace "scripts" do
   INSTALL_DIR = File.expand_path("~/.bin")
   SCRIPT_DIR = File.expand_path(File.dirname(__FILE__))
 
+  desc "install scripts"
   task :install do
     bin_scripts = Dir.glob(File.join(SCRIPT_DIR,"bin","*"))
 
@@ -111,6 +111,7 @@ namespace "scripts" do
     FileUtils.ln_s("#{SCRIPT_DIR}/bin", INSTALL_DIR)
   end
 
+  desc "uninstall scripts"
   task :uninstall do
     if File.symlink?(INSTALL_DIR)
       rm(INSTALL_DIR)
@@ -120,8 +121,13 @@ namespace "scripts" do
   end
 end
 
-task :install => ["scripts:install","configs:install", "plugins:install"]
+
+desc "install everything"
+task :install => ["scripts:install", "plugins:install", "configs:install"]
+
+desc "uninstall everything"
 task :uninstall => ["plugins:uninstall", "configs:uninstall", "scripts:uninstall"]
+
 task "all:install" => [:install]
 
 def convert_to_backup(file)
