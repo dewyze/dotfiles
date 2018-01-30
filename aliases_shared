@@ -62,3 +62,8 @@ alias bmux-start="echo 'DEPRECATED: SWITCH TO tmux-start' && tmux_start"
 alias bmuxs="echo 'DEPRECATED: SWITCH TO tmuxs' && tmux_start"
 alias bmux-list="echo 'DEPRECATED: SWITCH TO tmux-list' && tmux_list"
 alias bmuxl="echo 'DEPRECATED:SWTICH TO tmuxl' && tmux_list"
+
+function ressh () {
+  filepath=$(ls -l /tmp/ssh-*/agent.* | grep "$USER $USER" | awk '{ print $9 }' | head -n 1)
+  export SSH_AUTH_SOCK=$filepath
+}
