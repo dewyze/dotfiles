@@ -27,7 +27,7 @@ set tags+=gems.tags
 set wrap
 
 set textwidth=0 nosmartindent tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-set wildignore+=*.pyc,*.o,*.class,*.lo,.git,vendor/*,node_modules/**,bower_components/**,elm-stuff/**,elm.js
+set wildignore+=*.pyc,*.o,*.class,*.lo,.git,vendor/*,node_modules/**,bower_components/**,elm-stuff/**,elm.js,*/venv/**
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 let g:rubycomplete_buffer_loading = 1
