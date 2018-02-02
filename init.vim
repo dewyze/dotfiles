@@ -47,7 +47,7 @@ endfunc
 " autocmd! bufwritepost .vimrc source $MYVIMRC
 autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
 autocmd BufNewFile,BufReadPost *.go set filetype=go
-autocmd BufnewFile,BufRead *.slim setlocal filetype=slim
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd FileType elixir setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType elm setlocal expandtab
 autocmd FileType gitcommit set tw=72
@@ -61,9 +61,10 @@ autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType ruby runtime ruby_mappings.vim
 autocmd FileType yml setlocal filetype=yaml expandtab
+autocmd FileType html,slim IndentLinesEnable
 
 " Autoremove trailing spaces when saving the buffer
-autocmd FileType ruby,elm,yml,javscript,json,go,md,slim,css,scss,js,vim autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType ruby,elm,yml,javscript,json,go,md,slim,css,scss,js autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " Status
 set laststatus=2
@@ -116,7 +117,16 @@ Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'}
 
 Plug 'bling/vim-airline', {'commit': '466198adc015a9d81e975374d8e206dcf3efd173'}
 Plug 'vim-airline/vim-airline-themes'
+Plug 'Yggdroot/indentLine'
+let g:indentLine_char = '⎸'
+let g:indentLine_enabled = 0
+let g:indentLine_color_term = 236
+let g:indentLine_bgcolor_term = 235
+" let g:indentLine_color_gui = '#FF00FF'
+
+Plug '~/dev/vim-rspec-block-helpers'
 call plug#end()
+
 
 " Plugin Settings
 
@@ -172,7 +182,6 @@ nnoremap <silent> <leader>rl :wa<CR>:TestLast<CR>
 colorscheme Tomorrow-Night
 au FileType diff colorscheme desert
 au FileType git colorscheme desert
-au BufWinLeave * colorscheme Tomorrow-Night
 
 
 " ========= Shortcuts ========
