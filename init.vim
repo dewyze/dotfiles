@@ -82,24 +82,25 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug '~/.config/nvim/local-plugins/color-schemes'
 
-Plug 'godlygeek/tabular', {'tag': '1.0.0'}
-Plug 'henrik/vim-indexed-search', {'commit': '1bae237136610b9dc5dd131588c752f9476d4fb4'}
-Plug 'vim-ruby/vim-ruby', {'commit': '5bac0d81e96edf33ffbf4b01653dfbdf68b77240'}
-Plug 'pangloss/vim-javascript', {'tag': '1.2.5.1'}
-Plug 'elixir-lang/vim-elixir', {'commit': 'fe7daaaff030e217dffedf53cb5f426099281e3e'} | Plug 'slashmili/alchemist.vim', {'tag': '2.7.0'}
-Plug 'tpope/vim-rails', {'commit': 'abf87ba2ebe07e1a4112a7921c06842070ef2f81'}
 " Plug 'jlanzarotta/bufexplorer', {'tag': 'v7.4.6'}
 Plug 'benmills/vimux', {'commit': '2285cefee9dfb2139ebc8299d11a6c8c0f21309e'} | Plug 'janko-m/vim-test', {'tag': 'v2.1.0'}
+Plug 'edkolev/tmuxline.vim', {'commit': '05c687014272abca548d72cfd5d8a7b7c3fb7e5e'}
+Plug 'ekalinin/Dockerfile.vim', {'commit': 'c3e2568c0f09ffb5b84b3c16e1e366285afed31b'}
+Plug 'elixir-editors/vim-elixir', {'commit': '5a32e60ac5e55c18702e0d6aed25aa8e37873cb2'} | Plug 'slashmili/alchemist.vim', {'tag': '3.0.0'}
+Plug 'godlygeek/tabular', {'tag': '1.0.0'}
+Plug 'henrik/vim-indexed-search', {'commit': '1bae237136610b9dc5dd131588c752f9476d4fb4'}
 Plug 'jtratner/vim-flavored-markdown', {'commit': '4a70aa2e0b98d20940a65ac38b6e9acc69c6b7a0'}
+Plug 'pangloss/vim-javascript', {'tag': '1.2.5.1'}
+Plug 'slim-template/vim-slim', {'commit': 'df26386b46b455f0c837c3ba30d1771204f209ca'}
+Plug 'tpope/vim-abolish', {'commit': 'b6a8b49e2173ba5a1b34d00e68e0ed8addac3ebd'}
 Plug 'tpope/vim-endwise', {'commit': '0067ceda37725d01b7bd5bf249d63b1b5d4e2ab4'}
 Plug 'tpope/vim-fugitive', {'commit': '008b9570860f552534109b4f618cf2ddd145eeb4'}
+Plug 'tpope/vim-projectionist', {'commit': '45ee461393045bace391e8f196cc87141754b196'}
 Plug 'tpope/vim-ragtag', {'commit': '5762a937f39d165b9773376960539f8c32788325'}
-Plug 'tpope/vim-surround', {'commit': 'e49d6c2459e0f5569ff2d533b4df995dd7f98313'}
+Plug 'tpope/vim-rails', {'commit': 'abf87ba2ebe07e1a4112a7921c06842070ef2f81'}
 Plug 'tpope/vim-repeat', {'commit': '070ee903245999b2b79f7386631ffd29ce9b8e9f'}
-Plug 'tpope/vim-abolish', {'commit': 'b6a8b49e2173ba5a1b34d00e68e0ed8addac3ebd'}
-Plug 'ekalinin/Dockerfile.vim', {'commit': 'c3e2568c0f09ffb5b84b3c16e1e366285afed31b'}
-Plug 'edkolev/tmuxline.vim', {'commit': '05c687014272abca548d72cfd5d8a7b7c3fb7e5e'}
-Plug 'slim-template/vim-slim', {'commit': 'df26386b46b455f0c837c3ba30d1771204f209ca'}
+Plug 'tpope/vim-surround', {'commit': 'e49d6c2459e0f5569ff2d533b4df995dd7f98313'}
+Plug 'vim-ruby/vim-ruby', {'commit': '5bac0d81e96edf33ffbf4b01653dfbdf68b77240'}
 
 " Plugin 'elzr/vim-json'
 " let g:vim_json_syntax_conceal = 0
@@ -125,10 +126,19 @@ let g:indentLine_bgcolor_term = 235
 " let g:indentLine_color_gui = '#FF00FF'
 
 Plug '~/dev/vim-rspec-block-helpers'
+Plug 'mhinz/vim-mix-format'
+let g:mix_format_on_save = 1
 call plug#end()
 
 
 " Plugin Settings
+
+let g:projectionist_heuristics = {
+      \ "mix.exs": {
+      \   "lib/*.ex": {"alternate": "test/{}_test.exs"},
+      \   "test/*_test.exs": {"alternate": "lib/{}.ex"}
+      \   }
+      \ }
 
 " Tmuxline
 let g:tmuxline_powerline_separators = 0
