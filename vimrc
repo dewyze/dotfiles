@@ -78,6 +78,7 @@ autocmd FileType less setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType md setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd FileType rust setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType ruby runtime ruby_mappings.vim
 autocmd FileType yml setlocal filetype=yaml expandtab
 
@@ -131,6 +132,7 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'suan/vim-instant-markdown.git'
+Plugin 'wting/rust.vim'
 
 Plugin 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
@@ -155,10 +157,12 @@ map <silent> <LocalLeader>nf :NERDTreeFind<CR>
 
 Plugin 'benmills/vimux'
 Plugin 'benmills/vimux-golang'
+Plugin 'jtdowney/vimux-cargo'
 let g:VimuxUseNearestPane = 1
 map <silent> <LocalLeader>rp :wa<CR> :VimuxRunCommand('python ' . shellescape(@%, 1) )<CR>
 map <silent> <LocalLeader>rr :wa<CR> :VimuxRunCommand('ruby ' . shellescape(@%, 1) )<CR>
 map <silent> <LocalLeader>rs :wa<CR> :VimuxRunCommand('$SHELL ' . shellescape(@%, 1) )<CR>
+map <Leader>rc :wa<CR> :CargoRun<CR>
 map <silent> <LocalLeader>rl :wa<CR> :VimuxRunLastCommand<CR>
 map <silent> <LocalLeader>rb :wa<CR> :RunAllNoseTests<CR>
 map <silent> <LocalLeader>rf :wa<CR> :RunFocusedNoseTests<CR>
