@@ -45,7 +45,7 @@ endfunc
 
 " File Types
 " autocmd! bufwritepost .vimrc source $MYVIMRC
-autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown textwidth=80
 autocmd BufNewFile,BufReadPost *.go set filetype=go
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd FileType elixir setlocal tabstop=2 shiftwidth=2 softtabstop=2
@@ -151,13 +151,13 @@ let g:fzf_tags_command = 'ctags -R --exclude=".git" --exclude="node_modules" --e
 map <silent> <leader>ff :Files<CR>
 map <silent> <leader>be :Buffers<CR>
 map <silent> <leader>ft :Tags<CR>
-let $FZF_DEFAULT_COMMAND = 'find * -type f 2>/dev/null | grep -v -E "deps\/|_build\/|node_modules\/|vendor\/|elm-stuff\/"'
-if executable('rg')
-  let $FZF_DEFAULT_COMMAND = 'rg --files'
-endif
+let $FZF_DEFAULT_COMMAND = 'find . -name "*" -type f 2>/dev/null
+                            \ | grep -v -E "_site\/|tmp\/|.gitmodules|.git\/|deps\/|_build\/|node_modules\/|vendor\/|elm-stuff\/"
+                            \ | sed "s|^\./||"'
 
 " 'mhinz/vim-mix-format'
 let g:mix_format_on_save = 1
+let g:mix_format_silent_errors = 1
 
 " 'tpope/vim-projectionist'
 let g:projectionist_heuristics = {
@@ -168,7 +168,7 @@ let g:projectionist_heuristics = {
       \ }
 
 " 'scrooloose/nerdtree'
-let NERDTreeIgnore=['\.pyc', '\.o', '\.class', '\.lo',"elm-stuff","elm.js"]
+let NERDTreeIgnore=['_site', 'tmp', '\.pyc', '\.o', '\.class', '\.lo',"elm-stuff","elm.js"]
 map <silent> <LocalLeader>nt :NERDTreeToggle<CR>
 map <silent> <LocalLeader>nr :NERDTree<CR>
 map <silent> <LocalLeader>nf :NERDTreeFind<CR>
