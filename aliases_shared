@@ -9,6 +9,13 @@ alias ll='ls -halF'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias python="python3"
+
+clearswap() {
+  rm ~/.local/share/nvim/swap/*swp
+}
+alias clearswap='clearswap'
+
 tmux_public() {
   if [ -n "$TMUX" ]; then
     tmux_filepath=${TMUX%%,*}

@@ -64,7 +64,7 @@ autocmd FileType scss setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType yml setlocal filetype=yaml expandtab
 
 " Autoremove trailing spaces when saving the buffer
-autocmd FileType ruby,elm,yml,javscript,json,go,md,slim,css,scss,js autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType ruby,elm,yml,javscript,json,go,md,python,slim,css,scss,js autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " Status
 set laststatus=2
@@ -84,6 +84,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug '~/.config/nvim/local-plugins/color-schemes'
 Plug 'benmills/vimux', {'commit': '2285cefee9dfb2139ebc8299d11a6c8c0f21309e'}
 Plug 'bling/vim-airline', {'commit': '466198adc015a9d81e975374d8e206dcf3efd173'}
+Plug 'dewyze/vim-endwise'
 Plug 'edkolev/tmuxline.vim', {'commit': '05c687014272abca548d72cfd5d8a7b7c3fb7e5e'}
 Plug 'ekalinin/Dockerfile.vim', {'commit': 'c3e2568c0f09ffb5b84b3c16e1e366285afed31b'}
 Plug 'elixir-editors/vim-elixir', {'commit': '5a32e60ac5e55c18702e0d6aed25aa8e37873cb2'} | Plug 'slashmili/alchemist.vim', {'tag': '3.0.0'}
@@ -91,16 +92,15 @@ Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'}
 Plug 'gcmt/taboo.vim', {'commit': '1367baf547ff931b63ea6a389e551f4ed280eadf'}
 Plug 'godlygeek/tabular', {'tag': '1.0.0'}
 Plug 'henrik/vim-indexed-search', {'commit': '1bae237136610b9dc5dd131588c752f9476d4fb4'}
-Plug 'janko-m/vim-test', {'tag': 'v2.1.0'}
+Plug 'janko-m/vim-test', {'tag': '7ee7da96c9b1efeb8beeaf62c10ed6c555c029b9'}
 Plug 'jtratner/vim-flavored-markdown', {'commit': '4a70aa2e0b98d20940a65ac38b6e9acc69c6b7a0'}
 Plug 'junegunn/fzf', { 'tag': '0.16.7', 'dir': '~/.fzf', 'do': './install --bin' } | Plug 'junegunn/fzf.vim', {'commit': '990834ab6cb86961e61c55a8e012eb542ceff10e'}
-Plug 'mhinz/vim-mix-format'
+Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
 Plug 'pangloss/vim-javascript', {'tag': '1.2.5.1'}
 Plug 'scrooloose/nerdtree', {'tag': '5.0.0'}
 Plug 'slim-template/vim-slim', {'commit': 'df26386b46b455f0c837c3ba30d1771204f209ca'}
 Plug 'tomtom/tcomment_vim', {'tag': '3.08'}
 Plug 'tpope/vim-abolish', {'commit': 'b6a8b49e2173ba5a1b34d00e68e0ed8addac3ebd'}
-Plug 'tpope/vim-endwise', {'commit': '0067ceda37725d01b7bd5bf249d63b1b5d4e2ab4'}
 Plug 'tpope/vim-fugitive', {'commit': '008b9570860f552534109b4f618cf2ddd145eeb4'}
 Plug 'tpope/vim-projectionist', {'commit': '45ee461393045bace391e8f196cc87141754b196'}
 Plug 'tpope/vim-ragtag', {'commit': '5762a937f39d165b9773376960539f8c32788325'}
@@ -110,6 +110,8 @@ Plug 'tpope/vim-surround', {'commit': 'e49d6c2459e0f5569ff2d533b4df995dd7f98313'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby', {'commit': '5bac0d81e96edf33ffbf4b01653dfbdf68b77240'}
 Plug 'Yggdroot/indentLine'
+Plug 'dewyze/vim-ruby-block-helpers'
+" Plug '~/dev/vim-ruby-block-helpers'
 
 call plug#end()
 
@@ -148,6 +150,7 @@ nnoremap <silent> <leader>rl :wa<CR>:TestLast<CR>
 let $FZF_DEFAULT_OPTS = '--reverse'
 let g:fzf_layout = {'up': '~20%'}
 let g:fzf_tags_command = 'ctags -R --exclude=".git" --exclude="node_modules" --exclude="vendor" --exclude="log" --exclude="tmp" --exclude="db" --exclude="pkg" --exclude="deps" --exclude="_build" --extra=+f .'
+map <silent> <C-p> :Files<CR>
 map <silent> <leader>ff :Files<CR>
 map <silent> <leader>be :Buffers<CR>
 map <silent> <leader>ft :Tags<CR>
@@ -189,8 +192,8 @@ let g:indentLine_bgcolor_term = 235
 
 " ========= Color Schemes ========
 colorscheme Tomorrow-Night
-au FileType diff colorscheme desert
-au FileType git colorscheme desert
+" au FileType diff colorscheme desert
+" au FileType git colorscheme desert
 
 
 " ========= Shortcuts ========
@@ -201,12 +204,20 @@ nmap <CR><CR> i<CR><esc>w
 nmap <C-W>m <C-W>\| <C-W>_
 
 nnoremap <LocalLeader>p :set paste!<CR>
+nnoremap <LocalLeader>tty :terminal<CR>i
+nnoremap <LocalLeader>tts :split<CR> :wincmd j<CR> :terminal<CR>i
+nnoremap <LocalLeader>ttv :vsplit<CR> :wincmd l<CR> :terminal<CR>i
 
 
 " ========= Insert Shortcuts ========
 
 imap <C-L> <SPACE>=><SPACE>
 imap jj <C-C>
+
+
+" ========= Terminal Shortcuts ========
+tnoremap <C-q> <C-\><C-n>:bd!<CR>
+tnoremap qq <C-\><C-n>
 
 
 " ========= Functions ========
