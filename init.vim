@@ -83,9 +83,9 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug '~/.config/nvim/local-plugins/color-schemes'
 Plug 'benmills/vimux', {'commit': '2285cefee9dfb2139ebc8299d11a6c8c0f21309e'}
-Plug 'bling/vim-airline', {'commit': '466198adc015a9d81e975374d8e206dcf3efd173'}
+Plug 'bling/vim-airline', {'commit': 'b2e1dbad6fde414487545230b8b8bd46d736af7b'}
 Plug 'dewyze/vim-endwise'
-Plug 'edkolev/tmuxline.vim', {'commit': '05c687014272abca548d72cfd5d8a7b7c3fb7e5e'}
+" Plug 'edkolev/tmuxline.vim', {'commit': '30012a964e8bd06e9b7612e2a838ef51a1993b0d'}
 Plug 'ekalinin/Dockerfile.vim', {'commit': 'c3e2568c0f09ffb5b84b3c16e1e366285afed31b'}
 Plug 'elixir-editors/vim-elixir', {'commit': '5a32e60ac5e55c18702e0d6aed25aa8e37873cb2'} | Plug 'slashmili/alchemist.vim', {'tag': '3.0.0'}
 Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'}
@@ -151,12 +151,22 @@ let $FZF_DEFAULT_OPTS = '--reverse'
 let g:fzf_layout = {'up': '~20%'}
 let g:fzf_tags_command = 'ctags -R --exclude=".git" --exclude="node_modules" --exclude="vendor" --exclude="log" --exclude="tmp" --exclude="db" --exclude="pkg" --exclude="deps" --exclude="_build" --extra=+f .'
 map <silent> <C-p> :Files<CR>
-map <silent> <leader>ff :Files<CR>
-map <silent> <leader>be :Buffers<CR>
-map <silent> <leader>ft :Tags<CR>
 let $FZF_DEFAULT_COMMAND = 'find . -name "*" -type f 2>/dev/null
                             \ | grep -v -E "_site\/|tmp\/|.gitmodules|.git\/|deps\/|_build\/|node_modules\/|vendor\/|elm-stuff\/"
                             \ | sed "s|^\./||"'
+function! SmartFuzzy()
+  let root = split(system('git rev-parse --show-toplevel'), '\n')
+  if len(root) == 0 || v:shell_error
+    Files
+  else
+    GFiles -co --exclude-standard -- ':!:vendor/*'
+  endif
+endfunction
+
+command! -nargs=* SmartFuzzy :call SmartFuzzy()
+map <silent> <leader>ff :SmartFuzzy<CR>
+map <silent> <leader>be :Buffers<CR>
+map <silent> <leader>ft :Tags<CR>
 
 " 'mhinz/vim-mix-format'
 let g:mix_format_on_save = 1
