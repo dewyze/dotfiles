@@ -66,6 +66,8 @@ autocmd FileType yml setlocal filetype=yaml expandtab
 
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType ruby,elm,yml,javscript,json,go,md,python,slim,css,scss,js autocmd BufWritePre <buffer> %s/\s\+$//e
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.css,*.scss,*.json,*.graphql,*.md,*.yaml,*.html Prettier
 
 " Status
 set laststatus=2
@@ -86,7 +88,7 @@ Plug '~/.config/nvim/local-plugins/color-schemes'
 Plug 'benmills/vimux', {'commit': '2285cefee9dfb2139ebc8299d11a6c8c0f21309e'}
 Plug 'bling/vim-airline', {'commit': 'b2e1dbad6fde414487545230b8b8bd46d736af7b'}
 Plug 'dewyze/vim-endwise'
-Plug 'edkolev/tmuxline.vim', {'commit': '30012a964e8bd06e9b7612e2a838ef51a1993b0d'}
+" Plug 'edkolev/tmuxline.vim', {'commit': '30012a964e8bd06e9b7612e2a838ef51a1993b0d'}
 Plug 'ekalinin/Dockerfile.vim', {'commit': 'c3e2568c0f09ffb5b84b3c16e1e366285afed31b'}
 Plug 'elixir-editors/vim-elixir', {'commit': '5a32e60ac5e55c18702e0d6aed25aa8e37873cb2'} | Plug 'slashmili/alchemist.vim', {'tag': '3.0.0'}
 Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'}
@@ -98,6 +100,7 @@ Plug 'jtratner/vim-flavored-markdown', {'commit': '4a70aa2e0b98d20940a65ac38b6e9
 Plug 'junegunn/fzf', { 'tag': '0.16.7', 'dir': '~/.fzf', 'do': './install --bin' } | Plug 'junegunn/fzf.vim', {'commit': '95f025ef2dbc8fedf124521904a80c1879acd359'}
 Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
 Plug 'pangloss/vim-javascript', {'tag': '1.2.5.1'}
+Plug 'prettier/vim-prettier', { 'do': 'yarn global install', 'commit': 'f2755ec6fe465fb6af051a254d826018dcde2a50', 'for': ['javascript', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html'] }
 Plug 'scrooloose/nerdtree', {'tag': '5.0.0'}
 Plug 'slim-template/vim-slim', {'commit': 'df26386b46b455f0c837c3ba30d1771204f209ca'}
 Plug 'tomtom/tcomment_vim', {'tag': '3.08'}
@@ -131,6 +134,11 @@ let g:VimuxUseNearestPane = 1
 
 " 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 0
+
+" 'prettier/vim-prettier'
+nmap <Leader>pr <Plug>(Prettier)
+let g:prettier#config#prose_wrap = 'preserve'
+let g:prettier#config#print_width = 100
 
 " 'elmcast/elm-vim'
 let g:elm_format_autosave = 1
