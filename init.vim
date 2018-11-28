@@ -48,6 +48,7 @@ endfunc
 autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown textwidth=80
 autocmd BufNewFile,BufReadPost *.go set filetype=go
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+autocmd FileType html,css EmmetInstall
 autocmd FileType elixir setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType elm setlocal expandtab
 autocmd FileType gitcommit set tw=72
@@ -85,7 +86,7 @@ Plug '~/.config/nvim/local-plugins/color-schemes'
 Plug 'benmills/vimux', {'commit': '2285cefee9dfb2139ebc8299d11a6c8c0f21309e'}
 Plug 'bling/vim-airline', {'commit': 'b2e1dbad6fde414487545230b8b8bd46d736af7b'}
 Plug 'dewyze/vim-endwise'
-" Plug 'edkolev/tmuxline.vim', {'commit': '30012a964e8bd06e9b7612e2a838ef51a1993b0d'}
+Plug 'edkolev/tmuxline.vim', {'commit': '30012a964e8bd06e9b7612e2a838ef51a1993b0d'}
 Plug 'ekalinin/Dockerfile.vim', {'commit': 'c3e2568c0f09ffb5b84b3c16e1e366285afed31b'}
 Plug 'elixir-editors/vim-elixir', {'commit': '5a32e60ac5e55c18702e0d6aed25aa8e37873cb2'} | Plug 'slashmili/alchemist.vim', {'tag': '3.0.0'}
 Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'}
@@ -94,7 +95,7 @@ Plug 'godlygeek/tabular', {'tag': '1.0.0'}
 Plug 'henrik/vim-indexed-search', {'commit': '1bae237136610b9dc5dd131588c752f9476d4fb4'}
 Plug 'janko-m/vim-test', {'tag': '7ee7da96c9b1efeb8beeaf62c10ed6c555c029b9'}
 Plug 'jtratner/vim-flavored-markdown', {'commit': '4a70aa2e0b98d20940a65ac38b6e9acc69c6b7a0'}
-Plug 'junegunn/fzf', { 'tag': '0.16.7', 'dir': '~/.fzf', 'do': './install --bin' } | Plug 'junegunn/fzf.vim', {'commit': '990834ab6cb86961e61c55a8e012eb542ceff10e'}
+Plug 'junegunn/fzf', { 'tag': '0.16.7', 'dir': '~/.fzf', 'do': './install --bin' } | Plug 'junegunn/fzf.vim', {'commit': '95f025ef2dbc8fedf124521904a80c1879acd359'}
 Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
 Plug 'pangloss/vim-javascript', {'tag': '1.2.5.1'}
 Plug 'scrooloose/nerdtree', {'tag': '5.0.0'}
@@ -107,16 +108,21 @@ Plug 'tpope/vim-ragtag', {'commit': '5762a937f39d165b9773376960539f8c32788325'}
 Plug 'tpope/vim-rails', {'commit': 'abf87ba2ebe07e1a4112a7921c06842070ef2f81'}
 Plug 'tpope/vim-repeat', {'commit': '070ee903245999b2b79f7386631ffd29ce9b8e9f'}
 Plug 'tpope/vim-surround', {'commit': 'e49d6c2459e0f5569ff2d533b4df995dd7f98313'}
+Plug 'mattn/emmet-vim', {'commit': '7492853a592c7aa0dba56bcd31fe751f298143dc'}
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby', {'commit': '5bac0d81e96edf33ffbf4b01653dfbdf68b77240'}
 Plug 'Yggdroot/indentLine'
 Plug 'dewyze/vim-ruby-block-helpers'
+Plug '~/dev/vim-ignore'
 " Plug '~/dev/vim-ruby-block-helpers'
 
 call plug#end()
 
 
 " ========= Plugin Settings ========
+
+" 'mattn/emmet-vim'
+let g:user_emmet_install_global = 0
 
 " 'benmills/vimux'
 let g:VimuxUseNearestPane = 1
@@ -135,7 +141,7 @@ map <silent> <LocalLeader>t, :TabooRename
 map <silent> <LocalLeader>tc :tabclose<CR>
 
 " 'janko-m/vim-test'
-let test#strategy = "vimux"
+let test#strategy = "neovim"
 function! ClearTransform(cmd) abort
   return 'clear; ' . a:cmd
 endfunction
@@ -159,12 +165,17 @@ function! SmartFuzzy()
   if len(root) == 0 || v:shell_error
     Files
   else
-    GFiles -co --exclude-standard -- ':!:vendor/*'
+    GFiles -co --exclude-standard . -- ':!:vendor/*'
   endif
 endfunction
 
 command! -nargs=* SmartFuzzy :call SmartFuzzy()
 map <silent> <leader>ff :SmartFuzzy<CR>
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+map <silent> <leader>gg :GGrep<CR>
 map <silent> <leader>be :Buffers<CR>
 map <silent> <leader>ft :Tags<CR>
 
@@ -234,6 +245,11 @@ tnoremap qq <C-\><C-n>
 
 command! SudoW w !sudo tee %
 
+function! Trim()
+  %s/\s*$//
+endfunction
+command! -nargs=0 Trim :call Trim()
+
 function! GitGrepWord()
   cgetexpr system("git grep -n '" . expand("<cword>") . "'")
   cwin
@@ -249,6 +265,7 @@ elseif !has('nvim') && filereadable(glob("~/.vimrc.local"))
 endif
 
 let g:airline_powerline_fonts = 1
+let g:airline_theme='tomorrow'
 let g:tmuxline_powerline_separators = 1
 
 " Cursorline coloring for bright environments
