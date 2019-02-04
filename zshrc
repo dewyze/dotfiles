@@ -66,5 +66,7 @@ safepathprepend $HOME/.bin.local
 
 ## Load RVM into a shell session *as a function*
 safesource $HOME/.rvm/scripts/rvm
+safesource $HOME/.asdf/asdf.sh
+safesource $HOME/.asdf/completions/asdf.bash
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

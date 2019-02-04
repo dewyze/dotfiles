@@ -67,7 +67,7 @@ autocmd FileType yml setlocal filetype=yaml expandtab
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType ruby,elm,yml,javscript,json,go,md,python,slim,css,scss,js autocmd BufWritePre <buffer> %s/\s\+$//e
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.css,*.scss,*.json,*.graphql,*.md,*.yaml,*.html Prettier
+autocmd BufWritePre *.js,*.css,*.scss,*.json,*.graphql,*.yaml,*.html Prettier
 
 " Status
 set laststatus=2
@@ -242,6 +242,8 @@ nnoremap <LocalLeader>ttv :vsplit<CR> :wincmd l<CR> :terminal<CR>i
 
 imap <C-L> <SPACE>=><SPACE>
 imap jj <C-C>
+imap <C-S>l {%<SPACE><SPACE>%}<esc>hhi
+imap <C-S>v {{<SPACE><SPACE>}}<esc>hhi
 
 
 " ========= Terminal Shortcuts ========
