@@ -67,7 +67,6 @@ autocmd FileType yml setlocal filetype=yaml expandtab
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType ruby,elm,yml,javscript,json,go,md,python,slim,css,scss,js autocmd BufWritePre <buffer> %s/\s\+$//e
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.css,*.scss,*.json,*.graphql,*.yaml,*.html Prettier
 
 " Status
 set laststatus=2
@@ -95,12 +94,13 @@ Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'}
 Plug 'gcmt/taboo.vim', {'commit': '1367baf547ff931b63ea6a389e551f4ed280eadf'}
 Plug 'godlygeek/tabular', {'tag': '1.0.0'}
 Plug 'henrik/vim-indexed-search', {'commit': '1bae237136610b9dc5dd131588c752f9476d4fb4'}
-Plug 'janko-m/vim-test', {'tag': '7ee7da96c9b1efeb8beeaf62c10ed6c555c029b9'}
+Plug 'janko-m/vim-test', {'tag': '965704531f09988c7cde6e572741b408015ef4ff'}
 Plug 'jtratner/vim-flavored-markdown', {'commit': '4a70aa2e0b98d20940a65ac38b6e9acc69c6b7a0'}
 Plug 'junegunn/fzf', { 'tag': '0.16.7', 'dir': '~/.fzf', 'do': './install --bin' } | Plug 'junegunn/fzf.vim', {'commit': '95f025ef2dbc8fedf124521904a80c1879acd359'}
-Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
+" Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
+Plug 'mxw/vim-jsx', { 'tag': 'ffc0bfd9da15d0fce02d117b843f718160f7ad27' }
 Plug 'pangloss/vim-javascript', {'tag': '1.2.5.1'}
-Plug 'prettier/vim-prettier', { 'do': 'yarn global install', 'commit': 'f2755ec6fe465fb6af051a254d826018dcde2a50', 'for': ['javascript', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html'] }
+Plug 'prettier/vim-prettier', { 'do': 'npm i -g install', 'commit': 'dc1dd622c4b82ec093e8ca36c93d582d4f92fd25', 'for': ['javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html'] }
 Plug 'scrooloose/nerdtree', {'tag': '5.0.0'}
 Plug 'slim-template/vim-slim', {'commit': 'df26386b46b455f0c837c3ba30d1771204f209ca'}
 Plug 'tomtom/tcomment_vim', {'tag': '3.08'}
@@ -114,15 +114,19 @@ Plug 'tpope/vim-surround', {'commit': 'e49d6c2459e0f5569ff2d533b4df995dd7f98313'
 Plug 'mattn/emmet-vim', {'commit': '7492853a592c7aa0dba56bcd31fe751f298143dc'}
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby', {'commit': '5bac0d81e96edf33ffbf4b01653dfbdf68b77240'}
+Plug 'w0rp/ale', {'tag': 'v2.3.1'}
 Plug 'Yggdroot/indentLine'
 Plug 'dewyze/vim-ruby-block-helpers'
-Plug '~/dev/vim-ignore'
+Plug 'leafgarland/typescript-vim'
+" Plug '~/dev/vim-ignore'
 " Plug '~/dev/vim-ruby-block-helpers'
 
 call plug#end()
 
 
 " ========= Plugin Settings ========
+
+let g:jsx_ext_required = 0
 
 " 'mattn/emmet-vim'
 let g:user_emmet_install_global = 0
@@ -149,7 +153,7 @@ map <silent> <LocalLeader>t, :TabooRename
 map <silent> <LocalLeader>tc :tabclose<CR>
 
 " 'janko-m/vim-test'
-let test#strategy = "neovim"
+let test#strategy = "vimux"
 function! ClearTransform(cmd) abort
   return 'clear; ' . a:cmd
 endfunction
@@ -173,7 +177,7 @@ function! SmartFuzzy()
   if len(root) == 0 || v:shell_error
     Files
   else
-    GFiles -co --exclude-standard . -- ':!:vendor/*'
+    GFiles -co --exclude-standard -- . ':!:vendor/*'
   endif
 endfunction
 
@@ -188,8 +192,8 @@ map <silent> <leader>be :Buffers<CR>
 map <silent> <leader>ft :Tags<CR>
 
 " 'mhinz/vim-mix-format'
-let g:mix_format_on_save = 1
-let g:mix_format_silent_errors = 1
+" let g:mix_format_on_save = 1
+" let g:mix_format_silent_errors = 1
 
 " 'tpope/vim-projectionist'
 let g:projectionist_heuristics = {
@@ -218,6 +222,34 @@ let g:indentLine_color_term = 236
 let g:indentLine_bgcolor_term = 235
 " let g:indentLine_color_gui = '#FF00FF'
 
+" 'w0rp/ale'
+let g:ale_linters_explicit = 1
+let g:ale_fix_on_save = 1
+let g:ale_sign_column_always = 1
+let g:ale_lint_on_text_changed = 'never'
+" let g:ale_completion_enabled = 1
+let g:ale_elixir_elixir_ls_release = $HOME . '/dev/lsp/elixir-ls'
+" let g:ale_sign_error = '>>'
+" let g:ale_set_highlights = 0
+" let g:airline#extensions#ale#enabled = 1
+" let ls_langs = 'elixir'
+" execute 'autocmd Filetype ' . ls_langs . ' imap <C-X><C-O> <Plug>(ale_complete)'
+" execute 'autocmd Filetype ' . ls_langs . ' nmap <C-]> <Plug>(ale_go_to_definition)'
+
+" 'ruby': ['ruby'], FOR BELOW
+" \ 'typescript': ['tsserver'],
+
+let g:ale_linters = {
+\ 'elixir': ['mix'],
+\ 'javascript': ['eslint'],
+\ }
+let g:ale_fixers = {
+\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+\ 'html': ['prettier'],
+\ 'javascript': ['prettier'],
+\ 'json': ['prettier'],
+\ 'elixir': ['mix_format'],
+\ }
 
 " ========= Color Schemes ========
 colorscheme Tomorrow-Night
@@ -254,11 +286,6 @@ tnoremap qq <C-\><C-n>
 " ========= Functions ========
 
 command! SudoW w !sudo tee %
-
-function! Trim()
-  %s/\s*$//
-endfunction
-command! -nargs=0 Trim :call Trim()
 
 function! GitGrepWord()
   cgetexpr system("git grep -n '" . expand("<cword>") . "'")

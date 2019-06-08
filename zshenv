@@ -22,8 +22,7 @@ safesource() {
 # Being extra cautious to get local bin executables in path
 safepathprepend "/usr/local/bin"
 
-# Add RVM to PATH for scripting
-safepathappend $HOME/.rvm/bin
+# safepathprepend $HOME/Library/Python/3.7/bin
 
 ## Common Applications
 safepathappend /usr/local/heroku/bin
