@@ -32,7 +32,7 @@
   branches = branch -a
   unstage = reset -q HEAD --
   remotes = remote -v
-  amend = commit --amend
+  amend = commit --amend --no-edit
   please = push.please
   nuke = !git reset --hard HEAD && git clean -d -f
   graph = log --graph -9 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order

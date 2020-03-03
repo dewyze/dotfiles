@@ -26,3 +26,6 @@ safepathprepend "/usr/local/bin"
 
 ## Common Applications
 safepathappend /usr/local/heroku/bin
+safepathappend ~/Library/Python/3.7/bin
+
+# export RUBYOPT='-W:no-deprecated -W:no-experimental'

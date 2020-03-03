@@ -66,6 +66,7 @@ autocmd FileType yml setlocal filetype=yaml expandtab
 
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType ruby,elm,yml,javscript,json,go,md,python,slim,css,scss,js autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd BufWritePre *.html Prettier
 let g:prettier#autoformat = 0
 
 " Status
@@ -100,21 +101,21 @@ Plug 'junegunn/fzf', { 'tag': '0.16.7', 'dir': '~/.fzf', 'do': './install --bin'
 " Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
 Plug 'mxw/vim-jsx', { 'tag': 'ffc0bfd9da15d0fce02d117b843f718160f7ad27' }
 Plug 'pangloss/vim-javascript', {'tag': '1.2.5.1'}
-Plug 'prettier/vim-prettier', { 'do': 'npm i -g install', 'commit': 'dc1dd622c4b82ec093e8ca36c93d582d4f92fd25', 'for': ['javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html'] }
+Plug 'prettier/vim-prettier', { 'do': 'npm i -g install', 'branch': 'release/1.x', 'for': ['javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html', 'ruby'] }
 Plug 'scrooloose/nerdtree', {'tag': '5.0.0'}
 Plug 'slim-template/vim-slim', {'commit': 'df26386b46b455f0c837c3ba30d1771204f209ca'}
 Plug 'tomtom/tcomment_vim', {'tag': '3.08'}
 Plug 'tpope/vim-abolish', {'commit': 'b6a8b49e2173ba5a1b34d00e68e0ed8addac3ebd'}
 Plug 'tpope/vim-fugitive', {'commit': '008b9570860f552534109b4f618cf2ddd145eeb4'}
 Plug 'tpope/vim-projectionist', {'commit': '45ee461393045bace391e8f196cc87141754b196'}
-Plug 'tpope/vim-ragtag', {'commit': '5762a937f39d165b9773376960539f8c32788325'}
-Plug 'tpope/vim-rails', {'commit': 'abf87ba2ebe07e1a4112a7921c06842070ef2f81'}
+Plug 'tpope/vim-ragtag', {'commit': '5d3ce9c1ae2232170a3f232c1e20fa832d15d440'}
+Plug 'tpope/vim-rails', {'commit': 'e191b246e2475b26e07e7b18928a80735c31ffa9'}
 Plug 'tpope/vim-repeat', {'commit': '070ee903245999b2b79f7386631ffd29ce9b8e9f'}
-Plug 'tpope/vim-surround', {'commit': 'e49d6c2459e0f5569ff2d533b4df995dd7f98313'}
-Plug 'mattn/emmet-vim', {'commit': '7492853a592c7aa0dba56bcd31fe751f298143dc'}
+Plug 'tpope/vim-surround', {'commit': 'fab8621670f71637e9960003af28365129b1dfd0'}
+Plug 'mattn/emmet-vim', {'commit': '24fbb0aef7004e183e377c6c244a5dd8845ef07c'}
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-ruby/vim-ruby', {'commit': '5bac0d81e96edf33ffbf4b01653dfbdf68b77240'}
-Plug 'w0rp/ale', {'tag': 'v2.3.1'}
+Plug 'vim-ruby/vim-ruby', {'commit': '1aa8f0cd0411c093d81f4139d151f93808e53966'}
+Plug 'w0rp/ale', {'commit': '61cfb3fefb0ebd8654be452046bd2ba24025311f'}
 Plug 'Yggdroot/indentLine'
 Plug 'dewyze/vim-ruby-block-helpers'
 Plug 'leafgarland/typescript-vim'
@@ -159,6 +160,19 @@ function! ClearTransform(cmd) abort
 endfunction
 let g:test#custom_transformations = {'clear': function('ClearTransform')}
 let g:test#transformation = 'clear'
+let test#ruby#rspec#executable = 'bundle exec rspec'
+
+function! TestContext()
+  wall
+  let [_, lnum, cnum, _] = getpos('.')
+  RubyBlockSpecParentContext
+  TestNearest
+  call cursor(lnum, cnum)
+endfunction
+
+command! TestContext :call TestContext()
+
+autocmd FileType ruby,erb nnoremap <silent> <LocalLeader>rc :TestContext<CR>
 nnoremap <silent> <leader>rf :wa<CR>:TestNearest<CR>
 nnoremap <silent> <leader>rb :wa<CR>:TestFile<CR>
 nnoremap <silent> <leader>ra :wa<CR>:TestSuite<CR>
@@ -174,6 +188,7 @@ let $FZF_DEFAULT_COMMAND = 'find . -name "*" -type f 2>/dev/null
                             \ | sed "s|^\./||"'
 function! SmartFuzzy()
   let root = split(system('git rev-parse --show-toplevel'), '\n')
+  " let root = split(system('git rev-parse'), '\n')
   if len(root) == 0 || v:shell_error
     Files
   else
@@ -204,7 +219,7 @@ let g:projectionist_heuristics = {
       \ }
 
 " 'scrooloose/nerdtree'
-let NERDTreeIgnore=['_site', 'tmp', '\.pyc', '\.o', '\.class', '\.lo',"elm-stuff","elm.js"]
+let NERDTreeIgnore=['_site', 'tmp[[dir]]', '\.pyc', '\.class', "elm-stuff", "vendor[[dir]]"]
 map <silent> <LocalLeader>nt :NERDTreeToggle<CR>
 map <silent> <LocalLeader>nr :NERDTree<CR>
 map <silent> <LocalLeader>nf :NERDTreeFind<CR>
@@ -228,7 +243,9 @@ let g:ale_fix_on_save = 1
 let g:ale_sign_column_always = 1
 let g:ale_lint_on_text_changed = 'never'
 " let g:ale_completion_enabled = 1
-let g:ale_elixir_elixir_ls_release = $HOME . '/dev/lsp/elixir-ls'
+let g:ale_elixir_elixir_ls_release = $HOME . '/dev/lsp/elixir-ls/rel'
+let g:ale_ruby_rubocop_executable = 'bundle'
+let g:airline#extensions#ale#enabled = 1
 " let g:ale_sign_error = '>>'
 " let g:ale_set_highlights = 0
 " let g:airline#extensions#ale#enabled = 1
@@ -240,16 +257,21 @@ let g:ale_elixir_elixir_ls_release = $HOME . '/dev/lsp/elixir-ls'
 " \ 'typescript': ['tsserver'],
 
 let g:ale_linters = {
-\ 'elixir': ['mix'],
+\ 'elixir': ['elixir-ls'],
 \ 'javascript': ['eslint'],
+\ 'ruby': ['rubocop'],
 \ }
 let g:ale_fixers = {
 \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-\ 'html': ['prettier'],
+\ 'css': ['prettier'],
+\ 'scss': ['prettier'],
 \ 'javascript': ['prettier'],
 \ 'json': ['prettier'],
 \ 'elixir': ['mix_format'],
+\ 'html': ['prettier'],
 \ }
+
+" 'ruby': ['prettier'],
 
 " ========= Color Schemes ========
 colorscheme Tomorrow-Night
@@ -264,6 +286,8 @@ map <silent> <LocalLeader>nh :nohls<CR>
 nmap <CR><CR> i<CR><esc>w
 nmap <C-W>m <C-W>\| <C-W>_
 
+nnoremap <LocalLeader>ad :ALEDetail<CR>
+
 nnoremap <LocalLeader>p :set paste!<CR>
 nnoremap <LocalLeader>tty :terminal<CR>i
 nnoremap <LocalLeader>tts :split<CR> :wincmd j<CR> :terminal<CR>i
@@ -272,10 +296,12 @@ nnoremap <LocalLeader>ttv :vsplit<CR> :wincmd l<CR> :terminal<CR>i
 
 " ========= Insert Shortcuts ========
 
-imap <C-L> <SPACE>=><SPACE>
+autocmd FileType elm imap <buffer> <C-L> <SPACE>-><SPACE>
+autocmd FileType ruby,erb,javascript imap <buffer> <C-L> <SPACE>=><SPACE>
+" imap <C-L> <SPACE>=><SPACE>
 imap jj <C-C>
-imap <C-S>l {%<SPACE><SPACE>%}<esc>hhi
-imap <C-S>v {{<SPACE><SPACE>}}<esc>hhi
+imap <C-X>l {%<SPACE><SPACE>%}<esc>hhi
+imap <C-X>v {{<SPACE><SPACE>}}<esc>hhi
 
 
 " ========= Terminal Shortcuts ========
