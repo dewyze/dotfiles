@@ -11,12 +11,12 @@ alias l='ls -CF'
 
 alias python="python3"
 
-clearswap() {
+function clearswap() {
   rm ~/.local/share/nvim/swap/*swp
 }
 alias clearswap='clearswap'
 
-tmux_public() {
+function tmux_public() {
   if [ -n "$TMUX" ]; then
     tmux_filepath=${TMUX%%,*}
     chmod 777 $tmux_filepath
@@ -25,7 +25,7 @@ tmux_public() {
   fi
 }
 
-tmux_secure() {
+function tmux_secure() {
   if [ -n "$1" ]; then
     chmod 700 /tmp/$1
     echo "Set session to be private ($1)"
@@ -34,7 +34,7 @@ tmux_secure() {
   fi
 }
 
-tmux_start () {
+function tmux_start () {
   if [ -n "$1" ]; then
     tmux -S /tmp/$1 new-session -s $1 -d
     tmux_secure $1
@@ -54,7 +54,7 @@ tmux_start () {
   fi
 }
 
-tmux_list () {
+function tmux_list () {
   ps -o ruser,command -ax | grep '[n]ew-session -s' | ruby -ne '$_ =~ /^(\w+).*-s (\w+)/; puts "#{$1} started #{$2}"'
 }
 
@@ -64,8 +64,3 @@ alias tmux-list='tmux_list'
 alias tmuxl='tmux_list'
 alias tmux-public='tmux_public'
 alias tmuxpub='tmux_public'
-
-alias bmux-start="echo 'DEPRECATED: SWITCH TO tmux-start' && tmux_start"
-alias bmuxs="echo 'DEPRECATED: SWITCH TO tmuxs' && tmux_start"
-alias bmux-list="echo 'DEPRECATED: SWITCH TO tmux-list' && tmux_list"
-alias bmuxl="echo 'DEPRECATED:SWTICH TO tmuxl' && tmux_list"

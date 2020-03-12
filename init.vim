@@ -149,9 +149,35 @@ let g:prettier#config#print_width = 100
 let g:elm_format_autosave = 1
 
 " 'gcmt/taboo.vim'
-map <silent> <LocalLeader>to :TabooOpen
-map <silent> <LocalLeader>t, :TabooRename
+function TabWithName(Func)
+  call inputsave()
+  let l:NewTabName = input("tab name: ")
+  call inputrestore()
+  execute a:Func . l:NewTabName
+endfunction
+
+function NewTabWithName()
+  call TabWithName("TabooOpen ")
+endfunction
+command! NewTabWithName :call NewTabWithName()
+
+function RenameTab()
+  call TabWithName("TabooRename ")
+endfunction
+command! RenameTab :call RenameTab()
+
+function NewTabWithNoName()
+  execute "TabooOpen " . "new_tab"
+endfunction
+command! NewTabWithNoName :call NewTabWithNoName()
+
+map <silent> <LocalLeader>tn :NewTabWithName<CR>
+map <silent> <LocalLeader>to :NewTabWithNoName<CR>
+map <silent> <LocalLeader>t, :RenameTab<CR>
 map <silent> <LocalLeader>tc :tabclose<CR>
+
+let g:taboo_tab_format = "%N - %f"
+let g:taboo_renamed_tab_format = "[%N%m] %l"
 
 " 'janko-m/vim-test'
 let test#strategy = "vimux"

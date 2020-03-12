@@ -67,3 +67,5 @@ safepathprepend $HOME/.bin.local
 safesource $HOME/.asdf/asdf.sh
 safesource $HOME/.asdf/completions/asdf.bash
 safesource $HOME/.fzf.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -146,3 +146,5 @@ safesource $HOME/.asdf/asdf.sh
 safesource $HOME/.asdf/completions/asdf.bash
 
 safesource $HOME/.fzf.bash
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

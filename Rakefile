@@ -11,7 +11,7 @@ namespace "configs" do
     },
     "Tomorrow-Night.vim" => {
       symlink: "Tomorrow-Night.vim",
-      dest: USE_NVIM ? "~/.config/nvim/local-plugins/color-schemes/colors" : ".vim/colors",
+      dest: USE_NVIM ? "~/.config/nvim/local-plugins/color-schemes/colors" : "~/.vim/colors",
     },
   }
 
@@ -123,7 +123,7 @@ end
 
 
 desc "install everything"
-task :install => ["scripts:install", "plugins:install", "configs:install"]
+task :install => ["scripts:install", "configs:install", "plugins:install"]
 
 desc "uninstall everything"
 task :uninstall => ["plugins:uninstall", "configs:uninstall", "scripts:uninstall"]
