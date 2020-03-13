@@ -96,50 +96,41 @@ else
 endif
 
 Plug '~/.config/nvim/local-plugins/color-schemes'
-Plug 'benmills/vimux', {'commit': '2285cefee9dfb2139ebc8299d11a6c8c0f21309e'}
-Plug 'bling/vim-airline', {'commit': 'b2e1dbad6fde414487545230b8b8bd46d736af7b'}
+Plug 'benmills/vimux', {'commit': '37f41195e6369ac602a08ec61364906600b771f1'}
+Plug 'bling/vim-airline', {'commit': '4e2546a2098954b74cbc612f573826f13d6fb88e'}
 Plug 'dewyze/vim-endwise'
 " Plug 'edkolev/tmuxline.vim', {'commit': '30012a964e8bd06e9b7612e2a838ef51a1993b0d'}
-Plug 'ekalinin/Dockerfile.vim', {'commit': 'c3e2568c0f09ffb5b84b3c16e1e366285afed31b'}
-Plug 'elixir-editors/vim-elixir', {'commit': '5a32e60ac5e55c18702e0d6aed25aa8e37873cb2'} | Plug 'slashmili/alchemist.vim', {'tag': '3.0.0'}
-Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'}
-Plug 'gcmt/taboo.vim', {'commit': '1367baf547ff931b63ea6a389e551f4ed280eadf'}
-Plug 'godlygeek/tabular', {'tag': '1.0.0'}
-Plug 'henrik/vim-indexed-search', {'commit': '1bae237136610b9dc5dd131588c752f9476d4fb4'}
-Plug 'janko-m/vim-test', {'tag': '965704531f09988c7cde6e572741b408015ef4ff'}
-Plug 'jtratner/vim-flavored-markdown', {'commit': '4a70aa2e0b98d20940a65ac38b6e9acc69c6b7a0'}
-Plug 'junegunn/fzf', { 'tag': '0.16.7', 'dir': '~/.fzf', 'do': './install --bin' } | Plug 'junegunn/fzf.vim', {'commit': '95f025ef2dbc8fedf124521904a80c1879acd359'}
+Plug 'ekalinin/Dockerfile.vim', {'commit': 'bf29af1c79df21aefd3f68660cc8c57a78f14021'}
+Plug 'elixir-editors/vim-elixir', {'commit': '088cfc407460dea7b81c10b29db23843f85e7919'} | Plug 'slashmili/alchemist.vim', {'tag': '3.4.0'}
+Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'} " TODO: Update with elm-tooling
+Plug 'gcmt/taboo.vim', {'commit': 'caf948187694d3f1374913d36f947b3f9fa1c22f'}
+Plug 'henrik/vim-indexed-search', {'commit': '5af020bba084b699d0453f242d7d76711d64b1e3'}
+Plug 'janko-m/vim-test', {'commit': 'e5c7c57a28a2ce8cba4ef6ff567d051d9f13014e'}
+Plug 'rhysd/vim-gfm-syntax', {'commit': 'c0ff9e4994d4e79c8d5edf963094518dceea2623'}
+Plug 'junegunn/fzf', { 'tag': '0.21.0', 'dir': '~/.fzf', 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim', {'commit': 'ed9d66c2a65333a0d49509a2d53098392683eec1'}
 " Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
-Plug 'mxw/vim-jsx', { 'tag': 'ffc0bfd9da15d0fce02d117b843f718160f7ad27' }
-Plug 'pangloss/vim-javascript', {'tag': '1.2.5.1'}
+Plug 'MaxMEllon/vim-jsx-pretty', { 'commit': '838cfce82df8cf99df5e3a200ad23f6c0f027550' }
+Plug 'pangloss/vim-javascript', {'commit': 'db595656304959dcc3805cf63ea9a430e3f01e8f'}
 Plug 'prettier/vim-prettier', { 'do': 'npm i -g install', 'branch': 'release/1.x', 'for': ['javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html', 'ruby'] }
-Plug 'scrooloose/nerdtree', {'tag': '5.0.0'}
-Plug 'slim-template/vim-slim', {'commit': 'df26386b46b455f0c837c3ba30d1771204f209ca'}
-Plug 'tomtom/tcomment_vim', {'tag': '3.08'}
-Plug 'tpope/vim-abolish', {'commit': 'b6a8b49e2173ba5a1b34d00e68e0ed8addac3ebd'}
-Plug 'tpope/vim-fugitive', {'commit': '008b9570860f552534109b4f618cf2ddd145eeb4'}
-Plug 'tpope/vim-projectionist', {'commit': '45ee461393045bace391e8f196cc87141754b196'}
+Plug 'preservim/nerdtree', {'commit': 'e67324fdea7a192c7ce1b4c6b3c3b9f82f11eee7'}
+Plug 'tomtom/tcomment_vim', {'commit': '20e85e8c2346bd1f60f1ef55c5e32bb54a7a22fc'}
+Plug 'tpope/vim-abolish', {'commit': '7e4da6e78002344d499af9b6d8d5d6fcd7c92125'} " TODO: Check it out
+Plug 'tpope/vim-fugitive', {'commit': '9a4d730270882f9d39a411eb126143eda4d46963'}
+Plug 'tpope/vim-projectionist', {'commit': '17a8b2078a9ca1410d2080419e1cb9c9bb2e4492'}
 Plug 'tpope/vim-ragtag', {'commit': '5d3ce9c1ae2232170a3f232c1e20fa832d15d440'}
-Plug 'tpope/vim-rails', {'commit': 'e191b246e2475b26e07e7b18928a80735c31ffa9'}
-Plug 'tpope/vim-repeat', {'commit': '070ee903245999b2b79f7386631ffd29ce9b8e9f'}
-Plug 'tpope/vim-surround', {'commit': 'fab8621670f71637e9960003af28365129b1dfd0'}
-Plug 'mattn/emmet-vim', {'commit': '24fbb0aef7004e183e377c6c244a5dd8845ef07c'}
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-ruby/vim-ruby', {'commit': '1aa8f0cd0411c093d81f4139d151f93808e53966'}
-Plug 'w0rp/ale', {'commit': '61cfb3fefb0ebd8654be452046bd2ba24025311f'}
-Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-rails', {'commit': '64befc6187678893082bebb8be79c1d17fdd07ba'} " TODO: Shortcuts for jumping to related model/controller, extraction
+Plug 'tpope/vim-repeat', {'commit': 'c947ad2b6a16983724a0153bdf7f66d7a80a32ca'}
+Plug 'tpope/vim-surround', {'commit': 'f51a26d3710629d031806305b6c8727189cd1935'}
+Plug 'mattn/emmet-vim', {'commit': 'c7643e5b616430f766528b225528a5228adb43df'} " TODO: Remember to use
+Plug 'vim-airline/vim-airline-themes', {'commit': '9772475fcc24bee50c884aba20161465211520c8'}
+Plug 'vim-ruby/vim-ruby', {'commit': 'fbf85d106a2c3979ed43d6332b8c26a72542754d'}
+Plug 'dense-analysis/ale', {'commit': 'bbe5153fcb36dec9860ced33ae8ff0b5d76ac02a'}
 Plug 'dewyze/vim-ruby-block-helpers'
-Plug 'leafgarland/typescript-vim'
 " Plug '~/dev/vim-ignore'
 " Plug '~/dev/vim-ruby-block-helpers'
-
 call plug#end()
 
-
 " ========= Plugin Settings ========
-
-let g:jsx_ext_required = 0
-
 " 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 let g:tmuxline_powerline_separators = 1
@@ -183,16 +174,16 @@ function NewTabWithNoName()
 endfunction
 command! NewTabWithNoName :call NewTabWithNoName()
 
-map <silent> <LocalLeader>tn :NewTabWithName<CR>
-map <silent> <LocalLeader>to :NewTabWithNoName<CR>
-map <silent> <LocalLeader>t, :RenameTab<CR>
-map <silent> <LocalLeader>tc :tabclose<CR>
+map <silent> <C-T>n :NewTabWithName<CR>
+map <silent> <C-T>t :NewTabWithNoName<CR>
+map <silent> <C-T>, :RenameTab<CR>
+map <silent> <C-T>q :tabclose<CR>
 
 let g:taboo_tab_format = "%N - %f"
 let g:taboo_renamed_tab_format = "[%N%m] %l"
 
 " 'janko-m/vim-test'
-let test#strategy = "vimux"
+let test#strategy = "neovim"
 function! ClearTransform(cmd) abort
   return 'clear; ' . a:cmd
 endfunction
@@ -246,6 +237,8 @@ map <silent> <leader>ft :Tags<CR>
 
 " 'mattn/emmet-vim'
 let g:user_emmet_install_global = 0
+let g:user_emmet_leader_key='<C-H>'
+
 
 " 'mhinz/vim-mix-format'
 " let g:mix_format_on_save = 1
@@ -303,17 +296,10 @@ map <silent> <LocalLeader>nr :NERDTree<CR>
 map <silent> <LocalLeader>nf :NERDTreeFind<CR>
 
 " 'slashmili/alchemist.vim'
-let g:alchemist#elixir_erlang_src = "~/dev/docs/sources/alchemist"
+" let g:alchemist#elixir_erlang_src = "~/dev/docs/sources/alchemist"
 
 " 'tomtom/tcomment_vim'
 map <silent> <LocalLeader>cc :TComment<CR>
-
-" 'Yggdroot/indentLine'
-let g:indentLine_char = '⎸'
-let g:indentLine_enabled = 0
-let g:indentLine_color_term = 236
-let g:indentLine_bgcolor_term = 235
-" let g:indentLine_color_gui = '#FF00FF'
 
 " 'w0rp/ale'
 let g:ale_linters_explicit = 1
