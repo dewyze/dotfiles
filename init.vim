@@ -63,10 +63,15 @@ autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType scss setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType yml setlocal filetype=yaml expandtab
+augroup FiletypeGroup
+    autocmd!
+    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+augroup END
 
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType ruby,elm,yml,javscript,json,go,md,python,slim,css,scss,js autocmd BufWritePre <buffer> %s/\s\+$//e
 autocmd BufWritePre *.html Prettier
+
 let g:prettier#autoformat = 0
 
 " Status
@@ -246,6 +251,32 @@ let g:projectionist_heuristics = {
 
 " 'scrooloose/nerdtree'
 let NERDTreeIgnore=['_site', 'tmp[[dir]]', '\.pyc', '\.class', "elm-stuff", "vendor[[dir]]"]
+" let s:nerdtree_ignored_list = ['tmp', '\.pyc', '\.o', '\.class', '\.lo$',"elm-stuff","elm.js$","_site", "vendor" ]
+" if filereadable(glob(".nerdtreeignore"))
+"   let s:nt_ignore_lines = readfile('.nerdtreeignore')
+"   for s:nt_line in s:nt_ignore_lines
+"     let s:nerdtree_ignored_list = s:nerdtree_ignored_list + [s:nt_line]
+"   endfor
+" endif
+
+" let NERDTreeIgnore = s:nerdtree_ignored_list
+" let NERDTreeIgnore = ['test[[dir]]/bar[[dir]]']
+
+" augroup vimignore_nerdtree
+"     autocmd!
+"     autocmd VimEnter * call NERDTreeAddPathFilter('MyFilter')
+" augroup END
+"
+" function! MyFilter(params)
+"   let pwd=expand('%:p:h')
+"   let fullPath=join([''] + a:params['path']['pathSegments'], '/')
+"
+"     "params is a dict containing keys: 'nerdtree' and 'path' which are
+"     "g:NERDTree and g:NERDTreePath objects
+"
+"     "return 1 to ignore params['path'] or 0 otherwise
+" endfunction
+
 map <silent> <LocalLeader>nt :NERDTreeToggle<CR>
 map <silent> <LocalLeader>nr :NERDTree<CR>
 map <silent> <LocalLeader>nf :NERDTreeFind<CR>
@@ -275,6 +306,7 @@ let g:airline#extensions#ale#enabled = 1
 " let g:ale_sign_error = '>>'
 " let g:ale_set_highlights = 0
 " let g:airline#extensions#ale#enabled = 1
+" let g:ale_fix_on_save = 1
 " let ls_langs = 'elixir'
 " execute 'autocmd Filetype ' . ls_langs . ' imap <C-X><C-O> <Plug>(ale_complete)'
 " execute 'autocmd Filetype ' . ls_langs . ' nmap <C-]> <Plug>(ale_go_to_definition)'
@@ -322,13 +354,12 @@ nnoremap <LocalLeader>ttv :vsplit<CR> :wincmd l<CR> :terminal<CR>i
 
 " ========= Insert Shortcuts ========
 
-autocmd FileType elm imap <buffer> <C-L> <SPACE>-><SPACE>
-autocmd FileType ruby,erb,javascript imap <buffer> <C-L> <SPACE>=><SPACE>
+autocmd FileType elixir,elm imap <buffer> <C-L> <SPACE>-><SPACE>
+autocmd FileType ruby,eelixir,eruby,erb,javascript imap <buffer> <C-L> <SPACE>=><SPACE>
 " imap <C-L> <SPACE>=><SPACE>
 imap jj <C-C>
 imap <C-X>l {%<SPACE><SPACE>%}<esc>hhi
 imap <C-X>v {{<SPACE><SPACE>}}<esc>hhi
-
 
 " ========= Terminal Shortcuts ========
 tnoremap <C-q> <C-\><C-n>:bd!<CR>
