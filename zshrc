@@ -37,8 +37,21 @@ export GREP_OPTIONS='--color'
 export EDITOR=vim
 export LESS='XFR'
 
+get_paged_memory() {
+  echo $(( $(vm_stat | grep "Pages $1" | awk '{gsub(/\./,"")} {print $NF}') * 4096 / 1024 / 1024 / 1000.0 ))
+}
+
+freemem() {
+  installed=$(( $(sysctl -n hw.memsize) / 1024 / 1024 / 1000.0 ))
+  wired_down=$(get_paged_memory 'wired down')
+  active=$(get_paged_memory 'active')
+  inactive=$(get_paged_memory 'inactive')
+
+  printf "%.2fG" "$(( installed - wired_down - active - inactive ))"
+}
+
 if [[ "$platform" == "osx" ]]; then
-  PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}[%{$(free)]%} %{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
+  PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}[%{$(freemem)]%} %{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
 → '
 else
   PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}%{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
