@@ -1,74 +1,85 @@
+git_user() {
+  user=$(git -C "$1" config user.name)
+  author=$(git -C "$1" config duet.env.git-author-initials)
+  committer=$(git -C "$1" config duet.env.git-committer-initials)
 
-timeout () {
-  perl -e 'use Time::HiRes qw( usleep ualarm gettimeofday tv_interval ); ualarm 100000; exec @ARGV' "$@";
+  if [ -n "${committer}" ]; then
+    echo "${author} & ${committer}%{$fg[black]%}@%{$reset_color%}"
+  elif [ -n "${author}" ]; then
+    echo "${author}%{$fg[black]%}@%{$reset_color%}"
+  elif [ -z $user ]; then
+    echo "%{$fg_bold[red]%}no user%{$fg[black]%}@%{$reset_color%}"
+  else
+    echo "$user%{$fg[black]%}@%{$reset_color%}"
+  fi
 }
 
-git_untracked_count() {
-  count=`echo $(timeout git ls-files --other --exclude-standard 2>/dev/null | wc -l)`
-  if [ $count -eq 0 ]; then return; fi
-  echo " %{$fg_bold[yellow]%}?%{$fg_no_bold[black]%}:%{$reset_color$fg[yellow]%}$count%{$reset_color%}"
-}
-
-git_modified_count() {
-  count=`echo $(timeout git ls-files -md 2>/dev/null | wc -l)`
-  if [ $count -eq 0 ]; then return; fi
-  echo " %{$fg_bold[red]%}M%{$fg_no_bold[black]%}:%{$reset_color$fg[red]%}$count%{$reset_color%}"
-}
-
-git_staged_count() {
-  count=`echo $(timeout git diff-index --cached --name-only HEAD 2>/dev/null | wc -l)`
-  if [ $count -eq 0 ]; then return; fi
-  echo " %{$fg_bold[green]%}S%{$fg_no_bold[black]%}:%{$reset_color$fg[green]%}$count%{$reset_color%}"
+git_root() {
+  local folder='.'
+  for i in $(seq 0 $(pwd|tr -cd '/'|wc -c)); do
+    [ -d "$folder/.git" ] && echo "$folder" && return
+    folder="../$folder"
+  done
 }
 
 git_branch() {
-  branch=$(git symbolic-ref HEAD --quiet 2> /dev/null)
-  if [ -z $branch ]; then
-    echo "%{$fg[yellow]%}$(git rev-parse --short HEAD)%{$reset_color%}"
-  else
-    echo "%{$fg[green]%}${branch#refs/heads/}%{$reset_color%}"
-  fi
+  local git_root="$1"
+  local line="$2"
+  local branch="???"
+  local ahead=''
+  local behind=''
+
+  case "$line" in
+    \#\#\ HEAD*)
+      branch="$(git -C "$git_root" tag --points-at HEAD)"
+      [ -z "$branch" ] && branch="$(git -C "$git_root" rev-parse --short HEAD)"
+      branch="%{$fg[yellow]%}${branch}%{$reset_color%}"
+      ;;
+    *)
+      branch="${line#\#\# }"
+      branch="%{$fg[green]%}${branch%%...*}%{$reset_color%}"
+      ahead="$(echo $line | sed -En -e 's|^.*(\[ahead ([[:digit:]]+)).*\]$|\2|p')"
+      behind="$(echo $line | sed -En -e 's|^.*(\[.*behind ([[:digit:]]+)).*\]$|\2|p')"
+      [ -n "$ahead" ] && ahead="%{$fg_bold[white]%}↑%{$reset_color%}$ahead"
+      [ -n "$behind" ] && behind="%{$fg_bold[white]%}↓%{$reset_color%}$behind"
+      ;;
+  esac
+
+  print "${branch}${ahead}${behind}"
 }
 
-git_remote_difference() {
-  branch=$(git symbolic-ref HEAD --quiet)
-  if [ -z $branch ]; then return; fi
+git_status() {
+  local untracked=0
+  local modified=0
+  local deleted=0
+  local staged=0
+  local branch=''
+  local output=''
 
-  # remote=$(git remote show)
-  remote="origin"
-  ahead_by=`echo $(git log --oneline $remote/${branch#refs/heads/}..HEAD 2> /dev/null | wc -l)`
-  behind_by=`echo $(git log --oneline HEAD..$remote/${branch#refs/heads/} 2> /dev/null | wc -l)`
+  for line in "${(@f)$(git -C "$1" status --porcelain -b 2>/dev/null)}"
+  do
+    case "$line" in
+      \#\#*) branch="$(git_branch "$1" "$line")" ;;
+      \?\?*) ((untracked++)) ;;
+      U?*|?U*|DD*|AA*|\ M*|\ D*) ((modified++)) ;;
+      ?M*|?D*) ((modified++)); ((staged++)) ;;
+      ??*) ((staged++)) ;;
+    esac
+  done
 
-  output=""
-  if [ $ahead_by -gt 0 ]; then output="$output%{$fg_bold[white]%}↑%{$reset_color%}$ahead_by"; fi
-  if [ $behind_by -gt 0 ]; then output="$output%{$fg_bold[white]%}↓%{$reset_color%}$behind_by";fi
+  output="$branch"
 
-  echo $output
-}
+  [ $staged -gt 0 ] && output="${output} %{$fg_bold[green]%}S%{$fg_no_bold[black]%}:%{$reset_color$fg[green]%}$staged%{$reset_color%}"
+  [ $modified -gt 0 ] && output="${output} %{$fg_bold[red]%}M%{$fg_no_bold[black]%}:%{$reset_color$fg[red]%}$modified%{$reset_color%}"
+  [ $deleted -gt 0 ] && output="${output} %{$fg_bold[red]%}D%{$fg_no_bold[black]%}:%{$reset_color$fg[red]%}$deleted%{$reset_color%}"
+  [ $untracked -gt 0 ] && output="${output} %{$fg_bold[yellow]%}?%{$fg_no_bold[black]%}:%{$reset_color$fg[yellow]%}$untracked%{$reset_color%}"
 
-git_user() {
-  user=$(git config user.name)
-  if [ -z $user ]; then
-    echo "%{$fg_bold[red]%}no user%{$fg[black]%}@%{$reset_color%}"
-  else
-    echo "$user{$fg[black]%}@%{$reset_color%}"
-  fi
-}
-in_git_repo() {
-  if [[ -d .git ]]; then
-    echo 0
-  else
-    echo $(git rev-parse --git-dir > /dev/null 2>&1; echo $?)
-  fi
+  echo "$output"
 }
 
 git_prompt_info() {
-  if [[ $(in_git_repo) -gt 0 ]]; then return; fi
-  print " $(git_branch)$(git_remote_difference)$(git_staged_count)$(git_modified_count)$(git_untracked_count) "
-}
+  local GIT_ROOT="$(git_root)"
+  [ -z "$GIT_ROOT" ] && return
 
-simple_git_prompt_info() {
-  ref=$($(which git) symbolic-ref HEAD 2> /dev/null) || return
-  # user=$($(which git) config user.name 2> /dev/null)
-  echo " (@${ref#refs/heads/})"
+  print " $(git_user "$GIT_ROOT")$(git_status "$GIT_ROOT") "
 }

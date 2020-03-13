@@ -2,7 +2,7 @@
 ## Script relies heavily on safepathappend, safepathprepend and safesource from .zshenv
 
 ## Environment display setup
-autoload -U compinit
+autoload -Uz compinit
 compinit
 
 autoload -U colors
