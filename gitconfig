@@ -1,5 +1,17 @@
 [color]
   ui = auto
+[color "diff"]
+  commit = green
+  meta = yellow
+  frag = cyan
+  old = red
+  new = green
+  whitespace = red reverse
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
 [alias]
   ci = commit
   co = checkout
@@ -46,6 +58,10 @@
 [core]
   autocrlf = input
   excludesfile = ~/.gitignore_global
+  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
 
 [include]
   path = ~/.gitconfig.local
+[user]
+	name = John DeWyze
+	email = john@dewyze.dev
