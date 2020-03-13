@@ -140,8 +140,9 @@ call plug#end()
 
 let g:jsx_ext_required = 0
 
-" 'mattn/emmet-vim'
-let g:user_emmet_install_global = 0
+" 'bling/vim-airline'
+let g:airline_powerline_fonts = 1
+let g:tmuxline_powerline_separators = 1
 
 " 'benmills/vimux'
 let g:VimuxUseNearestPane = 1
@@ -243,6 +244,9 @@ map <silent> <leader>gg :GGrep<CR>
 map <silent> <leader>be :Buffers<CR>
 map <silent> <leader>ft :Tags<CR>
 
+" 'mattn/emmet-vim'
+let g:user_emmet_install_global = 0
+
 " 'mhinz/vim-mix-format'
 " let g:mix_format_on_save = 1
 " let g:mix_format_silent_errors = 1
@@ -254,6 +258,17 @@ let g:projectionist_heuristics = {
       \   "test/*_test.exs": {"alternate": "lib/{}.ex"}
       \   }
       \ }
+
+" 'tpope/vim-projectionist'
+" # TODO: Add shorcuts/smart interpolation
+" nnoremap <silent> <C-S>c :Econtroller<CR>
+" nnoremap <silent> <C-S>m :Emodel<CR>
+" nnoremap <silent> <C-S>v :Eview<CR>
+" nnoremap <silent> <C-S>h :Ehelper<CR>
+" nnoremap <silent> <C-S>i :Eintegrationtest<CR>
+" nnoremap <silent> <C-S>s :A<CR>
+" nnoremap <silent> <C-S>f :Efeature<CR>
+" nnoremap <silent> <C-S>d :Eschema<CR>
 
 " 'scrooloose/nerdtree'
 let NERDTreeIgnore=['_site', 'tmp[[dir]]', '\.pyc', '\.class', "elm-stuff", "vendor[[dir]]"]

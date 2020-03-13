@@ -11,10 +11,22 @@ alias l='ls -CF'
 
 alias python="python3"
 
+# System shortcuts
+
+mkcd() {
+  command mkdir $1 && cd $1
+}
+
+cdl() {
+  cd "$@" && ls;
+}
+
 function clearswap() {
   rm ~/.local/share/nvim/swap/*swp
 }
 alias clearswap='clearswap'
+
+# tmux shortcuts
 
 function tmux_public() {
   if [ -n "$TMUX" ]; then
@@ -64,3 +76,28 @@ alias tmux-list='tmux_list'
 alias tmuxl='tmux_list'
 alias tmux-public='tmux_public'
 alias tmuxpub='tmux_public'
+
+# ruby shortcuts
+alias bi="bundle install"
+alias be="bundle exec"
+alias bems="bundle exec middleman server"
+alias bers="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails server"
+alias berc="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails console"
+
+# git shortcuts
+alias gg="git grep"
+alias g="git"
+alias gt="git status"
+alias gr="git reset"
+alias gd="git diff"
+alias gp="git push"
+alias gs="git staged"
+
+# npm shortcuts
+alias nbuild="npm run build"
+alias ndev="npm run dev"
+alias nlint="npm run lint"
+alias nlocal="npm run local"
+alias nstart="npm run start"
+alias nstory="npm run storybook"
+alias ntest="npm test"

@@ -75,7 +75,19 @@ safepathprepend $HOME/.bin
 ## Local (LOCAL)
 safepathprepend $HOME/.bin.local
 
-#Common Tools
+# Common Tools
+
+if type "postgres" > /dev/null; then
+  safepathappend /Applications/Postgres.app/Contents/Versions/latest/bin
+fi
+
+if type hub > /dev/null; then
+  alias git=hub
+fi
+
+if type nvim > /dev/null; then
+  alias vim=nvim
+fi
 
 safesource $HOME/.asdf/asdf.sh
 safesource $HOME/.asdf/completions/asdf.bash
