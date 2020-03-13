@@ -109,12 +109,6 @@ namespace "scripts" do
     end
 
     FileUtils.ln_s("#{SCRIPT_DIR}/bin", INSTALL_DIR)
-
-    if `uname`.strip == "Darwin"
-      FileUtils.ln_s("/usr/local/share/git-core/contrib/diff-highlight/diff-highlight", "#{INSTALL_DIR}/diff-highlight")
-    elsif `uname`.strip == "Linux"
-      FileUtils.ln_s("/usr/share/doc/git/contrib/diff-highlight/diff-highlight", "#{INSTALL_DIR}/diff-highlight")
-    end
   end
 
   desc "uninstall scripts"
