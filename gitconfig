@@ -58,7 +58,7 @@
 [core]
   autocrlf = input
   excludesfile = ~/.gitignore_global
-  pager = ~/.bin/diff-highlight less
+  pager = diff-highlight | less
 
 [include]
   path = ~/.gitconfig.local
