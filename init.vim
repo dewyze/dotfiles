@@ -15,7 +15,9 @@ set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
-if !has('nvim')
+let s:has_nvim = has('nvim')
+
+if !s:has_nvim
   set background=dark
   set backspace=indent,eol,start
   set dir=/tmp//
@@ -87,7 +89,11 @@ set statusline+=%2(C(%v/125)%)\           " column
 
 
 " ========= Plugins ========
-call plug#begin('~/.config/nvim/plugged')
+if s:has_nvim
+  call plug#begin('~/.config/nvim/plugged')
+else
+  call plug#begin('~/.vim/plugged')
+endif
 
 Plug '~/.config/nvim/local-plugins/color-schemes'
 Plug 'benmills/vimux', {'commit': '2285cefee9dfb2139ebc8299d11a6c8c0f21309e'}
@@ -378,9 +384,9 @@ endfunction
 command! -nargs=0 GitGrepWord :call GitGrepWord()
 nnoremap <silent> <Leader>gw :GitGrepWord<CR>
 
-if has('nvim') && filereadable(glob("~/.config/nvim/init.vim.local"))
+if s:has_nvim && filereadable(glob("~/.config/nvim/init.vim.local"))
   source ~/.config/nvim/init.vim.local
-elseif !has('nvim') && filereadable(glob("~/.vimrc.local"))
+elseif !s:has_nvim && filereadable(glob("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 

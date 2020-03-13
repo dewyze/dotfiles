@@ -3,7 +3,7 @@ task :default => "install"
 USE_NVIM = system("which nvim > /dev/null") == 0
 
 namespace "configs" do
-  IGNORE = %w(Rakefile README.md bin vimrc)
+  IGNORE = %w(Rakefile README.md bin)
   SPECIAL_CONFIG = {
     "init.vim" => {
       symlink: USE_NVIM ? "init.vim" : ".vimrc",
