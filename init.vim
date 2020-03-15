@@ -47,8 +47,10 @@ endfunc
 
 " File Types
 " autocmd! bufwritepost .vimrc source $MYVIMRC
-autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown textwidth=80
 autocmd BufNewFile,BufReadPost *.go set filetype=go
+autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+autocmd BufNewFile,BufRead *.rb.tt,*.erb.tt set filetype=eruby
+autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown textwidth=80
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd FileType html,css EmmetInstall
 autocmd FileType elixir setlocal tabstop=2 shiftwidth=2 softtabstop=2
@@ -65,10 +67,6 @@ autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType scss setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType yml setlocal filetype=yaml expandtab
-augroup FiletypeGroup
-    autocmd!
-    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-augroup END
 
 " Autoremove trailing spaces when saving the buffer
 autocmd FileType ruby,elm,yml,javscript,json,go,md,python,slim,css,scss,js autocmd BufWritePre <buffer> %s/\s\+$//e
