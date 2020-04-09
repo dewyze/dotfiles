@@ -50,15 +50,15 @@ endfunc
 autocmd BufNewFile,BufReadPost *.go set filetype=go
 autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
 autocmd BufNewFile,BufRead *.rb.tt,*.erb.tt set filetype=eruby
+autocmd BufNewFile,BufRead Gemfile.* set filetype=ruby
 autocmd BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown textwidth=80
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
-autocmd FileType html,css EmmetInstall
+autocmd FileType html,css,eruby EmmetInstall
 autocmd FileType elixir setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType elm setlocal expandtab
 autocmd FileType gitcommit set tw=72
 autocmd FileType go setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType html,slim IndentLinesEnable
 autocmd FileType java setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType json setlocal tabstop=2 shiftwidth=2 softtabstop=2 nospell
@@ -111,6 +111,7 @@ Plug 'MaxMEllon/vim-jsx-pretty', { 'commit': '838cfce82df8cf99df5e3a200ad23f6c0f
 Plug 'pangloss/vim-javascript', {'commit': 'db595656304959dcc3805cf63ea9a430e3f01e8f'}
 Plug 'prettier/vim-prettier', { 'do': 'npm i -g install', 'branch': 'release/1.x', 'for': ['javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html', 'ruby'] }
 Plug 'preservim/nerdtree', {'commit': 'e67324fdea7a192c7ce1b4c6b3c3b9f82f11eee7'}
+Plug 'slim-template/vim-slim', {'commit': '6673e404370e6f3d44be342cf03ea8c26ab02c66'}
 Plug 'tomtom/tcomment_vim', {'commit': '20e85e8c2346bd1f60f1ef55c5e32bb54a7a22fc'}
 Plug 'tpope/vim-abolish', {'commit': '7e4da6e78002344d499af9b6d8d5d6fcd7c92125'} " TODO: Check it out
 Plug 'tpope/vim-fugitive', {'commit': '9a4d730270882f9d39a411eb126143eda4d46963'}
@@ -132,6 +133,7 @@ call plug#end()
 " 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 let g:tmuxline_powerline_separators = 1
+let g:airline#extensions#branch#vcs_checks = []
 
 " 'benmills/vimux'
 let g:VimuxUseNearestPane = 1
@@ -154,7 +156,7 @@ function TabWithName(Func)
   call inputsave()
   let l:NewTabName = input("tab name: ")
   call inputrestore()
-  execute a:Func . l:NewTabName
+  execute a:Func . l:NewTabName . " "
 endfunction
 
 function NewTabWithName()
@@ -172,6 +174,15 @@ function NewTabWithNoName()
 endfunction
 command! NewTabWithNoName :call NewTabWithNoName()
 
+function SetupTabs()
+  execute "TabooRename controller "
+  execute "TabooOpen action "
+  execute "TabooOpen service "
+  execute "TabooOpen repo "
+  execute "TabooOpen view "
+endfunction
+map <silent> <C-T>s :call SetupTabs()<CR>
+
 map <silent> <C-T>n :NewTabWithName<CR>
 map <silent> <C-T>t :NewTabWithNoName<CR>
 map <silent> <C-T>, :RenameTab<CR>
@@ -181,7 +192,7 @@ let g:taboo_tab_format = "%N - %f"
 let g:taboo_renamed_tab_format = "[%N%m] %l"
 
 " 'janko-m/vim-test'
-let test#strategy = "neovim"
+let test#strategy = "vimux"
 function! ClearTransform(cmd) abort
   return 'clear; ' . a:cmd
 endfunction
@@ -362,7 +373,6 @@ nnoremap <LocalLeader>ttv :vsplit<CR> :wincmd l<CR> :terminal<CR>i
 autocmd FileType elixir,elm imap <buffer> <C-L> <SPACE>-><SPACE>
 autocmd FileType ruby,eelixir,eruby,erb,javascript imap <buffer> <C-L> <SPACE>=><SPACE>
 " imap <C-L> <SPACE>=><SPACE>
-imap jj <C-C>
 imap <C-X>l {%<SPACE><SPACE>%}<esc>hhi
 imap <C-X>v {{<SPACE><SPACE>}}<esc>hhi
 

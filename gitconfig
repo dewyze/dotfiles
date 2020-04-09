@@ -59,6 +59,7 @@
   autocrlf = input
   excludesfile = ~/.gitignore_global
   pager = diff-highlight | less
+	editor = nvim
 
 [include]
   path = ~/.gitconfig.local

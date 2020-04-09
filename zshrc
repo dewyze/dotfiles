@@ -90,7 +90,10 @@ if type nvim > /dev/null; then
 fi
 
 safesource $HOME/.asdf/asdf.sh
-safesource $HOME/.asdf/completions/asdf.bash
 safesource $HOME/.fzf.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# This is for ruby 2.7.0 until rails address deprecation warnings
+# You can remove in a shell with `unset RUBYOPT`
+export RUBYOPT='-W:no-deprecated -W:no-experimental'
