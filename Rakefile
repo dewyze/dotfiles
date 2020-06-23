@@ -15,7 +15,7 @@ namespace "configs" do
     },
     "git_template" => {
       symlink: "template",
-      dest: "~/config/git/",
+      dest: "~/.config/git/",
     },
   }
 
