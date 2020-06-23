@@ -61,6 +61,8 @@
   pager = diff-highlight | less
 	editor = nvim
 
+[init]
+  templateDir = ~/.config/git/template/
 [include]
   path = ~/.gitconfig.local
 [user]

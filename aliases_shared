@@ -83,6 +83,7 @@ alias be="bundle exec"
 alias bems="bundle exec middleman server"
 alias bers="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails server"
 alias berc="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails console"
+alias js="bundle exec jekyll serve"
 
 # git shortcuts
 alias gg="git grep"
@@ -96,8 +97,10 @@ alias gs="git staged"
 # npm shortcuts
 alias nbuild="npm run build"
 alias ndev="npm run dev"
+alias nformat="npm run format"
 alias nlint="npm run lint"
 alias nlocal="npm run local"
+alias nrepl="npm run repl"
 alias nstart="npm run start"
 alias nstory="npm run storybook"
 alias ntest="npm test"

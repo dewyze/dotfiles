@@ -13,6 +13,10 @@ namespace "configs" do
       symlink: "Tomorrow-Night.vim",
       dest: USE_NVIM ? "~/.config/nvim/local-plugins/color-schemes/colors" : "~/.vim/colors",
     },
+    "git_template" => {
+      symlink: "template",
+      dest: "~/config/git/",
+    },
   }
 
   desc "symlink files into home directory"
