@@ -1,6 +1,6 @@
 task :default => "install"
 
-USE_NVIM = system("which nvim > /dev/null") == 0
+USE_NVIM = system("which nvim > /dev/null")
 
 namespace "configs" do
   IGNORE = %w(Rakefile README.md bin)

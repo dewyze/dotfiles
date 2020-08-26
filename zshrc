@@ -59,6 +59,8 @@ else
 fi
 
 # ZSH Settings (LOCAL)
+setopt INTERACTIVE_COMMENTS
+
 ## The local version of this file
 safesource "$HOME/.zshrc.local"
 
