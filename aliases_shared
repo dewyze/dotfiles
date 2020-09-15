@@ -10,6 +10,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 alias python="python3"
+alias pip="pip3"
 
 # System shortcuts
 
@@ -80,10 +81,11 @@ alias tmuxpub='tmux_public'
 # ruby shortcuts
 alias bi="bundle install"
 alias be="bundle exec"
-alias bejs="bundle exec jekyll serve"
-alias bems="bundle exec middleman server"
+alias bejs="unset RUBYOPT && bundle exec jekyll serve"
+alias bems="unset RUBYOPT && bundle exec middleman server"
 alias bers="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails server"
 alias berc="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails console"
+alias brake="bundle exec rake"
 alias js="bundle exec jekyll serve"
 
 # git shortcuts
