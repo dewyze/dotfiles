@@ -33,9 +33,9 @@ fi
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export LS_COLORS="di=34:ln=35:so=32:pi=33:ex=31:bd=34:cd=34:su=0:sg=0:tw=0:ow=0:"
-export GREP_OPTIONS='--color'
 export EDITOR=vim
 export LESS='XFR'
+alias grep=grep --color=auto
 
 get_paged_memory() {
   echo $(( $(vm_stat | grep "Pages $1" | awk '{gsub(/\./,"")} {print $NF}') * 4096 / 1024 / 1024 / 1000.0 ))
@@ -98,4 +98,4 @@ safesource $HOME/.fzf.zsh
 
 # This is for ruby 2.7.0 until rails address deprecation warnings
 # You can remove in a shell with `unset RUBYOPT`
-export RUBYOPT='-W:no-deprecated -W:no-experimental'
+# export RUBYOPT='-W:no-deprecated -W:no-experimental'

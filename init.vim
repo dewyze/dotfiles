@@ -106,15 +106,16 @@ Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'} "
 Plug 'gabrielelana/vim-markdown'
 Plug 'gcmt/taboo.vim', {'commit': 'caf948187694d3f1374913d36f947b3f9fa1c22f'}
 Plug 'henrik/vim-indexed-search', {'commit': '5af020bba084b699d0453f242d7d76711d64b1e3'}
-Plug 'janko-m/vim-test', {'commit': 'e5c7c57a28a2ce8cba4ef6ff567d051d9f13014e'}
+Plug 'janko-m/vim-test', {'commit': 'e11fa044b312f87843313edbdfa0d7bb8db0d040'}
 Plug 'junegunn/fzf', { 'tag': '0.21.0', 'dir': '~/.fzf', 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim', {'commit': 'ed9d66c2a65333a0d49509a2d53098392683eec1'}
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim', {'commit': 'c7643e5b616430f766528b225528a5228adb43df'} " TODO: Remember to use
 Plug 'MaxMEllon/vim-jsx-pretty', { 'commit': '838cfce82df8cf99df5e3a200ad23f6c0f027550' }
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
 Plug 'pangloss/vim-javascript', {'commit': 'db595656304959dcc3805cf63ea9a430e3f01e8f'}
 Plug 'preservim/nerdtree', {'commit': 'e67324fdea7a192c7ce1b4c6b3c3b9f82f11eee7'}
-Plug 'prettier/vim-prettier', { 'do': 'npm i -g install', 'branch': 'release/1.x', 'for': ['javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html', 'ruby'] }
+Plug 'prettier/vim-prettier', { 'do': 'npm install --prefix ~', 'branch': 'release/3.x', 'for': ['javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html', 'ruby'] }
 Plug 'rhysd/vim-gfm-syntax', {'commit': 'c0ff9e4994d4e79c8d5edf963094518dceea2623'}
 Plug 'slim-template/vim-slim', {'commit': '6673e404370e6f3d44be342cf03ea8c26ab02c66'}
 Plug 'tomtom/tcomment_vim', {'commit': '20e85e8c2346bd1f60f1ef55c5e32bb54a7a22fc'}
@@ -219,6 +220,11 @@ nnoremap <silent> <leader>rf :wa<CR>:TestNearest<CR>
 nnoremap <silent> <leader>rb :wa<CR>:TestFile<CR>
 nnoremap <silent> <leader>ra :wa<CR>:TestSuite<CR>
 nnoremap <silent> <leader>rl :wa<CR>:TestLast<CR>
+
+if filereadable(glob("dev.yml"))
+  let test#ruby#rspec#executable = 'dev test'
+  let test#ruby#minitest = 'dev test'
+end
 
 " 'junegunn/fzf'
 let $FZF_DEFAULT_OPTS = '--reverse'
