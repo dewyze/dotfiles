@@ -9,6 +9,10 @@ namespace "configs" do
       symlink: USE_NVIM ? "init.vim" : ".vimrc",
       dest: USE_NVIM ? "~/.config/nvim" : "~",
     },
+    "coc_config.vim" => {
+      symlink: USE_NVIM ? "coc_config.vim" : ".vimrc.coc_config",
+      dest: USE_NVIM ? "~/.config/nvim" : "~",
+    },
     "Tomorrow-Night.vim" => {
       symlink: "Tomorrow-Night.vim",
       dest: USE_NVIM ? "~/.config/nvim/local-plugins/color-schemes/colors" : "~/.vim/colors",

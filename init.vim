@@ -108,14 +108,15 @@ Plug 'gcmt/taboo.vim', {'commit': 'caf948187694d3f1374913d36f947b3f9fa1c22f'}
 Plug 'henrik/vim-indexed-search', {'commit': '5af020bba084b699d0453f242d7d76711d64b1e3'}
 Plug 'janko-m/vim-test', {'commit': 'e11fa044b312f87843313edbdfa0d7bb8db0d040'}
 Plug 'junegunn/fzf', { 'tag': '0.21.0', 'dir': '~/.fzf', 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim', {'commit': 'ed9d66c2a65333a0d49509a2d53098392683eec1'}
+Plug 'KeitaNakamura/neodark.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim', {'commit': 'c7643e5b616430f766528b225528a5228adb43df'} " TODO: Remember to use
 Plug 'MaxMEllon/vim-jsx-pretty', { 'commit': '838cfce82df8cf99df5e3a200ad23f6c0f027550' }
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
 Plug 'pangloss/vim-javascript', {'commit': 'db595656304959dcc3805cf63ea9a430e3f01e8f'}
 Plug 'preservim/nerdtree', {'commit': 'e67324fdea7a192c7ce1b4c6b3c3b9f82f11eee7'}
-Plug 'prettier/vim-prettier', { 'do': 'npm install --prefix ~', 'branch': 'release/3.x', 'for': ['javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html', 'ruby'] }
+Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': ['javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html', 'ruby'] }
 Plug 'rhysd/vim-gfm-syntax', {'commit': 'c0ff9e4994d4e79c8d5edf963094518dceea2623'}
 Plug 'slim-template/vim-slim', {'commit': '6673e404370e6f3d44be342cf03ea8c26ab02c66'}
 Plug 'tomtom/tcomment_vim', {'commit': '20e85e8c2346bd1f60f1ef55c5e32bb54a7a22fc'}
@@ -358,7 +359,9 @@ let g:ale_fixers = {
 " 'ruby': ['prettier'],
 
 " ========= Color Schemes ========
-colorscheme Tomorrow-Night
+colorscheme neodark
+let g:neodark#background = '#1F1F1F'
+au FileType ruby,eruby colorscheme Tomorrow-Night
 " au FileType diff colorscheme desert
 " au FileType git colorscheme desert
 
@@ -402,12 +405,15 @@ nnoremap <silent> <Leader>gw :GitGrepWord<CR>
 
 if s:has_nvim && filereadable(glob("~/.config/nvim/init.vim.local"))
   source ~/.config/nvim/init.vim.local
+  source ~/.config/nvim/coc_config.vim
 elseif !s:has_nvim && filereadable(glob("~/.vimrc.local"))
   source ~/.vimrc.local
+  source ~/.vimrc.coc_config
 endif
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='tomorrow'
+" let g:lightline.colorscheme = 'neodark'
 let g:tmuxline_powerline_separators = 1
 
 " Cursorline coloring for bright environments
