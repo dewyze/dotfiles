@@ -405,9 +405,13 @@ nnoremap <silent> <Leader>gw :GitGrepWord<CR>
 
 if s:has_nvim && filereadable(glob("~/.config/nvim/init.vim.local"))
   source ~/.config/nvim/init.vim.local
-  source ~/.config/nvim/coc_config.vim
 elseif !s:has_nvim && filereadable(glob("~/.vimrc.local"))
   source ~/.vimrc.local
+endif
+
+if s:has_nvim && filereadable(glob("~/.config/nvim/coc_config.vim"))
+  source ~/.config/nvim/coc_config.vim
+elseif !s:has_nvim && filereadable(glob("~/.vimrc.coc_config"))
   source ~/.vimrc.coc_config
 endif
 
