@@ -116,7 +116,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
 Plug 'pangloss/vim-javascript', {'commit': 'db595656304959dcc3805cf63ea9a430e3f01e8f'}
 Plug 'preservim/nerdtree', {'commit': 'e67324fdea7a192c7ce1b4c6b3c3b9f82f11eee7'}
-Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': ['javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html', 'ruby'] }
+Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': ['typescript', 'typescriptreact', 'javascript', 'json', 'css', 'scss', 'graphql', 'markdown', 'yaml', 'html', 'ruby'] }
 Plug 'rhysd/vim-gfm-syntax', {'commit': 'c0ff9e4994d4e79c8d5edf963094518dceea2623'}
 Plug 'slim-template/vim-slim', {'commit': '6673e404370e6f3d44be342cf03ea8c26ab02c66'}
 Plug 'tomtom/tcomment_vim', {'commit': '20e85e8c2346bd1f60f1ef55c5e32bb54a7a22fc'}
@@ -344,6 +344,8 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \ 'elixir': ['elixir-ls'],
 \ 'javascript': ['eslint'],
+\ 'typescript': ['eslint'],
+\ 'typescriptreact': ['eslint'],
 \ 'ruby': ['rubocop'],
 \ }
 let g:ale_fixers = {
@@ -351,6 +353,8 @@ let g:ale_fixers = {
 \ 'css': ['prettier'],
 \ 'scss': ['prettier'],
 \ 'javascript': ['prettier'],
+\ 'typescript': ['prettier'],
+\ 'typescriptreact': ['prettier'],
 \ 'json': ['prettier'],
 \ 'elixir': ['mix_format'],
 \ 'html': ['prettier'],
