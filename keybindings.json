@@ -1,0 +1,269 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+  {
+    // Remove transpose letters
+    "key": "ctrl+t",
+    "command": "-editor.action.transposeLetters",
+    "when": "textInputFocus && !editorReadonly"
+  },
+
+  // Testing
+  {
+    // Run test under cursor with minitest
+    "key": "ctrl+t t",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": { "text": "bin/test '${file}:${lineNumber}'\u000D" },
+    "when": "resourceFilename =~ /_test.rb$/"
+  },
+  {
+    // Run test file with minitest
+    "key": "ctrl+t f",
+    "command": "",
+    "args": { "text": "bin/test '${file}'\u000D" },
+    "when": "resourceFilename =~ /_test.rb$/"
+  },
+  {
+    // Run tests under cursor with rspec
+    "key": "ctrl+t t",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": { "text": "bundle exec rspec '${file}:${lineNumber}'\u000D" },
+    "when": "resourceFilename =~ /_spec.rb$/"
+  },
+  {
+    // Run test file with rspec
+    "key": "ctrl+t f",
+    "command": "",
+    "args": { "text": "bundle exec rspec '${file}'\u000D" },
+    "when": "resourceFilename =~ /_spec.rb$/"
+  },
+
+  // Editor
+  {
+    // ctrl+tab cycles through all files
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextEditorInGroup"
+  },
+  {
+    // ctrl+shift+tab cycles backwards through all files
+    "key": "ctrl+shift+tab",
+    "command": "workbench.action.previousEditorInGroup"
+  },
+  {
+    "key": "cmd+h",
+    "command": "editor.emmet.action.matchTag"
+  },
+  {
+    // Add ctrl+p for fuzzy find as well
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpen"
+  },
+
+  // Terminal Tabs
+  {
+    // Rename terminal instance
+    "key": ",",
+    "command": "workbench.action.terminal.renameInstance",
+    "when": "terminalProcessSupported && terminalTabsFocus && terminalTabsSingularSelection"
+  },
+  {
+    // When in terminal tabs, enter focuses on the terminal
+    "key": "enter",
+    "command": "-workbench.action.terminal.renameInstance",
+    "when": "terminalProcessSupported && terminalTabsFocus && terminalTabsSingularSelection"
+  },
+
+  // Terminal
+  {
+    // Tmux terminal vertical splits
+    "key": "ctrl+a v",
+    "command": "workbench.action.terminal.split",
+    "when": "terminalFocus && terminalProcessSupported"
+  },
+  {
+    // Add ctrl+a,a for go to beginning of line back to terminal because having any ctrl+a keybinding hijacks it
+    "key": "ctrl+a a",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "\u0001"
+    },
+    "when": "terminalFocus && terminalProcessSupported"
+  },
+  {
+    // Remove standard terminal split
+    "key": "cmd+\\",
+    "command": "-workbench.action.terminal.split",
+    "when": "terminalFocus && terminalProcessSupported"
+  },
+  {
+    // Tmux move up from terminal to editor
+    "key": "ctrl+a k",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminalFocus || terminalTabsFocus"
+  },
+  {
+    // Tmux create terminal window (shortcut for with name, but just creates new window here)
+    "key": "ctrl+a shift+n",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalFocus && terminalProcessSupported"
+  },
+  {
+    // Tmux create terminal window
+    "key": "ctrl+a c",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalFocus && terminalProcessSupported"
+  },
+  {
+    // Remove default new terminal command
+    "key": "ctrl+shift+`",
+    "command": "-workbench.action.terminal.new",
+    "when": "terminalProcessSupported"
+  },
+  {
+    // Tmux rename terminal command
+    "key": "ctrl+a ,",
+    "command": "workbench.action.terminal.rename",
+    "when": "terminalFocus"
+  },
+
+  // Tmux terminal movements
+  {
+    // Tmux next terminal pane
+    "key": "ctrl+a n",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux previous terminal pane
+    "key": "ctrl+a p",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux toggle maximize terminal pane
+    "key": "ctrl+a z",
+    "command": "workbench.action.toggleMaximizedPanel",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux terminal move right/focus on terminal tabs
+    "key": "ctrl+a l",
+    "command": "workbench.action.terminal.focusTabs",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux terminal move left/focus on Side bar
+    "key": "ctrl+a h",
+    "command": "workbench.action.focusSideBar",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux sidebar move right/focus on editor
+    "key": "ctrl+a l",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "sideBarFocus"
+  },
+  {
+    // Tmux sidebar move down/focus on terminal
+    "key": "ctrl+a j",
+    "command": "workbench.action.terminal.focus",
+    "when": "sideBarFocus"
+  },
+  {
+    // Tmux sidebar move left/focus on terminal
+    "key": "ctrl+a h",
+    "command": "workbench.action.terminal.focus",
+    "when": "terminalTabsFocus"
+  },
+  {
+    // Tmux terminal select terminal pane 1
+    "key": "ctrl+a 1",
+    "command": "workbench.action.terminal.focusAtIndex1",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux terminal select terminal pane 2
+    "key": "ctrl+a 2",
+    "command": "workbench.action.terminal.focusAtIndex2",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux terminal select terminal pane 3
+    "key": "ctrl+a 3",
+    "command": "workbench.action.terminal.focusAtIndex3",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux terminal select terminal pane 4
+    "key": "ctrl+a 4",
+    "command": "workbench.action.terminal.focusAtIndex4",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux terminal select terminal pane 5
+    "key": "ctrl+a 5",
+    "command": "workbench.action.terminal.focusAtIndex5",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux terminal select terminal pane 6
+    "key": "ctrl+a 6",
+    "command": "workbench.action.terminal.focusAtIndex6",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux terminal select terminal pane 7
+    "key": "ctrl+a 7",
+    "command": "workbench.action.terminal.focusAtIndex7",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux terminal select terminal pane 8
+    "key": "ctrl+a 8",
+    "command": "workbench.action.terminal.focusAtIndex8",
+    "when": "terminalFocus"
+  },
+  {
+    // Tmux terminal select terminal pane 9
+    "key": "ctrl+a 9",
+    "command": "workbench.action.terminal.focusAtIndex9",
+    "when": "terminalFocus"
+  },
+  {
+    // Move to next panel window
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextPanelView",
+    "when": "panelFocus"
+  },
+  {
+    // Move to previous panel window
+    "key": "ctrl+shift+tab",
+    "command": "workbench.action.previousPanelView",
+    "when": "panelFocus"
+  },
+
+  // ERB
+  {
+    "key": "ctrl+s =",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && resourceExtname == .erb",
+    "args": {
+      "snippet": "<%= $0 %>"
+    }
+  },
+  {
+    "key": "ctrl+s -",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && resourceExtname == .erb",
+    "args": {
+      "snippet": "<% $0 %>"
+    }
+  },
+  {
+    "key": "ctrl+s ctrl+e",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && resourceExtname == .erb",
+    "args": {
+      "snippet": "<% $0 %>\n<% end %>"
+    }
+  }
+]

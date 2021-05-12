@@ -21,6 +21,14 @@ namespace "configs" do
       symlink: "template",
       dest: "~/.config/git/",
     },
+    "settings.json" => {
+      symlink: "settings.json",
+      dest: vscode_path,
+    },
+    "keybindings.json" => {
+      symlink: "keybindings.json",
+      dest: vscode_path,
+    },
   }
 
   desc "symlink files into home directory"
@@ -41,6 +49,14 @@ namespace "configs" do
 
       restore_backup(dotfile_path)
     end
+  end
+
+  def mac?
+    RUBY_PLATFORM =~ /darwin/
+  end
+
+  def vscode_path
+    mac? ? "~/Library/Application Support/Code/User/" : "~/.config/Code/User/"
   end
 
   def for_each_dotfile(dir, &block)
