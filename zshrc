@@ -1,6 +1,8 @@
 ## .zshrc - Loaded after .zshenv
 ## Script relies heavily on safepathappend, safepathprepend and safesource from .zshenv
 
+stty -ixon
+
 ## Environment display setup
 autoload -Uz compinit
 compinit
