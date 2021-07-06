@@ -26,7 +26,10 @@ if !s:has_nvim
   set incsearch
   set undodir=~/.vim/undodir
 endif
+
+if !empty($TMUX)
   set termguicolors
+endif
 
 set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 set wildignore+=*.pyc,*.o,*.class,*.lo,.git,vendor/*,node_modules/**,bower_components/**,elm-stuff/**,elm.js
@@ -39,12 +42,17 @@ runtime macros/matchit.vim
 " ==== Syntax Highlight Reveal ====
 " set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}
 nmap <Leader>sI :call <SID>SynStack()<CR>
+" function! <SID>SynStack()
+"   if !exists("*synstack")
+"     return
+"   endif
+"   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+" endfunc
 function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
+  echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+endfunction
 " ====
 
 " File Types
@@ -381,7 +389,6 @@ let g:ale_fixers = {
 
 " ========= Color Schemes ========
 colorscheme neodark
-let g:neodark#background = '#1D1F21'
 au FileType ruby,eruby colorscheme Tomorrow-Night
 " au FileType diff colorscheme desert
 " au FileType git colorscheme desert
