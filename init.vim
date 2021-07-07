@@ -388,6 +388,7 @@ let g:ale_fixers = {
 " 'ruby': ['prettier'],
 
 " ========= Color Schemes ========
+let g:neodark#background = '#2A2A2A'
 colorscheme neodark
 au FileType ruby,eruby colorscheme Tomorrow-Night
 " au FileType diff colorscheme desert
