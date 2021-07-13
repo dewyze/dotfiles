@@ -88,6 +88,9 @@ alias berc="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails cons
 alias brake="bundle exec rake"
 alias js="bundle exec jekyll serve"
 
+alias rgc="rg --glob='!test' --glob='!spec'"
+alias rgt="rg --glob='*test.rsx' --glob='*test.jsx' --glob='*_test.rb' --glob='*_spec.rb'"
+
 # git shortcuts
 alias gg="git grep"
 alias g="git"
