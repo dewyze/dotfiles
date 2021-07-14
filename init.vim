@@ -241,27 +241,29 @@ end
 let $FZF_DEFAULT_OPTS = '--reverse'
 let g:fzf_layout = {'up': '~20%'}
 let g:fzf_tags_command = 'ctags -R --exclude=".git" --exclude="node_modules" --exclude="vendor" --exclude="log" --exclude="tmp" --exclude="db" --exclude="pkg" --exclude="deps" --exclude="_build" --extra=+f .'
-map <silent> <C-p> :Files<CR>
-let $FZF_DEFAULT_COMMAND = 'find . -name "*" -type f 2>/dev/null
-                            \ | grep -v -E "_site\/|tmp\/|.gitmodules|.git\/|deps\/|_build\/|node_modules\/|vendor\/|elm-stuff\/"
-                            \ | sed "s|^\./||"'
-function! SmartFuzzy()
-  let root = split(system('git rev-parse --show-toplevel'), '\n')
-  " let root = split(system('git rev-parse'), '\n')
-  if len(root) == 0 || v:shell_error
-    Files
-  else
-    GFiles -co --exclude-standard -- . ':!:vendor/*'
-  endif
-endfunction
 
-command! -nargs=* SmartFuzzy :call SmartFuzzy()
-map <silent> <leader>ff :SmartFuzzy<CR>
-command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep(
-  \   'git grep --line-number '.shellescape(<q-args>), 0,
-  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+" "SmartFuzzy"
+" Smart fuzzy would be for nested git repos/components and being able to not
+" search parents/parent siblings for files
+" function! SmartFuzzy()
+"   let root = split(system('git rev-parse --show-toplevel'), '\n')
+"   " let root = split(system('git rev-parse'), '\n')
+"   if len(root) == 0 || v:shell_error
+"     Files
+"   else
+"     GFiles -co --exclude-standard -- . ':!:vendor/*'
+"   endif
+" endfunction
+
+" command! -nargs=* SmartFuzzy :call SmartFuzzy()
+" command! -bang -nargs=* GGrep
+"   \ call fzf#vim#grep(
+"   \   'git grep --line-number '.shellescape(<q-args>), 0,
+"   \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+map <silent> <C-p> :Files<CR>
+map <silent> <leader>ff :Files<CR>
+let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob='!.git/*' --glob='!vendor/*'"
 map <silent> <leader>gg :GGrep<CR>
 map <silent> <leader>be :Buffers<CR>
 map <silent> <leader>ft :Tags<CR>
