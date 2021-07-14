@@ -263,7 +263,7 @@ let g:fzf_tags_command = 'ctags -R --exclude=".git" --exclude="node_modules" --e
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 map <silent> <C-p> :Files<CR>
 map <silent> <leader>ff :Files<CR>
-let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob='!.git/*' --glob='!vendor/*'"
+let $FZF_DEFAULT_COMMAND = "rg --files -S --hidden --glob='!.git/*' --glob='!vendor/*'"
 map <silent> <leader>gg :GGrep<CR>
 map <silent> <leader>be :Buffers<CR>
 map <silent> <leader>ft :Tags<CR>
