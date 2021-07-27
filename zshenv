@@ -20,6 +20,8 @@ safesource() {
   fi
 }
 
+export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
+
 # Being extra cautious to get local bin executables in path
 safepathprepend "/usr/local/bin"
 

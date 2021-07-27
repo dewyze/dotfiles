@@ -5,6 +5,10 @@ USE_NVIM = system("which nvim > /dev/null")
 namespace "configs" do
   IGNORE = %w(Rakefile README.md bin)
   SPECIAL_CONFIG = {
+    "ripgreprc" => {
+      symlink: "ripgreprc",
+      dest: "~/.config/ripgrep/ripgreprc",
+    },
     "init.vim" => {
       symlink: USE_NVIM ? "init.vim" : ".vimrc",
       dest: USE_NVIM ? "~/.config/nvim" : "~",

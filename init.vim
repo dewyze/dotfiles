@@ -17,6 +17,7 @@ set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
 let s:has_nvim = has('nvim')
+let s:has_nvim_6 = has('nvim-0.6')
 
 if !s:has_nvim
   set background=dark
@@ -141,7 +142,18 @@ Plug 'vim-airline/vim-airline-themes', {'commit': '9772475fcc24bee50c884aba20161
 Plug 'vim-ruby/vim-ruby', {'commit': 'fbf85d106a2c3979ed43d6332b8c26a72542754d'}
 " Plug '~/dev/vim-ignore'
 " Plug '~/dev/vim-ruby-block-helpers'
+
+if s:has_nvim_6
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/playground'
+endif
+
 call plug#end()
+
+
+if s:has_nvim_6
+  luafile /Users/john/dev/dotfiles/initlua.lua
+endif
 
 " ========= Plugin Settings ========
 " 'bling/vim-airline'
@@ -261,9 +273,9 @@ let g:fzf_tags_command = 'ctags -R --exclude=".git" --exclude="node_modules" --e
 "   \   'git grep --line-number '.shellescape(<q-args>), 0,
 "   \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+let $FZF_DEFAULT_COMMAND = "rg --files -S --hidden --glob='!.git/*' --glob='!vendor/*'"
 map <silent> <C-p> :Files<CR>
 map <silent> <leader>ff :Files<CR>
-let $FZF_DEFAULT_COMMAND = "rg --files -S --hidden --glob='!.git/*' --glob='!vendor/*'"
 map <silent> <leader>gg :GGrep<CR>
 map <silent> <leader>be :Buffers<CR>
 map <silent> <leader>ft :Tags<CR>
