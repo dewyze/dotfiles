@@ -140,12 +140,16 @@ Plug 'tpope/vim-repeat', {'commit': 'c947ad2b6a16983724a0153bdf7f66d7a80a32ca'}
 Plug 'tpope/vim-surround', {'commit': 'f51a26d3710629d031806305b6c8727189cd1935'}
 Plug 'vim-airline/vim-airline-themes', {'commit': '9772475fcc24bee50c884aba20161465211520c8'}
 Plug 'vim-ruby/vim-ruby', {'commit': 'fbf85d106a2c3979ed43d6332b8c26a72542754d'}
+Plug '~/dev/neoprism'
 " Plug '~/dev/vim-ignore'
 " Plug '~/dev/vim-ruby-block-helpers'
 
 if s:has_nvim_6
+  Plug 'windwp/nvim-autopairs', {'branch': 'main'}
+  Plug 'windwp/nvim-ts-autotag'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/playground'
+  Plug 'tjdevries/colorbuddy.vim'
 endif
 
 call plug#end()
@@ -253,6 +257,7 @@ end
 let $FZF_DEFAULT_OPTS = '--reverse'
 let g:fzf_layout = {'up': '~20%'}
 let g:fzf_tags_command = 'ctags -R --exclude=".git" --exclude="node_modules" --exclude="vendor" --exclude="log" --exclude="tmp" --exclude="db" --exclude="pkg" --exclude="deps" --exclude="_build" --extra=+f .'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " "SmartFuzzy"
 " Smart fuzzy would be for nested git repos/components and being able to not
