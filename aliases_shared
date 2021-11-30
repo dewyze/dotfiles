@@ -88,8 +88,11 @@ alias berc="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails cons
 alias brake="bundle exec rake"
 alias js="bundle exec jekyll serve"
 
-alias rgc="rg --glob='!*_test.rb' --glob='!*_spec.rb' --glob='!rbi' --glob='!*test.tsx' --glob='!*test.jsx'"
+alias rgc="rg --glob='!*_test.rb' --glob='!*_spec.rb' --glob='!*.rbi' --glob='!*.json' --glob='!*test.tsx' --glob='!*test.jsx' --glob='!*.graphql'"
 alias rgt="rg --glob='*test.rsx' --glob='*test.jsx' --glob='*_test.rb' --glob='*_spec.rb'"
+alias unbind="rgc -l \"^\s*binding.pry\"| xargs sed -i '' -e 's/binding\.pry/# binding.pry/'"
+alias rebind="rgc -l \"# binding.pry\" | xargs sed -i '' -e 's/# binding\.pry/binding.pry/'"
+alias uncomment="rgc -l \"# dewyze\" | xargs sed -i '' -e '/# dewyze/d'"
 
 alias unbind="rgc -l \"^\s*binding.pry\"| xargs sed -i '' -e 's/binding\.pry/# binding.pry/'"
 alias rebind="rgc -l \"# binding.pry\" | xargs sed -i '' -e 's/# binding\.pry/binding.pry/'"

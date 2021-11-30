@@ -103,12 +103,13 @@ else
 endif
 
 Plug '~/.config/nvim/local-plugins/color-schemes'
-" Plug 'arthurxavierx/vim-caser'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'arthurxavierx/vim-caser'
 Plug 'benmills/vimux', {'commit': '37f41195e6369ac602a08ec61364906600b771f1'}
 Plug 'bling/vim-airline', {'commit': '4e2546a2098954b74cbc612f573826f13d6fb88e'}
 Plug 'dense-analysis/ale', {'commit': 'bbe5153fcb36dec9860ced33ae8ff0b5d76ac02a'}
 Plug 'dewyze/vim-endwise'
-Plug 'dewyze/vim-ruby-block-helpers'
+" Plug 'dewyze/vim-ruby-block-helpers'
 " Plug 'edkolev/tmuxline.vim', {'commit': '30012a964e8bd06e9b7612e2a838ef51a1993b0d'}
 Plug 'ekalinin/Dockerfile.vim', {'commit': 'bf29af1c79df21aefd3f68660cc8c57a78f14021'}
 Plug 'elixir-editors/vim-elixir', {'commit': '088cfc407460dea7b81c10b29db23843f85e7919'} | Plug 'slashmili/alchemist.vim', {'tag': '3.4.0'}
@@ -143,19 +144,44 @@ Plug 'vim-ruby/vim-ruby', {'commit': 'fbf85d106a2c3979ed43d6332b8c26a72542754d'}
 " Plug '~/dev/vim-ignore'
 " Plug '~/dev/vim-ruby-block-helpers'
 
-if s:has_nvim_6
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'nvim-treesitter/playground'
-endif
+" if s:has_nvim_6
+"   Plug 'windwp/nvim-autopairs'
+"   Plug 'windwp/nvim-ts-autotag', {'branch': 'main'}
+"   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"   Plug 'nvim-treesitter/playground'
+"   Plug 'tjdevries/colorbuddy.vim'
+" endif
 
 call plug#end()
 
 
 if s:has_nvim_6
-  luafile /Users/john/dev/dotfiles/initlua.lua
+  " luafile /Users/john/dev/dotfiles/initlua.lua
 endif
 
 " ========= Plugin Settings ========
+" 'autozimu/LanguageClient-neovim'
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
+    \ }
+"     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+"     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+"     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+"     \ 'python': ['/usr/local/bin/pyls'],
+
+" nmap <F5> <Plug>(lcn-menu)
+" Or map each action separately
+nmap <silent>K <Plug>(lcn-hover)
+nmap <silent> gd <Plug>(lcn-definition)
+" nmap <silent> <F2> <Plug>(lcn-rename)
+
+" note that if you are using Plug mapping you should not use `noremap` mappings.
+nmap <F5> <Plug>(lcn-menu)
+" Or map each action separately
+nmap <silent>K <Plug>(lcn-hover)
+nmap <silent> gd <Plug>(lcn-definition)
+nmap <silent> <F2> <Plug>(lcn-rename)
+
 " 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 let g:tmuxline_powerline_separators = 1
@@ -396,9 +422,9 @@ let g:ale_fixers = {
 \ 'typescriptreact': ['prettier'],
 \ 'json': ['prettier'],
 \ 'elixir': ['mix_format'],
-\ 'html': ['prettier'],
 \ }
 
+" 'html': ['prettier'],
 " 'ruby': ['prettier'],
 
 " ========= Color Schemes ========
@@ -445,6 +471,9 @@ function! GitGrepWord()
 endfunction
 command! -nargs=0 GitGrepWord :call GitGrepWord()
 nnoremap <silent> <Leader>gw :GitGrepWord<CR>
+
+command! Yankfname let @* = expand("%")
+nnoremap <C-G> :Yankfname<CR> <C-G>
 
 if s:has_nvim && filereadable(glob("~/.config/nvim/init.vim.local"))
   source ~/.config/nvim/init.vim.local

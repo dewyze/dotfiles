@@ -30,6 +30,8 @@
   p = pull
 
   # show difference between the HEAD and the index
+  d = diff
+  s = diff --staged
   staged = diff --cached
   dc = diff --cached
   ds = diff --staged
@@ -37,6 +39,7 @@
   # show difference between working tree and the index
   unstaged = diff
 
+  pop = stash pop
   pile = stash --include-untracked
 
   # git-duet aliases (must have https://github.com/git-duet/git-duet installed)
