@@ -89,12 +89,6 @@ if type hub > /dev/null; then
   alias git=hub
 fi
 
-if [[ -x /usr/local/Caskroom/neovim-nightly/latest/nvim-osx64/bin/nvim ]]; then
-  alias vim=/usr/local/Caskroom/neovim-nightly/latest/nvim-osx64/bin/nvim
-elif type nvim > /dev/null; then
-  alias vim=nvim
-fi
-
 safesource $HOME/.asdf/asdf.sh
 safesource $HOME/.fzf.zsh
 
