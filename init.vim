@@ -133,7 +133,7 @@ Plug 'rhysd/vim-gfm-syntax', {'commit': 'c0ff9e4994d4e79c8d5edf963094518dceea262
 Plug 'slim-template/vim-slim', {'commit': '6673e404370e6f3d44be342cf03ea8c26ab02c66'}
 Plug 'tomtom/tcomment_vim', {'commit': '20e85e8c2346bd1f60f1ef55c5e32bb54a7a22fc'}
 Plug 'tpope/vim-abolish', {'commit': '7e4da6e78002344d499af9b6d8d5d6fcd7c92125'} " TODO: Check it out
-Plug 'tpope/vim-fugitive', {'commit': '9a4d730270882f9d39a411eb126143eda4d46963'}
+Plug 'tpope/vim-fugitive', {'commit': '5a24c2527584e4e61a706ad7ecb3514ac7031307'}
 Plug 'tpope/vim-projectionist', {'commit': '17a8b2078a9ca1410d2080419e1cb9c9bb2e4492'}
 Plug 'tpope/vim-ragtag', {'commit': '5d3ce9c1ae2232170a3f232c1e20fa832d15d440'}
 Plug 'tpope/vim-rails', {'commit': '64befc6187678893082bebb8be79c1d17fdd07ba'} " TODO: Shortcuts for jumping to related model/controller, extraction
@@ -481,11 +481,11 @@ elseif !s:has_nvim && filereadable(glob("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 
-if s:has_nvim && filereadable(glob("~/.config/nvim/coc_config.vim"))
-  source ~/.config/nvim/coc_config.vim
-elseif !s:has_nvim && filereadable(glob("~/.vimrc.coc_config"))
-  source ~/.vimrc.coc_config
-endif
+" if s:has_nvim && filereadable(glob("~/.config/nvim/coc_config.vim"))
+"   source ~/.config/nvim/coc_config.vim
+" elseif !s:has_nvim && filereadable(glob("~/.vimrc.coc_config"))
+"   source ~/.vimrc.coc_config
+" endif
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='tomorrow'
