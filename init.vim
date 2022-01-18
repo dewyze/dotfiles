@@ -103,9 +103,9 @@ else
 endif
 
 Plug '~/.config/nvim/local-plugins/color-schemes'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'arthurxavierx/vim-caser'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'benmills/vimux', {'commit': '37f41195e6369ac602a08ec61364906600b771f1'}
 Plug 'bling/vim-airline', {'commit': '4e2546a2098954b74cbc612f573826f13d6fb88e'}
 Plug 'dense-analysis/ale', {'commit': 'bbe5153fcb36dec9860ced33ae8ff0b5d76ac02a'}
@@ -117,6 +117,7 @@ Plug 'elixir-editors/vim-elixir', {'commit': '088cfc407460dea7b81c10b29db23843f8
 Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'} " TODO: Update with elm-tooling
 Plug 'gabrielelana/vim-markdown'
 Plug 'gcmt/taboo.vim', {'commit': 'caf948187694d3f1374913d36f947b3f9fa1c22f'}
+Plug 'ggandor/lightspeed.nvim'
 Plug 'henrik/vim-indexed-search', {'commit': '5af020bba084b699d0453f242d7d76711d64b1e3'}
 Plug 'janko-m/vim-test', {'commit': 'e11fa044b312f87843313edbdfa0d7bb8db0d040'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -160,7 +161,14 @@ if s:has_nvim_6
   " luafile /Users/john/dev/dotfiles/initlua.lua
 endif
 
+
 " ========= Plugin Settings ========
+" 'AndrewRadev/splitjoin.vim'
+let g:splitjoin_trailing_comma = 1
+let g:splitjoin_ruby_hanging_args = 0
+let g:splitjoin_ruby_curly_braces = 0
+
+
 " 'autozimu/LanguageClient-neovim'
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
