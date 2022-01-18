@@ -134,6 +134,7 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': ['typescript', 'typ
 Plug 'rhysd/vim-gfm-syntax', {'commit': 'c0ff9e4994d4e79c8d5edf963094518dceea2623'}
 Plug 'slim-template/vim-slim', {'commit': '6673e404370e6f3d44be342cf03ea8c26ab02c66'}
 Plug 'tomtom/tcomment_vim', {'commit': '20e85e8c2346bd1f60f1ef55c5e32bb54a7a22fc'}
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-abolish', {'commit': '7e4da6e78002344d499af9b6d8d5d6fcd7c92125'} " TODO: Check it out
 Plug 'tpope/vim-fugitive', {'commit': '5a24c2527584e4e61a706ad7ecb3514ac7031307'}
 Plug 'tpope/vim-projectionist', {'commit': '17a8b2078a9ca1410d2080419e1cb9c9bb2e4492'}

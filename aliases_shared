@@ -83,19 +83,22 @@ alias bi="bundle install"
 alias be="bundle exec"
 alias bejs="unset RUBYOPT && bundle exec jekyll serve"
 alias bems="unset RUBYOPT && bundle exec middleman server"
-alias bers="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails server"
-alias berc="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails console"
+# alias bers="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails server"
+# alias berc="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails console"
+alias bers="bundle exec rails server"
+alias berc="bundle exec rails console"
 alias brake="bundle exec rake"
 alias js="bundle exec jekyll serve"
+
+# rails shortcuts
+alias r="bin/rails"
+alias rubo="bin/rubocop"
 
 alias rgc="rg --glob='!*_test.rb' --glob='!*_spec.rb' --glob='!*.rbi' --glob='!*.json' --glob='!*test.tsx' --glob='!*test.jsx' --glob='!*.graphql'"
 alias rgt="rg --glob='*test.rsx' --glob='*test.jsx' --glob='*_test.rb' --glob='*_spec.rb'"
 alias unbind="rgc -l \"^\s*binding.pry\"| xargs sed -i '' -e 's/binding\.pry/# binding.pry/'"
 alias rebind="rgc -l \"# binding.pry\" | xargs sed -i '' -e 's/# binding\.pry/binding.pry/'"
 alias uncomment="rgc -l \"# dewyze\" | xargs sed -i '' -e '/# dewyze/d'"
-
-alias unbind="rgc -l \"^\s*binding.pry\"| xargs sed -i '' -e 's/binding\.pry/# binding.pry/'"
-alias rebind="rgc -l \"# binding.pry\" | xargs sed -i '' -e 's/# binding\.pry/binding.pry/'"
 
 # git shortcuts
 alias gg="git grep"

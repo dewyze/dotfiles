@@ -85,11 +85,7 @@ if type "postgres" > /dev/null; then
   safepathappend /Applications/Postgres.app/Contents/Versions/latest/bin
 fi
 
-if type hub > /dev/null; then
-  alias git=hub
-fi
-
-safesource $HOME/.asdf/asdf.sh
+safesource $(brew --prefix asdf)/libexec/asdf.sh
 safesource $HOME/.fzf.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
