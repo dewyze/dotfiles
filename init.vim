@@ -40,6 +40,9 @@ let g:rubycomplete_buffer_loading = 1
 
 runtime macros/matchit.vim
 
+" ==== Source Vim ====
+nmap <Leader>sv :source $MYVIMRC<CR>
+
 " ==== Syntax Highlight Reveal ====
 " set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}
 nmap <Leader>sI :call <SID>SynStack()<CR>
@@ -117,11 +120,12 @@ Plug 'elixir-editors/vim-elixir', {'commit': '088cfc407460dea7b81c10b29db23843f8
 Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'} " TODO: Update with elm-tooling
 Plug 'gabrielelana/vim-markdown'
 Plug 'gcmt/taboo.vim', {'commit': 'caf948187694d3f1374913d36f947b3f9fa1c22f'}
-Plug 'ggandor/lightspeed.nvim'
+" Plug 'ggandor/lightspeed.nvim'
 Plug 'henrik/vim-indexed-search', {'commit': '5af020bba084b699d0453f242d7d76711d64b1e3'}
 Plug 'janko-m/vim-test', {'commit': 'e11fa044b312f87843313edbdfa0d7bb8db0d040'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim', {'commit': 'c7643e5b616430f766528b225528a5228adb43df'} " TODO: Remember to use
@@ -329,6 +333,13 @@ let g:fzf_colors =
             \ 'marker':  ['fg', 'Keyword'],
             \ 'spinner': ['fg', 'Label'],
             \ 'header':  ['fg', 'Comment'] }
+
+" 'junegunn/vim-easy-align'
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " 'mattn/emmet-vim'
 let g:user_emmet_install_global = 0
