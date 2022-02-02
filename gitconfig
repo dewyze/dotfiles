@@ -28,6 +28,7 @@
   ls = ls-files
   pr = pull --rebase
   p = pull
+  l = log
 
   # show difference between the HEAD and the index
   d = diff

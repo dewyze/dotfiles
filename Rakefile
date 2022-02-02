@@ -7,7 +7,7 @@ namespace "configs" do
   SPECIAL_CONFIG = {
     "ripgreprc" => {
       symlink: "ripgreprc",
-      dest: "~/.config/ripgrep/ripgreprc",
+      dest: "~/.config/ripgrep/",
     },
     "init.vim" => {
       symlink: USE_NVIM ? "init.vim" : ".vimrc",

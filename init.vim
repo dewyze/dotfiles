@@ -120,6 +120,7 @@ Plug 'elixir-editors/vim-elixir', {'commit': '088cfc407460dea7b81c10b29db23843f8
 Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'} " TODO: Update with elm-tooling
 Plug 'gabrielelana/vim-markdown'
 Plug 'gcmt/taboo.vim', {'commit': 'caf948187694d3f1374913d36f947b3f9fa1c22f'}
+Plug 'github/copilot.vim'
 " Plug 'ggandor/lightspeed.nvim'
 Plug 'henrik/vim-indexed-search', {'commit': '5af020bba084b699d0453f242d7d76711d64b1e3'}
 Plug 'janko-m/vim-test', {'commit': 'e11fa044b312f87843313edbdfa0d7bb8db0d040'}
