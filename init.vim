@@ -17,7 +17,8 @@ set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
 let s:has_nvim = has('nvim')
-let s:has_nvim_6 = has('nvim-0.6')
+let s:lua_on = 1
+let s:use_lua = s:has_nvim && s:lua_on
 
 if !s:has_nvim
   set background=dark
@@ -152,19 +153,22 @@ Plug 'vim-ruby/vim-ruby', {'commit': 'fbf85d106a2c3979ed43d6332b8c26a72542754d'}
 " Plug '~/dev/vim-ignore'
 " Plug '~/dev/vim-ruby-block-helpers'
 
-" if s:has_nvim_6
-"   Plug 'windwp/nvim-autopairs'
-"   Plug 'windwp/nvim-ts-autotag', {'branch': 'main'}
-"   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-"   Plug 'nvim-treesitter/playground'
-"   Plug 'tjdevries/colorbuddy.vim'
-" endif
+if s:use_lua
+  Plug 'windwp/nvim-autopairs'
+  Plug 'windwp/nvim-ts-autotag', {'branch': 'main'}
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  " Plug 'RRethy/nvim-treesitter-endwise'
+  Plug 'nvim-treesitter/playground'
+  Plug 'tjdevries/colorbuddy.vim'
+else
+  Plug 'dewyze/vim-endwise'
+endif
 
 call plug#end()
 
 
-if s:has_nvim_6
-  " luafile /Users/john/dev/dotfiles/initlua.lua
+if s:use_lua
+  luafile /Users/john/dev/dotfiles/initlua.lua
 endif
 
 
@@ -450,9 +454,8 @@ let g:ale_fixers = {
 " 'ruby': ['prettier'],
 
 " ========= Color Schemes ========
-let g:neodark#background = '#2A2A2A'
-colorscheme neodark
-au FileType ruby,eruby colorscheme Tomorrow-Night
+colorscheme neoprism
+" au FileType ruby,eruby colorscheme Tomorrow-Night
 " au FileType diff colorscheme desert
 " au FileType git colorscheme desert
 
