@@ -85,7 +85,10 @@ if type "postgres" > /dev/null; then
   safepathappend /Applications/Postgres.app/Contents/Versions/latest/bin
 fi
 
-safesource $(brew --prefix asdf)/libexec/asdf.sh
+if type "brew" > /dev/null; then
+  safesource $(brew --prefix asdf)/libexec/asdf.sh
+fi
+
 safesource $HOME/.fzf.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
