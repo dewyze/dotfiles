@@ -46,6 +46,7 @@
   # git-duet aliases (must have https://github.com/git-duet/git-duet installed)
   dci = duet-commit
 
+  undo = reset HEAD~1
   branches = branch -a
   unstage = reset -q HEAD --
   remotes = remote -v

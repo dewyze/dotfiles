@@ -1,3 +1,5 @@
+let s:lua_on = 0
+let s:neoprism = 0
 " ========= Setup ========
 set nocompatible
 
@@ -15,9 +17,9 @@ set tags+=gems.tags
 set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+set nofoldenable
 
 let s:has_nvim = has('nvim')
-let s:lua_on = 1
 let s:use_lua = s:has_nvim && s:lua_on
 
 if !s:has_nvim
@@ -113,8 +115,8 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.s
 Plug 'benmills/vimux', {'commit': '37f41195e6369ac602a08ec61364906600b771f1'}
 Plug 'bling/vim-airline', {'commit': '4e2546a2098954b74cbc612f573826f13d6fb88e'}
 Plug 'dense-analysis/ale', {'commit': 'bbe5153fcb36dec9860ced33ae8ff0b5d76ac02a'}
-Plug 'dewyze/vim-endwise'
 Plug 'dewyze/vim-ruby-block-helpers'
+Plug 'dewyze/vim-tada'
 " Plug 'edkolev/tmuxline.vim', {'commit': '30012a964e8bd06e9b7612e2a838ef51a1993b0d'}
 Plug 'ekalinin/Dockerfile.vim', {'commit': 'bf29af1c79df21aefd3f68660cc8c57a78f14021'}
 Plug 'elixir-editors/vim-elixir', {'commit': '088cfc407460dea7b81c10b29db23843f85e7919'} | Plug 'slashmili/alchemist.vim', {'tag': '3.4.0'}
@@ -150,19 +152,22 @@ Plug 'tpope/vim-repeat', {'commit': 'c947ad2b6a16983724a0153bdf7f66d7a80a32ca'}
 Plug 'tpope/vim-surround', {'commit': 'f51a26d3710629d031806305b6c8727189cd1935'}
 Plug 'vim-airline/vim-airline-themes', {'commit': '9772475fcc24bee50c884aba20161465211520c8'}
 Plug 'vim-ruby/vim-ruby', {'commit': 'fbf85d106a2c3979ed43d6332b8c26a72542754d'}
+
+Plug 'github/copilot.vim'
 " Plug '~/dev/vim-ignore'
 " Plug '~/dev/vim-ruby-block-helpers'
 
-if s:use_lua
-  Plug 'windwp/nvim-autopairs'
-  Plug 'windwp/nvim-ts-autotag', {'branch': 'main'}
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  " Plug 'RRethy/nvim-treesitter-endwise'
-  Plug 'nvim-treesitter/playground'
-  Plug 'tjdevries/colorbuddy.vim'
-else
+" if s:use_lua
+"   Plug '~/dev/neoprism.vim'
+"   Plug 'windwp/nvim-autopairs'
+"   Plug 'windwp/nvim-ts-autotag', {'branch': 'main'}
+"   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"   Plug 'RRethy/nvim-treesitter-endwise'
+"   Plug 'nvim-treesitter/playground'
+"   Plug 'tjdevries/colorbuddy.vim'
+" else
   Plug 'dewyze/vim-endwise'
-endif
+" endif
 
 call plug#end()
 
@@ -263,6 +268,10 @@ map <silent> <C-T>q :tabclose<CR>
 
 let g:taboo_tab_format = "%N - %f"
 let g:taboo_renamed_tab_format = "[%N%m] %l"
+
+" 'github/copilot.vim'
+let g:copilot_no_tab_map = 1
+imap <script><silent><nowait><expr> <C-V> copilot#Accept()
 
 " 'janko-m/vim-test'
 let test#strategy = "vimux"
@@ -454,8 +463,14 @@ let g:ale_fixers = {
 " 'ruby': ['prettier'],
 
 " ========= Color Schemes ========
-colorscheme neoprism
-" au FileType ruby,eruby colorscheme Tomorrow-Night
+if s:neoprism
+  colorscheme neoprism
+else
+  let g:neodark#background = '#282828'
+  colorscheme neodark
+  au FileType ruby,eruby colorscheme Tomorrow-Night
+  hi def link CopilotSuggestion Comment
+endif
 " au FileType diff colorscheme desert
 " au FileType git colorscheme desert
 

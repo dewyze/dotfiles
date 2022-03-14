@@ -53,7 +53,7 @@ freemem() {
 }
 
 if [[ "$platform" == "osx" ]]; then
-  PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}[%{$(freemem)]%} %{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
+  PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
 → '
 else
   PROMPT='%{$fg_bold[green]%}%m: %{$fg_bold[magenta]%}%{$fg_bold[blue]%}%~%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%} %#
