@@ -12,6 +12,15 @@ alias l='ls -CF'
 alias python="python3"
 alias pip="pip3"
 
+if [ -s /usr/bin/vim ]; then
+  alias vi="/usr/bin/vim"
+fi
+
+if type "nvim" > /dev/null; then
+  alias vim="nvim"
+ffi
+
+
 # System shortcuts
 
 mkcd() {
@@ -77,6 +86,8 @@ alias tmux-list='tmux_list'
 alias tmuxl='tmux_list'
 alias tmux-public='tmux_public'
 alias tmuxpub='tmux_public'
+alias pair="tmuxs pair"
+
 
 # ruby shortcuts
 alias bi="bundle install"
