@@ -18,8 +18,7 @@ fi
 
 if type "nvim" > /dev/null; then
   alias vim="nvim"
-ffi
-
+fi
 
 # System shortcuts
 
