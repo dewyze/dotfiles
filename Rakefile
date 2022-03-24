@@ -3,7 +3,7 @@ task :default => "install"
 USE_NVIM = system("which nvim > /dev/null")
 
 namespace "configs" do
-  IGNORE = %w(Rakefile README.md bin)
+  IGNORE = %w(Rakefile README.md bin github_copilot_terms.json)
   SPECIAL_CONFIG = {
     "ripgreprc" => {
       symlink: "ripgreprc",
