@@ -1,5 +1,3 @@
-sudo apt-get update -y
-sudo apt-get install -y neovim
 rake
 
 if [[ -v SPIN ]]; then
