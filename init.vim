@@ -153,7 +153,6 @@ Plug 'tpope/vim-surround', {'commit': 'f51a26d3710629d031806305b6c8727189cd1935'
 Plug 'vim-airline/vim-airline-themes', {'commit': '9772475fcc24bee50c884aba20161465211520c8'}
 Plug 'vim-ruby/vim-ruby', {'commit': 'fbf85d106a2c3979ed43d6332b8c26a72542754d'}
 
-Plug 'github/copilot.vim'
 " Plug '~/dev/vim-ignore'
 " Plug '~/dev/vim-ruby-block-helpers'
 
