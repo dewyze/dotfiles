@@ -126,14 +126,16 @@ Plug 'gcmt/taboo.vim', {'commit': 'caf948187694d3f1374913d36f947b3f9fa1c22f'}
 Plug 'github/copilot.vim'
 " Plug 'ggandor/lightspeed.nvim'
 Plug 'henrik/vim-indexed-search', {'commit': '5af020bba084b699d0453f242d7d76711d64b1e3'}
-Plug 'janko-m/vim-test', {'commit': 'e11fa044b312f87843313edbdfa0d7bb8db0d040'}
+Plug 'janko-m/vim-test', {'commit': '2240d7a4b868cb594b7d83544e1b6db4df806e5e'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'kana/vim-textobj-user'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim', {'commit': 'c7643e5b616430f766528b225528a5228adb43df'} " TODO: Remember to use
 Plug 'MaxMEllon/vim-jsx-pretty', { 'commit': '838cfce82df8cf99df5e3a200ad23f6c0f027550' }
+Plug 'nelstrom/vim-textobj-rubyblock'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'mhinz/vim-mix-format', {'commit': '4c9256e28a34c3bba64f645293d05e9457d6927b'}
 Plug 'pangloss/vim-javascript', {'commit': 'db595656304959dcc3805cf63ea9a430e3f01e8f'}

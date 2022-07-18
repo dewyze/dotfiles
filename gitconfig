@@ -58,7 +58,7 @@
   precommit = diff --cached --diff-algorithm=minimal -w
 
 [alias "push"]
-  please = push --force-with-lease --force-if-includes
+  please = push --force-with-lease
 [push]
   default = current
 [core]
