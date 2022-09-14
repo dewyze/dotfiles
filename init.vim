@@ -1,4 +1,4 @@
-let s:lua_on = 0
+let s:lua_on = 1
 let s:neoprism = 0
 " ========= Setup ========
 set nocompatible
@@ -111,7 +111,6 @@ endif
 Plug '~/.config/nvim/local-plugins/color-schemes'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'arthurxavierx/vim-caser'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'benmills/vimux', {'commit': '37f41195e6369ac602a08ec61364906600b771f1'}
 Plug 'bling/vim-airline', {'commit': '4e2546a2098954b74cbc612f573826f13d6fb88e'}
 Plug 'dense-analysis/ale', {'commit': 'bbe5153fcb36dec9860ced33ae8ff0b5d76ac02a'}
@@ -155,10 +154,16 @@ Plug 'tpope/vim-surround', {'commit': 'f51a26d3710629d031806305b6c8727189cd1935'
 Plug 'vim-airline/vim-airline-themes', {'commit': '9772475fcc24bee50c884aba20161465211520c8'}
 Plug 'vim-ruby/vim-ruby', {'commit': 'fbf85d106a2c3979ed43d6332b8c26a72542754d'}
 
+Plug 'dewyze/vim-endwise'
+
 " Plug '~/dev/vim-ignore'
 " Plug '~/dev/vim-ruby-block-helpers'
 
-" if s:use_lua
+if s:use_lua
+  Plug 'neovim/nvim-lspconfig'
+else
+  Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+
 "   Plug '~/dev/neoprism.vim'
 "   Plug 'windwp/nvim-autopairs'
 "   Plug 'windwp/nvim-ts-autotag', {'branch': 'main'}
@@ -166,15 +171,13 @@ Plug 'vim-ruby/vim-ruby', {'commit': 'fbf85d106a2c3979ed43d6332b8c26a72542754d'}
 "   Plug 'RRethy/nvim-treesitter-endwise'
 "   Plug 'nvim-treesitter/playground'
 "   Plug 'tjdevries/colorbuddy.vim'
-" else
-  Plug 'dewyze/vim-endwise'
-" endif
+endif
 
 call plug#end()
 
 
 if s:use_lua
-  luafile /Users/john/dev/dotfiles/initlua.lua
+  luafile ~/dotfiles/initlua.lua
 endif
 
 
@@ -186,6 +189,7 @@ let g:splitjoin_ruby_curly_braces = 0
 
 
 " 'autozimu/LanguageClient-neovim'
+if !s:lua_on
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
     \ }
@@ -195,17 +199,10 @@ let g:LanguageClient_serverCommands = {
 "     \ 'python': ['/usr/local/bin/pyls'],
 
 " nmap <F5> <Plug>(lcn-menu)
-" Or map each action separately
-nmap <silent>K <Plug>(lcn-hover)
-nmap <silent> gd <Plug>(lcn-definition)
+  nmap <silent>K <Plug>(lcn-hover)
+  nmap <silent> gd <Plug>(lcn-definition)
 " nmap <silent> <F2> <Plug>(lcn-rename)
-
-" note that if you are using Plug mapping you should not use `noremap` mappings.
-nmap <F5> <Plug>(lcn-menu)
-" Or map each action separately
-nmap <silent>K <Plug>(lcn-hover)
-nmap <silent> gd <Plug>(lcn-definition)
-nmap <silent> <F2> <Plug>(lcn-rename)
+endif
 
 " 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
