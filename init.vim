@@ -4,6 +4,7 @@ let s:neoprism = 0
 set nocompatible
 
 " ========= Options ========
+set mouse=
 set cursorline
 set confirm
 set guicursor=
@@ -296,10 +297,10 @@ nnoremap <silent> <leader>rb :wa<CR>:TestFile<CR>
 nnoremap <silent> <leader>ra :wa<CR>:TestSuite<CR>
 nnoremap <silent> <leader>rl :wa<CR>:TestLast<CR>
 
-if filereadable(glob("dev.yml"))
-  let test#ruby#rspec#executable = 'dev test'
-  let test#ruby#minitest = 'dev test'
-end
+let test#ruby#use_binstubs = 1
+if filereadable(glob("bin/test"))
+  let test#ruby#minitest#executable = 'bin/test'
+endif
 
 " 'junegunn/fzf'
 let $FZF_DEFAULT_OPTS = '--reverse'
@@ -464,10 +465,14 @@ let g:ale_fixers = {
 if s:neoprism
   colorscheme neoprism
 else
-  let g:neodark#background = '#282828'
-  colorscheme neodark
-  au FileType ruby,eruby colorscheme Tomorrow-Night
-  hi def link CopilotSuggestion Comment
+  try
+    let g:neodark#background = '#282828'
+    colorscheme neodark
+    au FileType ruby,eruby colorscheme Tomorrow-Night
+    hi def link CopilotSuggestion Comment
+  catch
+    colorscheme Tomorrow-Night
+  endtry
 endif
 " au FileType diff colorscheme desert
 " au FileType git colorscheme desert

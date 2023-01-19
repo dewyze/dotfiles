@@ -85,7 +85,7 @@ namespace "plugins" do
     curl = "#{command} #{VIM_FILE} #{flags} #{uri}"
 
     system("#{curl} | tee /tmp/curl.txt")
-    system("#{VIM_COMMAND} +PlugInstall +qall | tee /tmp/plug_install.txt")
+    system("#{VIM_COMMAND} -e +PlugInstall +qall | tee /tmp/plug_install.txt")
   end
 
   desc "remove prereqs"
