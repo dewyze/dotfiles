@@ -13,50 +13,42 @@
   newNormal = green bold
   newHighlight = green bold 22
 [alias]
-  ci = commit
-  cv = commit -v
-  co = checkout
-  st = status
-  ch = cherry -v origin
-  br = branch
+  a  = add
   aa = add --all --verbose .
   addall = add -A .
+  br = branch
+  ch = cherry -v origin
+  ci = commit
+  co = checkout
+  cv = commit -v
+  d = diff
+  dc = diff --cached
+  ds = diff --staged
+  l = log
+  ls = ls-files
+  o  = show
+  p = pull
+  pr = pull --rebase
+  s = diff --staged
+  st = status
+
+  amend = commit --amend --no-edit
+  blank = !git reset --hard HEAD && git clean -d -f
+  branches = branch -a
+  graph = log --graph -9 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
+  pile = stash --include-untracked
+  please = push.please
+  pop = stash pop
+  remotes = remote -v
+  undo = reset HEAD~1
+  unstage = reset -q HEAD --
+
   hist = log --graph --abbrev-commit --pretty=format:'%C(red)%h%C(reset) - %s %C(green)(%cr) %C(blue)<%an>%C(magenta)%d%C(reset)'
   oneline = log --pretty=format:\"%h %ad%x20%s%x20%x28%an%x29\" --date=short
   current = log --pretty=format:'%ad %h %d' --abbrev-commit --date=short -1
   cur = log --pretty=format:'%ad %h %d' --abbrev-commit --date=short -1
-  ls = ls-files
-  pr = pull --rebase
-  p = pull
-  l = log
-
-  # show difference between the HEAD and the index
-  d = diff
-  s = diff --staged
-  staged = diff --cached
-  dc = diff --cached
-  ds = diff --staged
-
-  # show difference between working tree and the index
-  unstaged = diff
-
-  pop = stash pop
-  pile = stash --include-untracked
-
-  # git-duet aliases (must have https://github.com/git-duet/git-duet installed)
-  dci = duet-commit
-
-  undo = reset HEAD~1
-  branches = branch -a
-  unstage = reset -q HEAD --
-  remotes = remote -v
-  amend = commit --amend --no-edit
-  please = push.please
-  blank = !git reset --hard HEAD && git clean -d -f
-  graph = log --graph -9 --branches --remotes --tags  --format=format:'%Cgreen%h %Creset• %<(75,trunc)%s (%cN, %cr) %Cred%d' --date-order
 
   precommit = diff --cached --diff-algorithm=minimal -w
-
 [alias "push"]
   please = push --force-with-lease
 [push]

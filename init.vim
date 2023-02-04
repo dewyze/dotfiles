@@ -191,18 +191,18 @@ let g:splitjoin_ruby_curly_braces = 0
 
 " 'autozimu/LanguageClient-neovim'
 if !s:lua_on
-let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
-    \ }
-"     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-"     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-"     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-"     \ 'python': ['/usr/local/bin/pyls'],
+  let g:LanguageClient_serverCommands = {
+        \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
+        \ }
+  "     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+  "     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+  "     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+  "     \ 'python': ['/usr/local/bin/pyls'],
 
-" nmap <F5> <Plug>(lcn-menu)
+  " nmap <F5> <Plug>(lcn-menu)
   nmap <silent>K <Plug>(lcn-hover)
   nmap <silent> gd <Plug>(lcn-definition)
-" nmap <silent> <F2> <Plug>(lcn-rename)
+  " nmap <silent> <F2> <Plug>(lcn-rename)
 endif
 
 " 'bling/vim-airline'
@@ -326,7 +326,7 @@ let g:fzf_tags_command = 'ctags -R --exclude=".git" --exclude="node_modules" --e
 "   \   'git grep --line-number '.shellescape(<q-args>), 0,
 "   \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
-let $FZF_DEFAULT_COMMAND = "rg --files -S --hidden --glob='!.git/*' --glob='!vendor/*'"
+let $FZF_DEFAULT_COMMAND = "rg --files -S --hidden --glob='!.git/*' --glob='!vendor/*' --glob='!sorbet/*'"
 map <silent> <C-p> :Files<CR>
 map <silent> <leader>ff :Files<CR>
 map <silent> <leader>gg :GGrep<CR>
