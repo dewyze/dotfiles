@@ -101,6 +101,7 @@ alias brake="bundle exec rake"
 alias js="bundle exec jekyll serve"
 
 # rails shortcuts
+alias h="heroku run"
 alias r="bin/rails"
 alias rubo="bin/rubocop"
 

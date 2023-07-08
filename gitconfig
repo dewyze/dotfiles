@@ -26,11 +26,12 @@
   ds = diff --staged
   l = log
   ls = ls-files
-  o  = show
   p = pull
   pr = pull --rebase
   s = diff --staged
+  sh  = show
   st = status
+  ut = ls-files -z -o --exclude-standard
 
   amend = commit --amend --no-edit
   blank = !git reset --hard HEAD && git clean -d -f
