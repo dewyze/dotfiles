@@ -269,8 +269,10 @@ let g:taboo_tab_format = "%N - %f"
 let g:taboo_renamed_tab_format = "[%N%m] %l"
 
 " 'github/copilot.vim'
-let g:copilot_no_tab_map = 1
-imap <script><silent><nowait><expr> <C-V> copilot#Accept()
+imap <nowait><silent><script><expr> <C-V> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
+inoremap <buffer> <C-V>& <C-V>
+inoremap <buffer> <C-V>% <C-V>
 
 " 'janko-m/vim-test'
 let test#strategy = "vimux"
@@ -327,7 +329,7 @@ let g:fzf_tags_command = 'ctags -R --exclude=".git" --exclude="node_modules" --e
 "   \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 let $FZF_DEFAULT_COMMAND = "rg --files -S --hidden --glob='!.git/*' --glob='!vendor/*' --glob='!sorbet/*'"
-map <silent> <C-p> :Files<CR>
+map <silent> <C-p> :GFiles<CR>
 map <silent> <leader>ff :Files<CR>
 map <silent> <leader>gg :GGrep<CR>
 map <silent> <leader>be :Buffers<CR>
