@@ -505,6 +505,11 @@ autocmd FileType ruby,eelixir,eruby,erb,javascript imap <buffer> <C-L> <SPACE>=>
 imap <C-X>l {%<SPACE><SPACE>%}<esc>hhi
 imap <C-X>v {{<SPACE><SPACE>}}<esc>hhi
 
+" ========= Visual Shortcuts ========
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 " ========= Functions ========
 
 command! SudoW w !sudo tee %
