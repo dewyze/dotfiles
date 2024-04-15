@@ -1,6 +1,11 @@
 -- Setup language servers.
 local lspconfig = require('lspconfig')
-lspconfig.ruby_ls.setup {}
+lspconfig.ruby_ls.setup {
+  on_attach = function(client, bufnr)
+    client.server_capabilities.semanticTokensProvider = false
+  end,
+}
+lspconfig.sorbet.setup {}
 lspconfig.tsserver.setup {}
 
 
