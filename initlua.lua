@@ -1,6 +1,6 @@
 -- Setup language servers.
 local lspconfig = require('lspconfig')
-lspconfig.ruby_ls.setup {
+lspconfig.ruby_lsp.setup {
   on_attach = function(client, bufnr)
     client.server_capabilities.semanticTokensProvider = false
   end,
