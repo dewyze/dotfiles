@@ -5,7 +5,11 @@ lspconfig.ruby_lsp.setup {
     client.server_capabilities.semanticTokensProvider = false
   end,
 }
-lspconfig.sorbet.setup {}
+lspconfig.sorbet.setup {
+  cmd = { 'bundle', 'exec', 'srb', 'tc', '--lsp' },
+  root_dir = lspconfig.util.root_pattern('sorbet/config'),
+}
+lspconfig.elmls.setup {}
 lspconfig.tsserver.setup {}
 
 

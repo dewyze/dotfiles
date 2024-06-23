@@ -121,7 +121,7 @@ Plug 'dewyze/vim-tada'
 Plug 'ekalinin/Dockerfile.vim', {'commit': 'bf29af1c79df21aefd3f68660cc8c57a78f14021'}
 Plug 'elixir-editors/vim-elixir', {'commit': '088cfc407460dea7b81c10b29db23843f85e7919'} | Plug 'slashmili/alchemist.vim', {'tag': '3.4.0'}
 Plug 'elmcast/elm-vim', {'commit': 'ae5315396cd0f3958750f10a5f3ad9d34d33f40d'} " TODO: Update with elm-tooling
-Plug 'gabrielelana/vim-markdown'
+Plug 'preservim/vim-markdown'
 Plug 'gcmt/taboo.vim', {'commit': 'caf948187694d3f1374913d36f947b3f9fa1c22f'}
 Plug 'github/copilot.vim'
 " Plug 'ggandor/lightspeed.nvim'
@@ -484,8 +484,8 @@ endif
 
 map <silent> <LocalLeader>nh :nohls<CR>
 " imap </ </<C-X><C-O>
-nmap <CR><CR> i<CR><esc>w
-nmap <C-W>m <C-W>\| <C-W>_
+" nmap <CR><CR> i<CR><esc>w
+nmap <C-W>m <C-W>_<C-W>\|
 
 nnoremap <LocalLeader>ad :ALEDetail<CR>
 nnoremap <LocalLeader>p :set paste!<CR>
