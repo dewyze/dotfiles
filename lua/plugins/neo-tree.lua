@@ -8,7 +8,8 @@ return {
 		-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 	},
 	config = function()
-		vim.keymap.set("n", "<leader>nt", ":Neotree filesystem toggle<CR>")
-		vim.keymap.set("n", "<leader>nf", ":Neotree filesystem reveal<CR>")
+		vim.keymap.set("n", "<leader>nt", ":Neotree toggle<CR>")
+		vim.keymap.set("n", "<leader>nr", ":Neotree<CR>")
+		vim.keymap.set("n", "<leader>nf", ":jeotree reveal<CR>")
 	end,
 }
