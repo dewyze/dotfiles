@@ -1,7 +1,7 @@
 return {
-  'janko-m/vim-test',
-  config = function()
-    vim.cmd([[
+	"janko-m/vim-test",
+	config = function()
+		vim.cmd([[
       let test#strategy = 'vimux'
 
       function! ClearTransform(cmd) abort
@@ -32,5 +32,5 @@ return {
         let test#ruby#minitest#executable = 'bin/test'
       endif
     ]])
-  end
+	end,
 }

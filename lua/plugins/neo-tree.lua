@@ -10,6 +10,6 @@ return {
 	config = function()
 		vim.keymap.set("n", "<leader>nt", ":Neotree toggle<CR>")
 		vim.keymap.set("n", "<leader>nr", ":Neotree<CR>")
-		vim.keymap.set("n", "<leader>nf", ":jeotree reveal<CR>")
+		vim.keymap.set("n", "<leader>nf", ":Neotree reveal<CR>")
 	end,
 }

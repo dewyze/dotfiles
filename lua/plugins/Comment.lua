@@ -8,7 +8,6 @@ return {
 					block = "<leader>bc",
 				},
 				opleader = {
-					---Line-comment keymap
 					line = "<Leader>cc",
 				},
 			})
