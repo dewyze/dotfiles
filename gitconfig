@@ -67,3 +67,5 @@
   path = ~/.gitconfig.local
 [user]
 	name = John DeWyze
+[url "git@github.com:"]
+	insteadOf = https://github.com/
