@@ -55,6 +55,10 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.cmd('command! Yankfname let @* = expand("%")')
 vim.keymap.set("n", "<C-G>", ":Yankfname<CR> <C-G>")
 
+if vim.fn.filereadable("~/.config/nvim/init.vim.local") then
+  vim.cmd("source ~/.config/nvim/init.vim.local")
+end
+
 -- let g:rubycomplete_buffer_loading = 1
 --
 -- Plug '~/.config/nvim/local-plugins/color-schemes'
@@ -67,9 +71,6 @@ vim.keymap.set("n", "<C-G>", ":Yankfname<CR> <C-G>")
 -- "   Plug '~/dev/neoprism.vim'
 -- "   Plug 'windwp/nvim-autopairs'
 -- "   Plug 'windwp/nvim-ts-autotag', {'branch': 'main'}
--- "   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
--- "   Plug 'RRethy/nvim-treesitter-endwise'
--- "   Plug 'nvim-treesitter/playground'
 -- "   Plug 'tjdevries/colorbuddy.vim'
 --
 -- " ========= Plugin Settings ========
@@ -84,23 +85,6 @@ vim.keymap.set("n", "<C-G>", ":Yankfname<CR> <C-G>")
 --
 -- " 'elmcast/elm-vim'
 -- let g:elm_format_autosave = 1
---
---
--- " ========= Color Schemes ========
--- if s:neoprism
---   colorscheme neoprism
--- else
---   try
---     let g:neodark#background = '#282828'
---     colorscheme neodark
---     au FileType ruby,eruby colorscheme Tomorrow-Night
---     hi def link CopilotSuggestion Comment
---   catch
---     colorscheme Tomorrow-Night
---   endtry
--- endif
--- " au FileType diff colorscheme desert
--- " au FileType git colorscheme desert
 --
 --
 -- " ========= Functions ========
