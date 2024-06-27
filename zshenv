@@ -29,10 +29,5 @@ safepathprepend "/usr/local/bin"
 
 
 ## Common Applications
-safepathappend /usr/local/heroku/bin
-safepathappend ~/Library/Python/3.7/bin
 safepathprepend /opt/homebrew/bin
 safepathprepend /opt/homebrew/opt
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-safepathprepend ~/.cargo/bin
-. "$HOME/.cargo/env"

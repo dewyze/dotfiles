@@ -55,7 +55,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.cmd('command! Yankfname let @* = expand("%")')
 vim.keymap.set("n", "<C-G>", ":Yankfname<CR> <C-G>")
 
-if vim.fn.filereadable("~/.config/nvim/init.vim.local") then
+if vim.fn.filereadable("~/.config/nvim/init.vim.local") ~= 0 then
   vim.cmd("source ~/.config/nvim/init.vim.local")
 end
 
