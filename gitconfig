@@ -61,11 +61,9 @@
 	editor = nvim
 	commitGraph = true
 
-[init]
-  templateDir = ~/.config/git/template/
 [include]
   path = ~/.gitconfig.local
 [user]
-	name = John DeWyze
-[url "git@github.com:"]
-	insteadOf = https://github.com/
+  name = John DeWyze
+[url "git@github.com:dewyze"]
+  insteadOf = https://github.com/dewyze

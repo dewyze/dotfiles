@@ -15,10 +15,6 @@ namespace "configs" do
       symlink: "Tomorrow-Night.vim",
       dest: "~/.config/nvim/colors"
     },
-    "git_template" => {
-      symlink: "template",
-      dest: "~/.config/git/",
-    },
     "lua" => {
       symlink: "lua",
       dest: "~/.config/nvim/",
@@ -71,11 +67,7 @@ namespace "plugins" do
   task :install  do
     puts "Installing vim plugins"
 
-    command = "curl -fLo"
-    flags = "--create-dirs"
-    uri = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-
-    system("#{VIM_COMMAND} | tee /tmp/plug_install.txt")
+    system('nvim --headless "+Lazy! sync" +qa | tee /tmp/plug_install.txt')
   end
 
   desc "remove prereqs"
