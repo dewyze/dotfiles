@@ -1,7 +1,5 @@
 task :default => "install"
 
-USE_NVIM = system("which nvim > /dev/null")
-
 namespace "configs" do
   IGNORE = %w(Rakefile README.md bin)
   SPECIAL_CONFIG = {
@@ -9,13 +7,9 @@ namespace "configs" do
       symlink: "ripgreprc",
       dest: "~/.config/ripgrep/",
     },
-    "init.vim" => {
-      symlink: USE_NVIM ? "init.vim" : ".vimrc",
-      dest: USE_NVIM ? "~/.config/nvim" : "~",
-    },
-    "coc_config.vim" => {
-      symlink: USE_NVIM ? "coc_config.vim" : ".vimrc.coc_config",
-      dest: USE_NVIM ? "~/.config/nvim" : "~",
+    "init.lua" => {
+      symlink: "init.lua",
+      dest: "~/.config/nvim"
     },
     "Tomorrow-Night.vim" => {
       symlink: "Tomorrow-Night.vim",
@@ -24,6 +18,10 @@ namespace "configs" do
     "git_template" => {
       symlink: "template",
       dest: "~/.config/git/",
+    },
+    "lua" => {
+      symlink: "lua",
+      dest: "~/.config/nvim/",
     },
   }
 
