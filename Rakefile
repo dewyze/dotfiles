@@ -13,7 +13,7 @@ namespace "configs" do
     },
     "Tomorrow-Night.vim" => {
       symlink: "Tomorrow-Night.vim",
-      dest: USE_NVIM ? "~/.config/nvim/local-plugins/color-schemes/colors" : "~/.vim/colors",
+      dest: "~/.config/nvim/colors"
     },
     "git_template" => {
       symlink: "template",
@@ -65,9 +65,7 @@ namespace "configs" do
 end
 
 namespace "plugins" do
-  VIM_COMMAND = USE_NVIM ? "nvim" : "vim"
-  VIM_FILE = USE_NVIM ? "~/.config/nvim/autoload/plug.vim" : "~/.vim/autoload/plug.vim"
-  VIM_DIR = USE_NVIM ? "~/.config/nvim/plugged" : "~/.vim/plugged"
+  VIM_COMMAND = "nvim"
 
   desc "install prereqs"
   task :install  do
@@ -77,13 +75,7 @@ namespace "plugins" do
     flags = "--create-dirs"
     uri = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
-    convert_to_backup(VIM_FILE)
-    convert_to_backup(VIM_DIR)
-
-    curl = "#{command} #{VIM_FILE} #{flags} #{uri}"
-
-    system("#{curl} | tee /tmp/curl.txt")
-    system("#{VIM_COMMAND} -e +PlugInstall +qall | tee /tmp/plug_install.txt")
+    system("#{VIM_COMMAND} | tee /tmp/plug_install.txt")
   end
 
   desc "remove prereqs"
