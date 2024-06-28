@@ -38,7 +38,7 @@ vim.cmd([[
 vim.keymap.set("n", "<leader>nh", ":nohls<CR>", { silent = true })
 vim.keymap.set("i", "</", "</<C-X><C-O>")
 vim.keymap.set("n", "<CR><CR>", "i<CR><esc>w")
-vim.keymap.set("n", "<C-W>m", "<C-W>_<C-W>\\|")
+vim.keymap.set("n", "<C-w>m", "<C-w>|<C-w>_")
 vim.keymap.set("n", "<leader>p", ":set paste!<CR>")
 
 -- " ========= Insert Shortcuts ========
