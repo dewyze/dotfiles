@@ -7,8 +7,8 @@ return {
 		vim.keymap.set(
 			"i",
 			"<C-V>",
-			"copilot#Accept('<CR>')",
-			{ nowait = true, silent = true, script = true, expr = true, replace_keycodes = false }
+			'copilot#Accept("\\<CR>")',
+			{ expr = true, replace_keycodes = false }
 		)
 	end,
 }
