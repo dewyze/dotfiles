@@ -18,4 +18,4 @@ require("lazy").setup({
 	checker = { enabled = true, notify = false },
 })
 
--- vim.cmd.colorscheme("Tomorrow-Night")
+vim.cmd.colorscheme("Tomorrow-Night")

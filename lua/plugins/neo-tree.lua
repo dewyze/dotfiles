@@ -11,5 +11,20 @@ return {
 		vim.keymap.set("n", "<leader>nt", ":Neotree toggle<CR>")
 		vim.keymap.set("n", "<leader>nr", ":Neotree<CR>")
 		vim.keymap.set("n", "<leader>nf", ":Neotree reveal<CR>")
+
+    require("neo-tree").setup({
+      window = {
+        mappings = {
+          ["m"] = {
+            "move",
+            -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
+            -- some commands may take optional config options, see `:h neo-tree-mappings` for details
+            config = {
+              show_path = "relative" -- "none", "relative", "absolute"
+            }
+          },
+        },
+      },
+    })
 	end,
 }
