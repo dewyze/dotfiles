@@ -21,14 +21,14 @@ return {
 			lspconfig.lua_ls.setup({})
 			lspconfig.ruby_lsp.setup({
 				on_attach = function(client)
-					client.server_capabilities.semanticTokensProvider = false
+					client.server_capabilities.semanticTokensProvider = true
 				end,
 			})
 			lspconfig.sorbet.setup({
 				cmd = { "bundle", "exec", "srb", "tc", "--lsp" },
 				root_dir = lspconfig.util.root_pattern("sorbet/config"),
 			})
-			lspconfig.tsserver.setup({})
+			lspconfig.ts_ls.setup({})
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 				callback = function(ev)
