@@ -5,7 +5,7 @@ return {
   config = function()
     -- calling `setup` is optional for customization
     local fzf = require("fzf-lua")
-    fzf.setup({})
+    fzf.setup({ fzf_colors = true })
 
     vim.keymap.set("n", "<leader>ff", fzf.files, {})
     vim.keymap.set("n", "<C-p>", fzf.git_files, {})

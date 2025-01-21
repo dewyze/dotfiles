@@ -1,0 +1,43 @@
+[[keyboard.bindings]]
+chars = "\u001Bb"
+key = "Left"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001Bf"
+key = "Right"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u0011"
+key = "Q"
+mods = "Control"
+
+[colors.normal]
+green = "#7fc968"
+
+[colors.primary]
+background = "#282828"
+
+[font]
+size = 18.0
+
+[font.bold]
+family = "Hack"
+style = "Bold"
+
+[font.italic]
+family = "Hack"
+style = "Italic"
+
+[font.normal]
+family = "Hack Nerd Font"
+
+[selection]
+save_to_clipboard = true
+
+[window.padding]
+x = 8
+y = 8
+
+[keyboard]

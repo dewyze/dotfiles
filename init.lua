@@ -59,6 +59,12 @@ if vim.fn.filereadable("~/.config/nvim/init.vim.local") ~= 0 then
   vim.cmd("source ~/.config/nvim/init.vim.local")
 end
 
+vim.cmd([[
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+]])
+
 -- let g:rubycomplete_buffer_loading = 1
 --
 -- Plug '~/.config/nvim/local-plugins/color-schemes'

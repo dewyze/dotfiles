@@ -3,6 +3,10 @@ task :default => "install"
 namespace "configs" do
   IGNORE = %w(Rakefile README.md bin)
   SPECIAL_CONFIG = {
+    "alacritty.toml" => {
+      symlink: "alacritty.toml",
+      dest: "~/.config/alacritty/",
+    },
     "ripgreprc" => {
       symlink: "ripgreprc",
       dest: "~/.config/ripgrep/",
