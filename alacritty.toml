@@ -23,11 +23,11 @@ background = "#282828"
 size = 18.0
 
 [font.bold]
-family = "Hack"
+family = "Hack Nerd Font"
 style = "Bold"
 
 [font.italic]
-family = "Hack"
+family = "Hack Nerd Font"
 style = "Italic"
 
 [font.normal]
