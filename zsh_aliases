@@ -15,11 +15,7 @@ git_user() {
 }
 
 git_root() {
-  local folder='.'
-  for i in $(seq 0 $(pwd|tr -cd '/'|wc -c)); do
-    [ -d "$folder/.git" ] && echo "$folder" && return
-    folder="../$folder"
-  done
+  echo "$(git rev-parse --show-toplevel)" && return
 }
 
 git_branch() {
