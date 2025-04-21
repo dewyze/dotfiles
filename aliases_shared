@@ -91,6 +91,7 @@ alias pair="tmuxs pair"
 # ruby shortcuts
 alias bi="bundle install"
 alias be="bundle exec"
+alias ber="bundle exec ruby"
 alias bejs="unset RUBYOPT && bundle exec jekyll serve"
 alias bems="unset RUBYOPT && bundle exec middleman server"
 # alias bers="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails server"

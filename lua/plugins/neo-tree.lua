@@ -13,6 +13,14 @@ return {
 		vim.keymap.set("n", "<leader>nf", ":Neotree reveal<CR>")
 
     require("neo-tree").setup({
+      filesystem = {
+        window = {
+          mappings = {
+            -- disable fuzzy finder
+            ["/"] = "noop"
+          }
+        }
+      },
       window = {
         mappings = {
           ["m"] = {
