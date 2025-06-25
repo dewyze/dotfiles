@@ -9,8 +9,15 @@ safepathappend() {
 }
 
 safepathprepend() {
-  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-    PATH="$1${PATH:+":$PATH"}"
+  if [ -d "$1" ]; then
+    # Remove existing instance (if any)
+    PATH=":${PATH}:"
+    PATH=${PATH//:$1:/:}
+    PATH=${PATH#:}
+    PATH=${PATH%:}
+
+    # Prepend the path
+    PATH="$1:${PATH:-}"
   fi
 }
 

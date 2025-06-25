@@ -86,7 +86,9 @@ if type "postgres" > /dev/null; then
 fi
 
 if type "brew" > /dev/null; then
-  safesource $(brew --prefix asdf)/libexec/asdf.sh
+  export ASDF_DATA_DIR=/Users/john/.asdf
+  safepathprepend $ASDF_DATA_DIR/shims
+  # export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 fi
 
 safesource $HOME/.fzf.zsh

@@ -31,7 +31,7 @@ cdl() {
 }
 
 function clearswap() {
-  rm ~/.local/share/nvim/swap/*swp
+  rm ~/.local/state/nvim/swap/*swp
 }
 alias clearswap='clearswap'
 
