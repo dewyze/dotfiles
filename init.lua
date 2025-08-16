@@ -66,6 +66,49 @@ vim.cmd([[
   endif
 ]])
 
+vim.cmd('let g:markdown_recommended_style = 0')
+
+function GotoAlternateFile(split_mode)
+  local current_file = vim.fn.expand('%')
+  local alt_file
+
+  if string.match(current_file, "/app/") then
+    alt_file = current_file:gsub("/app/", "/test/"):gsub("%.rb$", "_test.rb")
+  else
+    alt_file = current_file:gsub("/test/", "/app/"):gsub("_test%.rb$", ".rb")
+  end
+
+  if vim.fn.filereadable(alt_file) == 1 then
+    if split_mode == "vsplit" then
+      vim.cmd('vsplit')
+      vim.cmd('wincmd l')
+      vim.cmd('edit ' .. alt_file)
+    else
+      vim.cmd('edit ' .. alt_file)
+    end
+  else
+    print("No alternate file found: " .. alt_file)
+  end
+end
+vim.api.nvim_set_keymap('n', 'ga', ':lua GotoAlternateFile()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'gA', ':lua GotoAlternateFile("vsplit")<CR>', { noremap = true, silent = true })
+
+
+function UnwrapBlock()
+  vim.fn.search("do\\($\\| |\\)\\| {\\($\\|\\s*|\\)", "W", vim.fn.line("."))
+  vim.cmd("normal V%<gv")
+  vim.cmd("'>d|'<d")
+end
+vim.api.nvim_set_keymap('n', '<Leader>bu', ':lua UnwrapBlock()<CR>', {noremap = true, silent = true})
+
+function WrapBlock()
+  vim.cmd("normal j")
+  vim.fn.search("do\\($\\| |\\)\\| {\\($\\|\\s*|\\)", "W", vim.fn.line("."))
+  vim.cmd("normal %oend")
+  vim.cmd("normal V%=")
+end
+vim.api.nvim_set_keymap('n', '<Leader>bw', ':lua WrapBlock()<CR>', {noremap = true, silent = true})
+
 -- let g:rubycomplete_buffer_loading = 1
 --
 -- Plug '~/.config/nvim/local-plugins/color-schemes'

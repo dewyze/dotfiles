@@ -40,4 +40,12 @@ save_to_clipboard = true
 x = 8
 y = 8
 
-[keyboard]
+[[keyboard.bindings]]
+key = "/"
+mods = "Control"
+chars = "\u001F"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\n"

@@ -115,11 +115,7 @@ alias uncomment="rgc -l \"# dewyze\" | xargs sed -i '' -e '/# dewyze/d'"
 # git shortcuts
 alias gg="git grep"
 alias g="git"
-alias gt="git status"
-alias gr="git reset"
 alias gd="git diff"
-alias gp="git push"
-alias gs="git staged"
 
 # npm shortcuts
 alias nbuild="npm run build"
