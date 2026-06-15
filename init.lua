@@ -42,6 +42,14 @@ vim.keymap.set("n", "<CR><CR>", "i<CR><esc>w")
 vim.keymap.set("n", "<C-w>m", "<C-w>|<C-w>_")
 vim.keymap.set("n", "<leader>p", ":set paste!<CR>")
 
+-- Toggle comments via built-in gcc/gc. <C-_> is the terminal fallback for <C-/>.
+vim.keymap.set("n", "<C-/>", "gcc", { remap = true, silent = true })
+vim.keymap.set("n", "<C-_>", "gcc", { remap = true, silent = true })
+vim.keymap.set("x", "<C-/>", "gc", { remap = true, silent = true })
+vim.keymap.set("x", "<C-_>", "gc", { remap = true, silent = true })
+vim.keymap.set("n", "<leader>cc", "gcc", { remap = true, silent = true })
+vim.keymap.set("x", "<leader>cc", "gc", { remap = true, silent = true })
+
 -- " ========= Insert Shortcuts ========
 vim.keymap.set("i", "<C-L>", "<SPACE>=><SPACE>")
 vim.cmd("autocmd FileType elixir,elm imap <buffer> <C-L> <SPACE>-><SPACE>")
@@ -67,32 +75,6 @@ vim.cmd([[
 ]])
 
 vim.cmd('let g:markdown_recommended_style = 0')
-
-function GotoAlternateFile(split_mode)
-  local current_file = vim.fn.expand('%')
-  local alt_file
-
-  if string.match(current_file, "/app/") then
-    alt_file = current_file:gsub("/app/", "/test/"):gsub("%.rb$", "_test.rb")
-  else
-    alt_file = current_file:gsub("/test/", "/app/"):gsub("_test%.rb$", ".rb")
-  end
-
-  if vim.fn.filereadable(alt_file) == 1 then
-    if split_mode == "vsplit" then
-      vim.cmd('vsplit')
-      vim.cmd('wincmd l')
-      vim.cmd('edit ' .. alt_file)
-    else
-      vim.cmd('edit ' .. alt_file)
-    end
-  else
-    print("No alternate file found: " .. alt_file)
-  end
-end
-vim.api.nvim_set_keymap('n', 'ga', ':lua GotoAlternateFile()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'gA', ':lua GotoAlternateFile("vsplit")<CR>', { noremap = true, silent = true })
-
 
 function UnwrapBlock()
   vim.fn.search("do\\($\\| |\\)\\| {\\($\\|\\s*|\\)", "W", vim.fn.line("."))

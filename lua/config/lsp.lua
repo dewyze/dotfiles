@@ -4,12 +4,17 @@ vim.lsp.config.ruby_lsp = {
   filetypes = { "ruby" },
 }
 vim.lsp.enable({ "ruby_lsp" })
+
 vim.lsp.config.sorbet = {
   cmd = { "srb", "tc", "--lsp" },
   root_markers = { "sorbet/" },
   filetypes = { "ruby" },
 }
-vim.lsp.enable({ "sorbet" })
+
+-- Only enable Sorbet if a sorbet/ directory exists in the current working directory
+if vim.fn.isdirectory("sorbet") == 1 then
+  vim.lsp.enable({ "sorbet" })
+end
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)

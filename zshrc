@@ -85,11 +85,13 @@ if type "postgres" > /dev/null; then
   safepathappend /Applications/Postgres.app/Contents/Versions/latest/bin
 fi
 
-if type "brew" > /dev/null; then
-  export ASDF_DATA_DIR=/Users/john/.asdf
-  safepathprepend $ASDF_DATA_DIR/shims
-  # export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-fi
+# if type "brew" > /dev/null; then
+#   export ASDF_DATA_DIR=/Users/john/.asdf
+#   safepathprepend $ASDF_DATA_DIR/shims
+#   # export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+# fi
+
+eval "$(mise activate zsh)"
 
 safesource $HOME/.fzf.zsh
 
@@ -98,3 +100,7 @@ safesource $HOME/.fzf.zsh
 # This is for ruby 2.7.0 until rails address deprecation warnings
 # You can remove in a shell with `unset RUBYOPT`
 # export RUBYOPT='-W:no-deprecated -W:no-experimental'
+
+. "$HOME/.local/bin/env"
+
+eval "$(dev shell-init)"

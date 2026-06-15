@@ -38,3 +38,8 @@ safepathprepend "/usr/local/bin"
 ## Common Applications
 safepathprepend /opt/homebrew/bin
 safepathprepend /opt/homebrew/opt
+
+export SSL_CERT_FILE="$(brew --prefix)/etc/openssl@3/cert.pem"
+export SSL_CERT_DIR="$(brew --prefix)/etc/openssl@3/certs"
+export ANTHROPIC_MODEL=claude-opus-4-6
+

@@ -8,6 +8,7 @@ alias cd6.="cd ../../../../../.."
 alias ll='ls -halF'
 alias la='ls -A'
 alias l='ls -CF'
+alias cpwd='pwd | pbcopy'
 
 alias python="python3"
 alias pip="pip3"
