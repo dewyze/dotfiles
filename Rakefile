@@ -8,7 +8,7 @@ CONFIGS = [
   Dotfile.new("gitignore_global"),
   Dotfile.new("tmux.conf"),
   Dotfile.new("tmuxline.conf"),
-  Dotfile.new("zsh_aliases"),
+  Dotfile.new("git_prompt"),
   Dotfile.new("aliases_shared"),
 
   AppConfig.new("alacritty.toml", app: "alacritty"),
