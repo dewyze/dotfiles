@@ -29,17 +29,5 @@ safesource() {
 
 export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
 
-# Being extra cautious to get local bin executables in path
 safepathprepend "/usr/local/bin"
-
-# safepathprepend $HOME/Library/Python/3.7/bin
-
-
-## Common Applications
-safepathprepend /opt/homebrew/bin
-safepathprepend /opt/homebrew/opt
-
-export SSL_CERT_FILE="$(brew --prefix)/etc/openssl@3/cert.pem"
-export SSL_CERT_DIR="$(brew --prefix)/etc/openssl@3/certs"
-export ANTHROPIC_MODEL=claude-opus-4-6
 
