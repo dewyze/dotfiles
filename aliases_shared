@@ -1,3 +1,4 @@
+# Navigation
 alias cd.="cd .."
 alias cd2.="cd ../.."
 alias cd3.="cd ../../.."
@@ -5,11 +6,21 @@ alias cd4.="cd ../../../.."
 alias cd5.="cd ../../../../.."
 alias cd6.="cd ../../../../../.."
 
+mkcd() {
+  command mkdir $1 && cd $1
+}
+
+cdl() {
+  cd "$@" && ls;
+}
+
+# Listing
 alias ll='ls -halF'
 alias la='ls -A'
 alias l='ls -CF'
-alias cpwd='pwd | pbcopy'
 
+# System
+alias cpwd='pwd | pbcopy'
 alias python="python3"
 alias pip="pip3"
 
@@ -21,23 +32,11 @@ if type "nvim" > /dev/null; then
   alias vim="nvim"
 fi
 
-# System shortcuts
-
-mkcd() {
-  command mkdir $1 && cd $1
-}
-
-cdl() {
-  cd "$@" && ls;
-}
-
 function clearswap() {
   rm ~/.local/state/nvim/swap/*swp
 }
-alias clearswap='clearswap'
 
-# tmux shortcuts
-
+# tmux
 function tmux_public() {
   if [ -n "$TMUX" ]; then
     tmux_filepath=${TMUX%%,*}
@@ -80,45 +79,38 @@ function tmux_list () {
   ps -o ruser,command -ax | grep '[n]ew-session -s' | ruby -ne '$_ =~ /^(\w+).*-s (\w+)/; puts "#{$1} started #{$2}"'
 }
 
-alias tmux-start='tmux_start'
 alias tmuxs='tmux_start'
-alias tmux-list='tmux_list'
 alias tmuxl='tmux_list'
-alias tmux-public='tmux_public'
 alias tmuxpub='tmux_public'
 alias pair="tmuxs pair"
 
-
-# ruby shortcuts
+# Ruby / Bundler
 alias bi="bundle install"
 alias be="bundle exec"
 alias ber="bundle exec ruby"
 alias bejs="unset RUBYOPT && bundle exec jekyll serve"
 alias bems="unset RUBYOPT && bundle exec middleman server"
-# alias bers="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails server"
-# alias berc="RUBYOPT='-W:no-deprecated -W:no-experimental' bundle exec rails console"
 alias bers="bundle exec rails server"
 alias berc="bundle exec rails console"
 alias brake="bundle exec rake"
 alias js="bundle exec jekyll serve"
 
-# rails shortcuts
-alias h="heroku run"
+# Rails
 alias r="bin/rails"
 alias rubo="bin/rubocop"
 
+# Search (ripgrep)
 alias rgc="rg --glob='!*_test.rb' --glob='!*_spec.rb' --glob='!*.rbi' --glob='!*.json' --glob='!*test.tsx' --glob='!*test.jsx' --glob='!*.graphql'"
-alias rgt="rg --glob='*test.rsx' --glob='*test.jsx' --glob='*_test.rb' --glob='*_spec.rb'"
+alias rgt="rg --glob='*test.tsx' --glob='*test.jsx' --glob='*_test.rb' --glob='*_spec.rb'"
 alias unbind="rgc -l \"^\s*binding.pry\"| xargs sed -i '' -e 's/binding\.pry/# binding.pry/'"
 alias rebind="rgc -l \"# binding.pry\" | xargs sed -i '' -e 's/# binding\.pry/binding.pry/'"
-alias uncomment="rgc -l \"# dewyze\" | xargs sed -i '' -e '/# dewyze/d'"
 
-# git shortcuts
+# Git
 alias gg="git grep"
 alias g="git"
 alias gd="git diff"
 
-# npm shortcuts
+# npm
 alias nbuild="npm run build"
 alias ndev="npm run dev"
 alias nformat="npm run format"
