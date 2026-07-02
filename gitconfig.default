@@ -61,8 +61,6 @@
 	editor = nvim
 	commitGraph = true
 
-[include]
-  path = ~/.gitconfig.local
 [user]
   name = John DeWyze
 [init]
