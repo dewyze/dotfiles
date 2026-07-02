@@ -1,50 +1,83 @@
-##my::dotfiles
+# my::dotfiles
 
-In the constant quest to make every machine in your image you'll need *nix config files. This repo contains all of the "must have" features in a really easy to install package.
+In the constant quest to remake every machine in your image, you need *nix config
+files. This repo is the "must have" set, packaged to install in one command.
 
 ## Install
-Simply run `rake` or `rake install` or `rake all:install` from within the repository. Install happens according to `~/` paths. We'll try to keep what's there, but chance are whatever bad decisions you made prior to installing these dotfiles will be forever gone. #yolo
 
-Note: You want to make sure the repository exists in a stable and convenient place. Once installed, the repository cannot be moved or deleted without causing serious instability. Be sure to run a clean uninstall before deleting or moving the configuration.
+Run `rake` (or `rake install`) from inside the repository. Install works against
+your `~/` paths. It backs up anything it's about to clobber to a `.bak` file, but
+whatever questionable decisions you made before installing these are on you.
+
+Keep the repository somewhere stable and permanent. Once installed, moving or
+deleting it breaks every symlink pointing back at it. Run `rake uninstall` before
+you relocate or remove it.
 
 ## How it works
 
-This repository installs a core set of configurations for various essential tools.
+Everything installs through a small set of installer classes in `lib/`, each
+sharing the `Installable` concern (`install` / `uninstall`). The `Rakefile` is
+just a manifest listing what to install and how:
 
-For shell configurations, aliases and scripts it also provides the concept of `.local`. This way you can create local content unique to your specific system while offloading the bulk of the work to the core configuration. If you're running on a Raspberry Pi add some Rasbian specific settings in `~/.bashrc.local`. If you've got a script that only works from box with specific credentials toss it in `~/.bin.local`.
+- **`Dotfile`** — symlinks a repo file into `~` with a dot prefix
+  (`gitignore_global` → `~/.gitignore_global`).
+- **`AppConfig`** — symlinks into `~/.config/<app>/` (`alacritty.toml` →
+  `~/.config/alacritty/alacritty.toml`). Handles files and whole directories
+  (the nvim `lua/` tree).
+- **`ShellConfig`** — the loader pattern (see below) for `zshenv` / `zshrc`.
+- **`GitConfig`** — the loader pattern via git's native `[include]` for
+  `gitconfig`.
+- **`BinFile`** — symlinks an executable into `~/.bin/` and `chmod +x`es it.
 
-Most of the work is done by installing some symbolic links in your `$HOME` folder to each individual configuration file (e.g. `~/.vimrc -> /path/to/repository/vimrc`) or to subdirectories (e.g. `~/.bin/ -> /path/to/repository/bin`). However, some content is pushed straight to physical directories for stability reasons (e.g. vim plugins will download and install content straight into your `~/.vim` directory).
+Backups: if a real file already lives at the target, it's renamed to
+`<file>.bak` on install and restored on uninstall.
 
-## Shell Config Loading
-The configs assume a standard shell invocation process and currently support `bash` and `zsh`. Remember that `zsh` wins in most cases, so just do that? The load paths for each are as follows with what loads each config:
+## The loader pattern (`.default` + `.local`)
 
-### ZSH
+Files that other tools also write to — `~/.zshenv`, `~/.zshrc`, `~/.gitconfig` —
+are **not** symlinked to the repo. Homebrew, mise, rustup and friends append to
+those files, and we don't want that landing in version control.
+
+Instead, the repo owns a `.default` and each of these becomes a thin **loader**
+that pulls in two files in order:
+
 ```
-  (system) -> .zshenv
-  (system) -> .zshrc
-    (zshrc) -> .zshrc.local (if you created it)
-    (zshrc) -> .aliases_shared
-    (zshrc) -> .zsh_aliases
-    (zshrc) -> .aliases_shared.local (if you created it)
-    (zshrc) -> .zsh_aliases.local (if you created it)
+~/.zshrc      (loader, tool-writable)
+  ├── ~/.zshrc.default   → repo (shared config, version-controlled)
+  └── ~/.zshrc.local     → this machine only (never in the repo)
 ```
 
-### BASH
+`.default` holds shared logic. `.local` holds anything machine-specific — work
+credentials, `$PATH` tweaks, `mise activate`, SSL cert paths. Later wins, so
+`.local` overrides `.default`, and anything a tool appends to the loader itself
+overrides both.
+
+The installer only creates a loader if one doesn't already exist, so it never
+stomps tool-managed lines on reinstall.
+
+## Shell config loading (zsh)
+
 ```
-  (system) -> .bashrc
-    (bashrc) -> .bashrc.local (if you created it)
-    (bashrc) -> .aliases_shared
-    (bashrc) -> .bash_aliases
-    (bashrc) -> .aliases_shared.local (if you created it)
-    (bashrc) -> .bash_aliases.local (if you created it)
+  (system) → ~/.zshenv          loader → .zshenv.default → .zshenv.local
+  (system) → ~/.zshrc           loader → .zshrc.default  → .zshrc.local
+    (.zshrc.default) → .git_prompt          (git status in the prompt)
+    (.zshrc.default) → .aliases_shared      + .aliases_shared.local
+    (.zshrc.default) → .zsh_aliases.local
 ```
 
-The shell configs are intended to be used on top of one another without much/any overhead. Our goal was to create a clean environment whether you start in `bash` and `tmux`(`bmuxs`) into `zsh` or go straight into `zsh`.
+`.zshenv` loads first (every shell), then `.zshrc` (interactive shells). Helper
+functions `safepathappend`, `safepathprepend`, and `safesource` are defined in
+`.zshenv.default` and used throughout.
 
-## Tmuxline
-This uses [tmuxline.vim](https://github.com/edkolev/tmuxline.vim). Tmuxline can be used to match against [vim-airline](https://github.com/vim-airline/vim-airline), [powerline](https://github.com/powerline/powerline), [vim-lightline](https://github.com/itchyny/lightline.vim) or any other certain type of status line. Currently this defaults to the style of the normal vim status line, but you can use another status line in your `.vimrc.local` and create a `.tmuxline.conf.local` which will be referenced instead to make a tmux status line that matches a vim one.
+## tmux
+
+`tmux.conf` sources a static `tmuxline.conf` — a frozen statusbar snapshot
+originally generated by [tmuxline.vim](https://github.com/edkolev/tmuxline.vim).
+The generator plugin is no longer active, so `tmuxline.conf` is now just a
+standalone styling file. To regenerate it, re-enable the plugin in the nvim
+config and re-snapshot.
 
 ## Uninstall
 
-Simply run `rake uninstall` from within the repository. This should also be helpful if installation fails halfway though.
-
+Run `rake uninstall` from inside the repository. Also handy if an install fails
+partway through — it removes the symlinks and restores any `.bak` backups.
