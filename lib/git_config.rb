@@ -5,7 +5,7 @@ class GitConfig
 
   def initialize(filename)
     @filename = filename
-    @source = File.join(repo_dir, filename)
+    @source = File.join(repo_dir, "#{filename}.default")
     @target = File.expand_path("~/.#{filename}.default")
     @loader_path = File.expand_path("~/.#{filename}")
   end
