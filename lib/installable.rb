@@ -2,6 +2,7 @@ require "fileutils"
 
 module Installable
   def install
+    ensure_source_exists
     prepare
     make_directory
     symlink
@@ -16,6 +17,10 @@ module Installable
 
   def repo_dir
     File.expand_path("..", __dir__)
+  end
+
+  def ensure_source_exists
+    raise "Missing source: #{@source}" unless File.exist?(@source)
   end
 
   def prepare
