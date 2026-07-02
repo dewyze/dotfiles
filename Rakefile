@@ -1,10 +1,11 @@
 require_relative "lib/dotfile"
 require_relative "lib/app_config"
 require_relative "lib/shell_config"
+require_relative "lib/git_config"
 require_relative "lib/bin_file"
 
 CONFIGS = [
-  Dotfile.new("gitconfig"),
+  GitConfig.new("gitconfig"),
   Dotfile.new("gitignore_global"),
   Dotfile.new("tmux.conf"),
   Dotfile.new("tmuxline.conf"),
