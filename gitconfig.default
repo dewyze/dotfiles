@@ -60,6 +60,8 @@
   pager = diff-highlight | less
 	editor = nvim
 	commitGraph = true
+  fsmonitor = true
+  untrackedCache = true
 
 [user]
   name = John DeWyze
