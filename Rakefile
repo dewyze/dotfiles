@@ -16,6 +16,7 @@ CONFIGS = [
   AppConfig.new("ripgreprc",      app: "ripgrep"),
   AppConfig.new("init.lua",       app: "nvim"),
   AppConfig.new("lua",            app: "nvim"),
+  AppConfig.new("after",          app: "nvim"),
   AppConfig.new("Tomorrow-Night.vim", app: "nvim", dir: "colors"),
 
   ShellConfig.new("zshenv"),

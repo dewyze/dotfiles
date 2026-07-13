@@ -380,6 +380,58 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
     call <SID>X("ShowMarksHLu", s:yellow, s:background, "none")
     call <SID>X("ShowMarksHLm", s:aqua, s:background, "none")
 
+	" Treesitter captures (nvim only)
+	" Unset captures fall back to the standard links above (@function -> Function, etc.);
+	" only divergences from those defaults are listed here.
+	if has("nvim")
+		" Global captures
+		call <SID>X("@variable", s:foreground, "", "none")
+		call <SID>X("@variable.parameter", s:foreground, "", "none")
+		call <SID>X("@variable.member", s:aqua, "", "")
+		call <SID>X("@string.special.symbol", s:royal, "", "")
+		call <SID>X("@punctuation.special", s:orange, "", "")
+		call <SID>X("@tag", s:red, "", "")
+		call <SID>X("@tag.attribute", s:red, "", "")
+		call <SID>X("@tag.delimiter", s:red, "", "")
+
+		" Ruby (mirrors the rubyXxx groups above)
+		call <SID>X("@keyword.ruby", s:orange, "", "")
+		call <SID>X("@keyword.function.ruby", s:orange, "", "")
+		call <SID>X("@keyword.type.ruby", s:orange, "", "")
+		call <SID>X("@keyword.conditional.ruby", s:orange, "", "")
+		call <SID>X("@keyword.return.ruby", s:orange, "", "")
+		call <SID>X("@keyword.exception.ruby", s:orange, "", "")
+		call <SID>X("@keyword.repeat.ruby", s:purple, "", "")
+		call <SID>X("@keyword.import.ruby", s:blue, "", "")
+		call <SID>X("@constant.ruby", s:red, "", "")
+		call <SID>X("@constant.builtin.ruby", s:orange, "", "")
+		call <SID>X("@variable.builtin.ruby", s:orange, "", "")
+		call <SID>X("@type.ruby", s:red, "", "")
+		call <SID>X("@function.ruby", s:yellow, "", "")
+		call <SID>X("@function.call.ruby", s:foreground, "", "")
+		call <SID>X("@function.builtin.ruby", s:blue, "", "")
+		call <SID>X("@function.builtin.rails", s:purple, "", "")
+		call <SID>X("@variable.parameter.keyword", s:royal, "", "")
+
+		" JavaScript / TypeScript
+		call <SID>X("@keyword.function.javascript", s:purple, "", "")
+		call <SID>X("@keyword.conditional.javascript", s:purple, "", "")
+		call <SID>X("@keyword.repeat.javascript", s:purple, "", "")
+		call <SID>X("@variable.member.javascript", s:orange, "", "")
+		call <SID>X("@keyword.function.typescript", s:purple, "", "")
+		call <SID>X("@keyword.conditional.typescript", s:purple, "", "")
+		call <SID>X("@keyword.repeat.typescript", s:purple, "", "")
+		call <SID>X("@variable.member.typescript", s:orange, "", "")
+
+		" Python
+		call <SID>X("@keyword.python", s:purple, "", "")
+		call <SID>X("@keyword.import.python", s:purple, "", "")
+		call <SID>X("@keyword.conditional.python", s:purple, "", "")
+
+		" Elixir
+		call <SID>X("@keyword.elixir", s:purple, "", "")
+	endif
+
 	" Delete Functions
 	delf <SID>X
 	delf <SID>rgb
