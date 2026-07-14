@@ -18,6 +18,7 @@ CONFIGS = [
   AppConfig.new("lua",            app: "nvim"),
   AppConfig.new("after",          app: "nvim"),
   AppConfig.new("Tomorrow-Night.vim", app: "nvim", dir: "colors"),
+  AppConfig.new("tomorrow_night.lua", app: "nvim", dir: "colors"),
 
   ShellConfig.new("zshenv"),
   ShellConfig.new("zshrc"),
