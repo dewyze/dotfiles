@@ -1,5 +1,5 @@
 return {
-  name = "tomorrow_night",
+  name = "nightshade",
   mode = "dark",
 
   foreground = "#ebedec",

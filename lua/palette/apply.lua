@@ -13,6 +13,9 @@ return function(p)
   end
   vim.g.colors_name = p.name
 
+  -- Optional washes: faint background panels behind data tokens.
+  local wash = p.wash or {}
+
   local function hl(group, spec)
     vim.api.nvim_set_hl(0, group, spec)
   end
@@ -54,7 +57,7 @@ return function(p)
   hl("Structure", { fg = p.purple })
   hl("Function", { fg = p.blue })
   hl("Constant", { fg = p.orange })
-  hl("String", { fg = p.green })
+  hl("String", { fg = p.green, bg = wash.string })
   hl("Special", { fg = p.foreground })
   hl("PreProc", { fg = p.purple })
   hl("Operator", { fg = p.aqua })
@@ -94,8 +97,8 @@ return function(p)
   -- Treesitter captures (global; these style ruby too)
   hl("@variable", { fg = p.foreground })
   hl("@variable.parameter", { fg = p.foreground })
-  hl("@variable.member", { fg = p.aqua })
-  hl("@string.special.symbol", { fg = p.royal })
+  hl("@variable.member", { fg = p.aqua, bg = wash.member })
+  hl("@string.special.symbol", { fg = p.royal, bg = wash.symbol })
   hl("@punctuation.special", { fg = p.orange })
   hl("@tag", { fg = p.red })
   hl("@tag.attribute", { fg = p.red })
