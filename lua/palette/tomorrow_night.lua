@@ -12,7 +12,7 @@ return {
   red = "#cc6666",
   orange = "#de935f",
   yellow = "#f0c674",
-  green = "#7fc968",
+  green = "#8abd7a",
   aqua = "#8abeb7",
   blue = "#81a2be",
   royal = "#648cb4",
