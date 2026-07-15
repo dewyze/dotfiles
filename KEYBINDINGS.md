@@ -96,9 +96,13 @@ Binding: the five layers, the conventions above, the spine. Free: every
 domain word beyond the spine — name domains in John's words for that world
 (vimoire: write, revise/review, mark, view, organize, focus, export…;
 lore: designed against real usage, not upfront). Vimoire's scheme is
-already ~80% conformant and changes only on friction; its hygiene bundle
-when touched: set `mapleader` explicitly, fix `doc/vimoire.txt` (claims
-space-leader), reconcile `\nh` with `Esc Esc`.
+already ~80% conformant and changes only on friction. Its approved
+worklist: explicit `mapleader`, fix `doc/vimoire.txt` (claims
+space-leader) + sync `CONFIGURATION.md`, drawers to `C-s` (navigator
+domain dissolves), drop `\nh` (`Esc Esc` covers it). Accepted deviations,
+ruled 2026-07-15 — do not "fix": `\fg` grep stays under find, snippets
+keep `\s` (search matters less there); comments/revise question stays
+parked until a real revision pass.
 
 ## Dormant — reserved, not shipping yet
 
