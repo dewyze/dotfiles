@@ -27,18 +27,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- Enable completion triggered by <c-x><c-o>
     -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
+    -- Jumps live on g (grr/gri/grt/gO are core defaults); do's live on leader.
+    -- See KEYBINDINGS.md.
     local opts = { buffer = ev.buf }
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-    vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<space>n', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', '<space>p', vim.diagnostic.goto_prev, opts)
-    -- vim.keymap.set('n', '<space>f', function()
-      --   vim.lsp.buf.format { async = true }
-      -- end, opts)
+    vim.keymap.set("n", "<leader>ee", vim.diagnostic.open_float, { buffer = ev.buf, desc = "explain: error" })
+    vim.keymap.set("n", "<leader>ed", vim.lsp.buf.hover, { buffer = ev.buf, desc = "explain: docs" })
+    vim.keymap.set("n", "<leader>rr", vim.lsp.buf.rename, { buffer = ev.buf, desc = "refactor: rename symbol" })
+    vim.keymap.set({ "n", "v" }, "<leader>ra", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "refactor: code action" })
   end
 })

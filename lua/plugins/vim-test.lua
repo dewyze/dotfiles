@@ -21,11 +21,11 @@ return {
 
       command! TestContext :call TestContext()
 
-      autocmd FileType ruby,erb nnoremap <silent> <LocalLeader>rc :TestContext<CR>
-      nnoremap <silent> <leader>rf :wa<CR>:TestNearest<CR>
-      nnoremap <silent> <leader>rb :wa<CR>:TestFile<CR>
-      nnoremap <silent> <leader>ra :wa<CR>:TestSuite<CR>
-      nnoremap <silent> <leader>rl :wa<CR>:TestLast<CR>
+      autocmd FileType ruby,erb nnoremap <silent> <LocalLeader>tc :TestContext<CR>
+      nnoremap <silent> <leader>tt :wa<CR>:TestNearest<CR>
+      nnoremap <silent> <leader>tf :wa<CR>:TestFile<CR>
+      nnoremap <silent> <leader>ts :wa<CR>:TestSuite<CR>
+      nnoremap <silent> <leader>tl :wa<CR>:TestLast<CR>
 
       let test#ruby#use_binstubs = 1
       if filereadable(glob("bin/test"))

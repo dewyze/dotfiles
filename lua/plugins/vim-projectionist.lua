@@ -24,15 +24,14 @@ return {
 			},
 		}
 
-		vim.keymap.set("n", "ga", ":A<CR>", { silent = true })
-		vim.keymap.set("n", "gA", ":AV<CR>", { silent = true })
-		vim.keymap.set("n", "<C-S>c", ":Econtroller<CR>", { silent = true })
-		vim.keymap.set("n", "<C-S>m", ":Emodel<CR>", { silent = true })
-		vim.keymap.set("n", "<C-S>v", ":Eview<CR>", { silent = true })
-		vim.keymap.set("n", "<C-S>h", ":Ehelper<CR>", { silent = true })
-		vim.keymap.set("n", "<C-S>i", ":Eintegrationtest<CR>", { silent = true })
-		vim.keymap.set("n", "<C-S>s", ":A<CR>", { silent = true })
-		vim.keymap.set("n", "<C-S>f", ":Efeature<CR>", { silent = true })
-		vim.keymap.set("n", "<C-S>d", ":Eschema<CR>", { silent = true })
+		vim.keymap.set("n", "ga", ":A<CR>", { silent = true, desc = "go: alternate file" })
+		vim.keymap.set("n", "gA", ":AV<CR>", { silent = true, desc = "go: alternate (vsplit)" })
+		-- go rails: cohabits core's gr prefix (grr/grn/gra/gri/grt) with zero collisions
+		vim.keymap.set("n", "grc", ":Econtroller<CR>", { silent = true, desc = "go rails: controller" })
+		vim.keymap.set("n", "grm", ":Emodel<CR>", { silent = true, desc = "go rails: model" })
+		vim.keymap.set("n", "grv", ":Eview<CR>", { silent = true, desc = "go rails: view" })
+		vim.keymap.set("n", "grh", ":Ehelper<CR>", { silent = true, desc = "go rails: helper" })
+		vim.keymap.set("n", "grf", ":Efeature<CR>", { silent = true, desc = "go rails: feature" })
+		vim.keymap.set("n", "grd", ":Eschema<CR>", { silent = true, desc = "go rails: schema" })
 	end,
 }

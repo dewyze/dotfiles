@@ -14,41 +14,31 @@ vim.o.undofile = true
 vim.o.foldenable = false
 vim.o.wildignore =
 	"*.pyc,*.o,*.class,*.lo,.git,vendor/*,node_modules/**,bower_components/**,elm-stuff/**,elm.js,*/tmp/*,*.so,*.swp,*zip"
-vim.keymap.set("n", "<leader>sv", ":source %<CR>")
-
 vim.cmd([[
   autocmd FileType * autocmd BufWritePre <buffer> %s/\s\+$//e
 ]])
 
-vim.cmd([[
-  nmap <Leader>sI :call SynStack()<CR>
-  function! SynStack()
-    echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
-  endfunction
-]])
-
 -- ========= Normal Shortcuts ========
-vim.keymap.set("n", "<leader>nh", ":nohls<CR>", { silent = true })
-vim.keymap.set("i", "</", "</<C-X><C-O>")
 vim.keymap.set("n", "<CR><CR>", "i<CR><esc>w")
 vim.keymap.set("n", "<C-w>m", "<C-w>|<C-w>_")
-vim.keymap.set("n", "<leader>p", ":set paste!<CR>")
 
 -- Toggle comments via built-in gcc/gc. <C-_> is the terminal fallback for <C-/>.
 vim.keymap.set("n", "<C-/>", "gcc", { remap = true, silent = true })
 vim.keymap.set("n", "<C-_>", "gcc", { remap = true, silent = true })
 vim.keymap.set("x", "<C-/>", "gc", { remap = true, silent = true })
 vim.keymap.set("x", "<C-_>", "gc", { remap = true, silent = true })
-vim.keymap.set("n", "<leader>cc", "gcc", { remap = true, silent = true })
-vim.keymap.set("x", "<leader>cc", "gc", { remap = true, silent = true })
+
+-- ========= Show namespace (C-s: panels, drawers) — see KEYBINDINGS.md ========
+vim.keymap.set("n", "<C-s><C-q>", function()
+	local qf_open = vim.fn.getqflist({ winid = 0 }).winid ~= 0
+	vim.cmd(qf_open and "cclose" or "copen")
+end, { desc = "show: quickfix" })
+vim.keymap.set("n", "<C-s><C-t>", ":belowright split | terminal<CR>", { silent = true, desc = "show: terminal" })
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "exit terminal mode" })
 
 -- " ========= Insert Shortcuts ========
 vim.keymap.set("i", "<C-L>", "<SPACE>=><SPACE>")
 vim.cmd("autocmd FileType elixir,elm imap <buffer> <C-L> <SPACE>-><SPACE>")
-vim.keymap.set("i", "<C-X>l", "{%<SPACE><SPACE>%}<esc>hhi")
-vim.keymap.set("i", "<C-X>v", "{{<SPACE><SPACE>}}<esc>hhi")
 
 -- " ========= Visual Shortcuts ========
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -71,7 +61,7 @@ function UnwrapBlock()
   vim.cmd("normal V%<gv")
   vim.cmd("'>d|'<d")
 end
-vim.api.nvim_set_keymap('n', '<Leader>bu', ':lua UnwrapBlock()<CR>', {noremap = true, silent = true})
+vim.keymap.set("n", "<leader>ru", UnwrapBlock, { silent = true, desc = "refactor: unwrap ruby block" })
 
 function WrapBlock()
   vim.cmd("normal j")
@@ -79,4 +69,4 @@ function WrapBlock()
   vim.cmd("normal %oend")
   vim.cmd("normal V%=")
 end
-vim.api.nvim_set_keymap('n', '<Leader>bw', ':lua WrapBlock()<CR>', {noremap = true, silent = true})
+vim.keymap.set("n", "<leader>rw", WrapBlock, { silent = true, desc = "refactor: wrap ruby block" })

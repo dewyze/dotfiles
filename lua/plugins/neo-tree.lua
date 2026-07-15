@@ -8,9 +8,8 @@ return {
 		-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 	},
 	config = function()
-		vim.keymap.set("n", "<leader>nt", ":Neotree toggle<CR>")
-		vim.keymap.set("n", "<leader>nr", ":Neotree<CR>")
-		vim.keymap.set("n", "<leader>nf", ":Neotree reveal<CR>")
+		vim.keymap.set("n", "<C-s><C-s>", ":Neotree toggle<CR>", { silent = true, desc = "show: file tree" })
+		vim.keymap.set("n", "<C-s><C-f>", ":Neotree reveal<CR>", { silent = true, desc = "show: reveal current file" })
 
     require("neo-tree").setup({
       filesystem = {
