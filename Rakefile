@@ -1,5 +1,6 @@
 require_relative "lib/dotfile"
 require_relative "lib/app_config"
+require_relative "lib/claude_config"
 require_relative "lib/shell_config"
 require_relative "lib/git_config"
 require_relative "lib/bin_file"
@@ -20,6 +21,10 @@ CONFIGS = [
   AppConfig.new("nightshade.lua", app: "nvim", dir: "colors"),
   AppConfig.new("daybreak.lua",   app: "nvim", dir: "colors"),
   AppConfig.new("wisp.lua",       app: "nvim", dir: "colors"),
+
+  ClaudeConfig.new("CLAUDE.md"),
+  ClaudeConfig.new("commands"),
+  ClaudeConfig.new("skills"),
 
   ShellConfig.new("zshenv"),
   ShellConfig.new("zshrc"),

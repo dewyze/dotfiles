@@ -28,6 +28,12 @@ vim.keymap.set("n", "<C-_>", "gcc", { remap = true, silent = true })
 vim.keymap.set("x", "<C-/>", "gc", { remap = true, silent = true })
 vim.keymap.set("x", "<C-_>", "gc", { remap = true, silent = true })
 
+-- ========= Step layer ([ ]) — see KEYBINDINGS.md ========
+-- Shadow core's ]t/[t tag-stepping (dead weight under LSP); tabs are the
+-- ordered list worth stepping. gt/gT remain native.
+vim.keymap.set("n", "]t", ":tabnext<CR>", { silent = true, desc = "step: next tab" })
+vim.keymap.set("n", "[t", ":tabprevious<CR>", { silent = true, desc = "step: previous tab" })
+
 -- ========= Show namespace (C-s: panels, drawers) — see KEYBINDINGS.md ========
 vim.keymap.set("n", "<C-s><C-q>", function()
 	local qf_open = vim.fn.getqflist({ winid = 0 }).winid ~= 0
