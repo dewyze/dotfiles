@@ -68,7 +68,9 @@ type-def `gO` outline · `ga`/`gA` alternate (also covers code↔test) · Rails:
 `grc` controller `grm` model `grv` view `grh` helper `grd` schema `grf`
 feature · native `gc`/`gcc` comment operator, `gS`/`gJ` splitjoin.
 
-Brackets: `]f`/`[f` (+`]m` aliases) functions · `]d`/`[d` diagnostics (core).
+Brackets: `]f`/`[f` (+`]m` aliases) functions · `]d`/`[d` diagnostics (core) ·
+`]t`/`[t` tabs (shadows core's ctags-match stepping — a pre-LSP system
+never used here) · `]b`/`[b` buffers, `]q`/`[q` quickfix (core freebies).
 
 C layer: `C-w` windows (incl. `C-w m` maximize) · `C-T s/n/t/,/q` tabs ·
 `C-s` **show namespace**: `C-s C-s` main drawer · `C-s C-f` reveal file ·
