@@ -84,25 +84,18 @@ Bare keeps: visual `J`/`K` move lines · `<CR><CR>` split line · insert
 ## Spine — shared across all three editors
 
 `\p` palette · `C-s` drawer gesture (`C-s C-s` = this world's main panel;
-`C-s C-e` vimoire export, `C-s C-l` lore backlinks) · find/search split
-(find = I can name it; search = hunt by content) · **capture** = "store this
-idea elsewhere" (vimoire snippet-extract, lore inbox) · `Esc Esc` ·
-double-letter rule. Sync is opportunistic — driven by real friction, never
-by spec completeness.
+each world binds its other drawers under `C-s C-<letter>`) · find/search
+split (find = I can name it; search = hunt by content) · **capture** =
+"store this idea elsewhere" · `Esc Esc` · double-letter rule. Sync is
+opportunistic — driven by real friction, never by spec completeness.
 
-## For vimoire and lore sessions
+## For the other editors
 
 Binding: the five layers, the conventions above, the spine. Free: every
-domain word beyond the spine — name domains in John's words for that world
-(vimoire: write, revise/review, mark, view, organize, focus, export…;
-lore: designed against real usage, not upfront). Vimoire's scheme is
-already ~80% conformant and changes only on friction. Its approved
-worklist: explicit `mapleader`, fix `doc/vimoire.txt` (claims
-space-leader) + sync `CONFIGURATION.md`, drawers to `C-s` (navigator
-domain dissolves), drop `\nh` (`Esc Esc` covers it). Accepted deviations,
-ruled 2026-07-15 — do not "fix": `\fg` grep stays under find, snippets
-keep `\s` (search matters less there); comments/revise question stays
-parked until a real revision pass.
+domain word beyond the spine — named in John's words for that world,
+against real usage, not upfront. Per-editor worklists and accepted
+deviations live in that editor's own repo (its `TODO.md` or equivalent),
+never in this file.
 
 ## Dormant — reserved, not shipping yet
 
