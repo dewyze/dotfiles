@@ -30,6 +30,7 @@ fi
 
 if type "nvim" > /dev/null; then
   alias vim="nvim"
+  alias rune="nvim"  # the coding editor, in the family of lore and vimoire
 fi
 
 function clearswap() {
