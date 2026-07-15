@@ -85,10 +85,17 @@ space-leader), reconcile `\nh` with `Esc Esc`.
 
 `\g` git + `\gh` github: the only deliberately unshipped domain. Shape is
 decided — `\g` + noun + verb for local git (gitsigns/fugitive), `\gh…` for
-the GitHub wing (octo), PR review lives inside it. Jitsusama's
-KEYBINDINGS.md is the reference map. Also: AI (no tool to bind yet), `\c`
-(free letter). Tech someday-notes: wrap/unwrap on treesitter `@block` nodes
-instead of regex; `treesj` if splitjoin misbehaves.
+the GitHub wing (octo), PR review lives inside it. The reference map (for
+its mental model, never verbatim bindings):
+https://github.com/Jitsusama/core.nix/blob/main/home-manager/neovim/KEYBINDINGS.md
+
+`\a` **ai**: reserved for AI/assistant tooling when it returns — the letter
+is free in all three editors. `\c`: free letter, unclaimed in code.
+
+Tech someday-notes: wrap/unwrap on treesitter `@block` nodes instead of
+regex; `treesj` if splitjoin misbehaves; vim.pack (nvim 0.12 native plugin
+infra) was researched and held — it affects how a shared keybinding module
+would load across the three apps, so revisit infra after the grammar lands.
 
 ## Transition ledger (delete after retraining)
 
