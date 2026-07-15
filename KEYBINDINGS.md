@@ -7,6 +7,25 @@ everywhere, set explicitly.
 
 Guardrail: this spec fits one page. A second page is the ontology-bloat alarm.
 
+## Why this shape
+
+- **Recall by derivation, not memorization.** John forgets bindings he
+  wrote himself (~45% of the old set was forgotten or never used). The fix
+  isn't better memory — it's a scheme you can *reconstruct*: five layers +
+  five domain words is the entire burden; everything else is a guess that
+  works or a menu that rescues (which-key on pause, palette by keyword).
+- **The domain words are John's own.** Borrowed vocabulary doesn't stick;
+  these words came out of "what kind of thing am I about to do,"
+  independently per editor. Future domains must pass the same test.
+- **Frequency beats taxonomy.** Test/export/LLM-analyze may be the same
+  species philosophically; test keeps its own prime key because it runs
+  hundreds of times a week. Purity never displaces a daily-loop key.
+- **Keys are earned by use, not by features.** Real habits get bindings;
+  aspirational features get dormant slots. (Lore is the exception by
+  design — it's greenfield, specced with the grammar from day one.)
+- **Hard cutover.** No breadcrumb stubs. The retraining method is: catch
+  the old reflex, undo, retype the new way.
+
 ## The five layers
 
 | Trigger | Mental model | In practice |
