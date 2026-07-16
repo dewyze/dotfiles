@@ -9,8 +9,8 @@ class BinFile
   end
 
   def install
-    make_executable
     super
+    make_executable
   end
 
   private

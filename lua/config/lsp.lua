@@ -18,15 +18,6 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
-    -- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    --   vim.lsp.diagnostic.on_publish_diagnostics, {
-    --     -- delay update diagnostics
-    --     update_in_insert = false,
-    --   }
-    -- )
-    -- Enable completion triggered by <c-x><c-o>
-    -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
     -- Jumps live on g (grr/gri/grt/gO are core defaults); do's live on leader.
     -- See KEYBINDINGS.md.
     local opts = { buffer = ev.buf }
