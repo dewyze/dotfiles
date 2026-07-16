@@ -17,7 +17,7 @@ mods = "Control"
 green = "#7fc968"
 
 [colors.primary]
-background = "#282828"
+background = "#303030" # matches the nightshade palette background
 
 [font]
 size = 18.0
