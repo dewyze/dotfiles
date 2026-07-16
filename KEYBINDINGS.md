@@ -91,6 +91,10 @@ split (find = I can name it; search = hunt by content) · **capture** =
 "store this idea elsewhere" · `Esc Esc` · double-letter rule. Sync is
 opportunistic — driven by real friction, never by spec completeness.
 
+Squatter rule: a plugin that binds `<C-s>` buffer-locally (inside its own
+window) shadows the show prefix there — evict it to `<C-j>` (precedent:
+lore's neo-tree).
+
 ## For the other editors
 
 Binding: the five layers, the conventions above, the spine. Free: every
