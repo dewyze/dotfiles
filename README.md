@@ -27,6 +27,8 @@ just a manifest listing what to install and how:
 - **`ShellConfig`** — the loader pattern (see below) for `zshenv` / `zshrc`.
 - **`GitConfig`** — the loader pattern via git's native `[include]` for
   `gitconfig`.
+- **`ClaudeConfig`** — symlinks into `~/.claude/` (`CLAUDE.md`, `commands/`,
+  `skills/`) so Claude Code instructions and skills live in version control.
 - **`BinFile`** — symlinks an executable into `~/.bin/` and `chmod +x`es it.
 
 Backups: if a real file already lives at the target, it's renamed to
@@ -68,6 +70,25 @@ stomps tool-managed lines on reinstall.
 `.zshenv` loads first (every shell), then `.zshrc` (interactive shells). Helper
 functions `safepathappend`, `safepathprepend`, and `safesource` are defined in
 `.zshenv.default` and used throughout.
+
+## Neovim
+
+The nvim config (`init.lua`, `lua/`, `after/`) is the bulk of the repo. Two
+things about it are deliberate enough to document:
+
+**Keybindings** follow a semantic grammar — five input layers (`\` do, `g` go,
+`[`/`]` step, `C-` system, bare keys), five leader domain words (test, find,
+search, explain, refactor), and which-key as the recall net. The grammar is
+shared with two sibling editors (`lore`, `vimoire`); the full spec, philosophy,
+and rulings live in [KEYBINDINGS.md](KEYBINDINGS.md). The shell aliases the
+editor family accordingly: `rune` (this config), alongside `lore` and
+`vimoire`.
+
+**Colorschemes** are a homegrown family in `lua/palette/` — `nightshade`
+(dark, default), `daybreak` (light), `wisp` (nightshade with washes behind
+data) — one palette table each, mapped onto highlight groups by a shared
+`apply.lua`. Switching is native `:colorscheme <Tab>`. The alacritty
+background matches nightshade's, so terminal and editor share one black.
 
 ## tmux
 
