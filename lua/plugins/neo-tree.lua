@@ -1,6 +1,6 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
-	branch = "v3.x",
+	branch = "main", -- v3.x froze at 3.40; development (incl. quick_jump) lives on main
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons",
@@ -29,6 +29,16 @@ return {
             config = {
               show_path = "relative" -- "none", "relative", "absolute"
             }
+          },
+          -- stock quick_jump sits on <C-s> (nowait), which would eat the
+          -- C-s drawer chord inside the tree; move it to C-j (squatter rule)
+          ["<C-s>"] = "none",
+          ["<C-j>"] = {
+            "quick_jump",
+            config = {
+              on_jump = "open_or_toggle",
+              jump_labels = "jfkdlsahgnuvrbytmiceoxwpqz",
+            },
           },
         },
       },
