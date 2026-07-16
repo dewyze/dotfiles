@@ -6,6 +6,8 @@ return {
     -- calling `setup` is optional for customization
     local fzf = require("fzf-lua")
     fzf.setup({ fzf_colors = true })
+    -- Handle vim.ui.select (code-action menus, etc.) in the same fzf UI
+    fzf.register_ui_select()
 
     vim.keymap.set("n", "<leader>ff", fzf.files, { desc = "find: files" })
     vim.keymap.set("n", "<C-p>", fzf.git_files, { desc = "find: git files" })
