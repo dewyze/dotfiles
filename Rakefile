@@ -7,27 +7,24 @@ require_relative "lib/bin_file"
 
 CONFIGS = [
   GitConfig.new("gitconfig"),
-  Dotfile.new("gitignore_global"),
-  Dotfile.new("tmux.conf"),
-  Dotfile.new("tmuxline.conf"),
-  Dotfile.new("git_prompt"),
-  Dotfile.new("aliases_shared"),
+  Dotfile.new("gitignore_global", from: "git"),
+
+  Dotfile.new("tmux.conf",     from: "tmux"),
+  Dotfile.new("tmuxline.conf", from: "tmux"),
+
+  Dotfile.new("git_prompt",     from: "shell"),
+  Dotfile.new("aliases_shared", from: "shell"),
+  ShellConfig.new("zshenv"),
+  ShellConfig.new("zshrc"),
+
+  Dotfile.new("nvim", as: ".config/nvim"),
 
   AppConfig.new("alacritty.toml", app: "alacritty"),
   AppConfig.new("ripgreprc",      app: "ripgrep"),
-  AppConfig.new("init.lua",       app: "nvim"),
-  AppConfig.new("lua",            app: "nvim"),
-  AppConfig.new("after",          app: "nvim"),
-  AppConfig.new("nightshade.lua", app: "nvim", dir: "colors"),
-  AppConfig.new("daybreak.lua",   app: "nvim", dir: "colors"),
-  AppConfig.new("wisp.lua",       app: "nvim", dir: "colors"),
 
   ClaudeConfig.new("CLAUDE.md"),
   ClaudeConfig.new("commands"),
   ClaudeConfig.new("skills"),
-
-  ShellConfig.new("zshenv"),
-  ShellConfig.new("zshrc"),
 
   BinFile.new("diff-highlight"),
 ].freeze
@@ -35,8 +32,9 @@ CONFIGS = [
 task default: :install
 
 desc "Install configs, scripts, and plugins"
-task install: "plugins:install" do
+task :install do
   CONFIGS.each(&:install)
+  Rake::Task["plugins:install"].invoke
 end
 
 desc "Uninstall configs and scripts"
@@ -45,8 +43,13 @@ task :uninstall do
 end
 
 namespace :plugins do
-  desc "Install vim plugins"
+  desc "Install vim plugins at the locked versions"
   task :install do
-    system('nvim --headless "+Lazy! sync" +qa')
+    system('nvim --headless "+Lazy! restore" +qa')
+  end
+
+  desc "Update vim plugins and rewrite the lockfile"
+  task :update do
+    system('nvim --headless "+Lazy! update" +qa')
   end
 end

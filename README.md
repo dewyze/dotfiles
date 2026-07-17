@@ -19,11 +19,12 @@ Everything installs through a small set of installer classes in `lib/`, each
 sharing the `Installable` concern (`install` / `uninstall`). The `Rakefile` is
 just a manifest listing what to install and how:
 
-- **`Dotfile`** — symlinks a repo file into `~` with a dot prefix
-  (`gitignore_global` → `~/.gitignore_global`).
+- **`Dotfile`** — symlinks a repo file or directory into `~` with a dot prefix
+  (`git/gitignore_global` → `~/.gitignore_global`). `from:` names the source
+  folder; `as:` overrides the target (the whole `nvim/` dir →
+  `~/.config/nvim`).
 - **`AppConfig`** — symlinks into `~/.config/<app>/` (`alacritty.toml` →
-  `~/.config/alacritty/alacritty.toml`). Handles files and whole directories
-  (the nvim `lua/` tree).
+  `~/.config/alacritty/alacritty.toml`).
 - **`ShellConfig`** — the loader pattern (see below) for `zshenv` / `zshrc`.
 - **`GitConfig`** — the loader pattern via git's native `[include]` for
   `gitconfig`.
@@ -73,8 +74,12 @@ functions `safepathappend`, `safepathprepend`, and `safesource` are defined in
 
 ## Neovim
 
-The nvim config (`init.lua`, `lua/`, `after/`) is the bulk of the repo. Two
-things about it are deliberate enough to document:
+The nvim config is the bulk of the repo and lives in `nvim/`, symlinked
+wholesale as `~/.config/nvim`. That means `lazy-lock.json` is version
+controlled: `rake install` restores plugins to the locked versions, and
+plugin upgrades are a deliberate act (`rake plugins:update`) with a
+reviewable diff. Two things about the config are deliberate enough to
+document:
 
 **Keybindings** follow a semantic grammar — five input layers (`\` do, `g` go,
 `[`/`]` step, `C-` system, bare keys), five leader domain words (test, find,

@@ -1,6 +1,10 @@
 require_relative "loader_config"
 
 class ShellConfig < LoaderConfig
+  def initialize(filename)
+    super(filename, from: "shell")
+  end
+
   private
 
   def loader_body

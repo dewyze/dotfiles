@@ -11,9 +11,9 @@ class LoaderConfig
   FENCE_BEGIN = "# BEGIN DOTFILES MANAGED BLOCK".freeze
   FENCE_END = "# END DOTFILES MANAGED BLOCK".freeze
 
-  def initialize(filename)
+  def initialize(filename, from: nil)
     @filename = filename
-    @source = File.join(repo_dir, "#{filename}.default")
+    @source = File.join(repo_dir, *[from].compact, "#{filename}.default")
     @target = File.expand_path("~/.#{filename}.default")
     @loader_path = File.expand_path("~/.#{filename}")
   end
