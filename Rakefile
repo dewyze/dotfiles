@@ -3,7 +3,6 @@ require_relative "lib/app_config"
 require_relative "lib/claude_config"
 require_relative "lib/shell_config"
 require_relative "lib/git_config"
-require_relative "lib/bin_file"
 
 CONFIGS = [
   GitConfig.new("gitconfig"),
@@ -18,6 +17,7 @@ CONFIGS = [
   ShellConfig.new("zshrc"),
 
   Dotfile.new("nvim", as: ".config/nvim"),
+  Dotfile.new("bin",  as: ".bin"),
 
   AppConfig.new("alacritty.toml", app: "alacritty"),
   AppConfig.new("ripgreprc",      app: "ripgrep"),
@@ -25,8 +25,6 @@ CONFIGS = [
   ClaudeConfig.new("CLAUDE.md"),
   ClaudeConfig.new("commands"),
   ClaudeConfig.new("skills"),
-
-  BinFile.new("diff-highlight"),
 ].freeze
 
 task default: :install

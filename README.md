@@ -23,14 +23,16 @@ just a manifest listing what to install and how:
   (`git/gitignore_global` → `~/.gitignore_global`). `from:` names the source
   folder; `as:` overrides the target (the whole `nvim/` dir →
   `~/.config/nvim`).
-- **`AppConfig`** — symlinks into `~/.config/<app>/` (`alacritty.toml` →
+- **`AppConfig`** — symlinks into `~/.config/<app>/`; sources mirror the
+  target (`config/alacritty/alacritty.toml` →
   `~/.config/alacritty/alacritty.toml`).
 - **`ShellConfig`** — the loader pattern (see below) for `zshenv` / `zshrc`.
 - **`GitConfig`** — the loader pattern via git's native `[include]` for
   `gitconfig`.
 - **`ClaudeConfig`** — symlinks into `~/.claude/` (`CLAUDE.md`, `commands/`,
   `skills/`) so Claude Code instructions and skills live in version control.
-- **`BinFile`** — symlinks an executable into `~/.bin/` and `chmod +x`es it.
+- **`bin/`** installs as a whole-dir symlink (`~/.bin`), like `nvim/` —
+  executables keep their mode via git, no per-file class needed.
 
 Backups: if a real file already lives at the target, it's renamed to
 `<file>.bak` on install and restored on uninstall.
