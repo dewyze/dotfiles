@@ -37,42 +37,63 @@ function clearswap() {
   rm ~/.local/state/nvim/swap/*swp
 }
 
-# tmux
-function tmux_public() {
-  if [ -n "$TMUX" ]; then
-    tmux_filepath=${TMUX%%,*}
-    chmod 777 $tmux_filepath
+# tmux — socket-per-session helpers (pairable via /tmp/<name>)
+function tmux_private() {
+  chmod 700 /tmp/$1
+}
+
+# After detach: re-secure a live session, sweep the socket of a dead one
+function _tmux_cleanup() {
+  if ps -o ruser,command -ax | grep -q "[n]ew-session -s $1" ; then
+    tmux_private $1
   else
-    echo "You must run this command from within a tmux session"
+    rm -f /tmp/$1
+    echo "Deleted unused session ($1)"
   fi
 }
 
-function tmux_secure() {
-  if [ -n "$1" ]; then
-    chmod 700 /tmp/$1
-    echo "Set session to be private ($1)"
-  else
-    echo "Please specify the name of a tmux to secure"
-  fi
+# Attach or create — the daily driver
+function tmux_join() {
+  if [ -z "$1" ]; then echo "Usage: tmuxj <name>  (attach or create)"; return 1; fi
+  tmux -S /tmp/$1 new-session -s $1 -d 2>/dev/null && tmux_private $1
+  tmux -S /tmp/$1 attach -t $1
+  _tmux_cleanup $1
 }
 
-function tmux_start () {
+function tmux_new() {
+  if [ -z "$1" ]; then echo "Usage: tmuxn <name>"; return 1; fi
+  if [ -S /tmp/$1 ]; then echo "Session '$1' already exists — tmuxj $1 to attach"; return 1; fi
+  tmux_join $1
+}
+
+# Attach only — fails if the session doesn't exist
+function tmux_attach() {
+  if [ -z "$1" ]; then echo "Usage: tmuxa <name>"; return 1; fi
+  if [ ! -S /tmp/$1 ]; then echo "No session '$1' (tmuxl to list, tmuxj to create)"; return 1; fi
+  tmux -S /tmp/$1 attach -t $1
+  _tmux_cleanup $1
+}
+
+function tmux_kill() {
+  if [ -z "$1" ]; then echo "Usage: tmuxk <name>"; return 1; fi
+  tmux -S /tmp/$1 kill-session -t $1 2>/dev/null
+  rm -f /tmp/$1
+  echo "Killed session ($1)"
+}
+
+function tmux_toggle() {
+  local socket
   if [ -n "$1" ]; then
-    tmux -S /tmp/$1 new-session -s $1 -d
-    tmux_secure $1
-
-    tmux -S /tmp/$1 attach -t $1
-
-    # After detaching/exiting from the tmux
-    # Check if the session is still active to decide whether to clean or secure
-    if ps -o ruser,command -ax | grep -q "[n]ew-session -s $1" ; then
-      tmux_secure $1
-    else
-      rm /tmp/$1
-      echo "Deleted unused session ($1)"
-    fi
+    socket=/tmp/$1
+  elif [ -n "$TMUX" ]; then
+    socket=${TMUX%%,*}
   else
-    echo "Please specify the name of a tmux to start"
+    echo "Usage: tmuxp <name>  (or run inside a session)"; return 1
+  fi
+  if [ "$(stat -f %Lp $socket)" = "777" ]; then
+    chmod 700 $socket && echo "private: $socket"
+  else
+    chmod 777 $socket && echo "PUBLIC: $socket"
   fi
 }
 
@@ -80,10 +101,21 @@ function tmux_list () {
   ps -o ruser,command -ax | grep '[n]ew-session -s' | ruby -ne '$_ =~ /^(\w+).*-s (\w+)/; puts "#{$1} started #{$2}"'
 }
 
-alias tmuxs='tmux_start'
+alias tmuxn='tmux_new'
 alias tmuxl='tmux_list'
-alias tmuxpub='tmux_public'
-alias pair="tmuxs pair"
+alias tmuxp='tmux_toggle'
+alias tmuxa='tmux_attach'
+alias tmuxj='tmux_join'
+alias tmuxk='tmux_kill'
+alias pair="tmuxj pair"
+
+alias newmux="tmux new-session -s"
+alias joinmux="tmux attach -t"
+alias listmux="tmux list-sessions"
+alias killmux="tmux kill-session -t"
+mymux() {
+  tmux attach -t "${1:-main}" 2>/dev/null || tmux new-session -s "${1:-main}"
+}
 
 # Ruby / Bundler
 alias bi="bundle install"
