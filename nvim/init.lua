@@ -19,7 +19,7 @@ vim.cmd([[
 ]])
 
 -- ========= Normal Shortcuts ========
-vim.keymap.set("n", "<Esc><Esc>", ":nohlsearch<CR>", { silent = true, desc = "clear search highlight" })
+vim.keymap.set("n", "<C-c>", ":nohlsearch<CR>", { silent = true, desc = "clear search highlight" })
 vim.keymap.set("n", "<CR><CR>", "i<CR><esc>w")
 vim.keymap.set("n", "<C-w>m", "<C-w>|<C-w>_")
 

@@ -74,7 +74,8 @@ never used here) · `]b`/`[b` buffers, `]q`/`[q` quickfix (core freebies).
 
 C layer: `C-w` windows (incl. `C-w m` maximize) · `C-T s/n/t/,/q` tabs ·
 `C-s` **show namespace**: `C-s C-s` main drawer · `C-s C-f` reveal file ·
-`C-s C-q` quickfix · `C-s C-t` terminal split · `C-/` comment · `C-l` clear
+`C-s C-q` quickfix · `C-s C-t` terminal split · `C-/` comment · `C-c` (also
+native `C-l`) clear
 highlight (native) · `C-G` yank filename · insert `C-s` signature help
 (core default, unshadowed — our `C-s` maps are normal-mode only) ·
 t-mode `Esc Esc` exits terminal mode.
