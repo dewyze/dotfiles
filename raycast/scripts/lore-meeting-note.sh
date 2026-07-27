@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env -S LC_ALL=en_US.UTF-8 bash
 
 # Required parameters:
 # @raycast.schemaVersion 1
@@ -18,7 +18,8 @@ set -euo pipefail
 
 ICALBUDDY=/opt/homebrew/bin/icalBuddy
 PREFS="${LORE_PREFS:-$HOME/.lore/preferences.json}"
-LORE="$HOME/dev/lore/bin/lore"
+# The installed bundle ships its own launcher CLI — never the dev checkout.
+LORE="$HOME/Applications/Lore.app/Contents/Resources/lore"
 
 if [ ! -f "$PREFS" ]; then
   echo "no lore vault yet (:VaultAdd first)"
@@ -77,4 +78,3 @@ print(path)
 ' "$VAULT")
 
 "$LORE" "$FILE"
-echo "meeting note ready"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env -S LC_ALL=en_US.UTF-8 bash
 
 # Required parameters:
 # @raycast.schemaVersion 1
