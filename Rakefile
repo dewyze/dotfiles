@@ -17,7 +17,8 @@ CONFIGS = [
   ShellConfig.new("zshrc"),
 
   Dotfile.new("nvim", as: ".config/nvim"),
-  Dotfile.new("bin",  as: ".bin"),
+  Dotfile.new("bin", as: ".bin"),
+  Dotfile.new("raycast", as: ".raycast"),
 
   AppConfig.new("alacritty.toml", app: "alacritty"),
   AppConfig.new("ripgreprc",      app: "ripgrep"),
