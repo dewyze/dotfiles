@@ -46,7 +46,7 @@ if [ -z "$OUT" ]; then
 fi
 
 FILE=$(printf '%s\n' "$OUT" | python3 -c '
-import os, re, sys
+import json, os, re, sys
 from datetime import date
 
 lines = [l.strip() for l in sys.stdin.read().splitlines() if l.strip()]
@@ -67,8 +67,16 @@ if not os.path.exists(path):
     if os.path.exists(template_path):
         body = open(template_path).read()
     else:
-        body = "---\ndate: {{date}}\nattendees: [{{attendees}}]\nproject:\n---\n\n# {{title}}\n\n"
+        body = (
+            "---\ntype: Meeting\nmeeting: {{meeting}}\ndate: {{date}}\n"
+            "attendees: [{{attendees}}]\nproject:\n---\n\n# {{title}}\n\n"
+        )
     body = body.replace("{{date}}", f"{today:%Y-%m-%d}")
+    # {{meeting}} is the recurring name: the event title, stable across
+    # instances, so every "Team Sync" note carries one shared key while
+    # {{title}} varies per note. Substituted pre-quoted, because a title
+    # like "Sync: planning" would break a bare YAML scalar.
+    body = body.replace("{{meeting}}", json.dumps(title))
     body = body.replace("{{title}}", title)
     body = body.replace("{{attendees}}", attendees)
     os.makedirs(os.path.dirname(path), exist_ok=True)
