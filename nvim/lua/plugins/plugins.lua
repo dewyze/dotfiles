@@ -3,7 +3,6 @@ return {
   "dewyze/vim-ruby-block-helpers",
   "dewyze/vim-tada",
   "mattn/emmet-vim",
-  "preservim/vim-markdown",
   "tpope/vim-abolish",
   "tpope/vim-endwise",
   "tpope/vim-fugitive",
