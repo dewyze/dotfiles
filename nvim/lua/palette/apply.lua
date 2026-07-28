@@ -94,6 +94,11 @@ return function(p)
   hl("ShowMarksHLu", { fg = p.yellow, bg = p.background })
   hl("ShowMarksHLm", { fg = p.aqua, bg = p.background })
 
+  -- render-markdown.nvim: code panels default to ColorColumn, a shade meant to
+  -- be ignorable. Give them their own step on the background ramp instead.
+  hl("RenderMarkdownCode", { bg = p.code or p.line })
+  hl("RenderMarkdownCodeInline", { bg = p.code or p.line })
+
   -- Treesitter captures (global; these style ruby too)
   hl("@variable", { fg = p.foreground })
   hl("@variable.parameter", { fg = p.foreground })

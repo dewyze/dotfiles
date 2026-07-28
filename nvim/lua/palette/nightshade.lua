@@ -6,6 +6,7 @@ return {
   background = "#303030",
   selection = "#585858",
   line = "#3a3a3a",
+  code = "#454545",
   comment = "#969896",
   window = "#5e5e5e",
 
