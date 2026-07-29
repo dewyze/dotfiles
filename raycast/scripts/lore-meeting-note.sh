@@ -69,7 +69,7 @@ if not os.path.exists(path):
     else:
         body = (
             "---\ntype: Meeting\nmeeting: {{meeting}}\ndate: {{date}}\n"
-            "attendees: [{{attendees}}]\nproject:\n---\n\n# {{title}}\n\n"
+            "attendees:{{attendees}}\nproject:\n---\n\n# {{title}}\n\n"
         )
     body = body.replace("{{date}}", f"{today:%Y-%m-%d}")
     # {{meeting}} is the recurring name: the event title, stable across
@@ -78,7 +78,14 @@ if not os.path.exists(path):
     # like "Sync: planning" would break a bare YAML scalar.
     body = body.replace("{{meeting}}", json.dumps(title))
     body = body.replace("{{title}}", title)
-    body = body.replace("{{attendees}}", attendees)
+    # A block sequence, one quoted entry per line. A flow list breaks on any
+    # entry holding a comma or a colon, and icalBuddy hands back whatever the
+    # calendar has: display names for some people, bare emails for others.
+    # {{attendees}} carries its own leading newline so the empty case can stay
+    # inline — "attendees:" with nothing under it parses as null, not a list.
+    people = [a.strip() for a in attendees.split(",") if a.strip()]
+    entries = "\n".join("  - " + json.dumps(p) for p in people)
+    body = body.replace("{{attendees}}", "\n" + entries if people else " []")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     open(path, "w").write(body)
 
