@@ -34,6 +34,8 @@ vim.keymap.set("x", "<C-_>", "gc", { remap = true, silent = true })
 -- ordered list worth stepping. gt/gT remain native.
 vim.keymap.set("n", "]t", ":tabnext<CR>", { silent = true, desc = "step: next tab" })
 vim.keymap.set("n", "[t", ":tabprevious<CR>", { silent = true, desc = "step: previous tab" })
+vim.keymap.set("n", "]g", ":TourNext<CR>", { silent = true, desc = "step: next tour stop" })
+vim.keymap.set("n", "[g", ":TourPrev<CR>", { silent = true, desc = "step: previous tour stop" })
 
 -- ========= Show namespace (C-s: panels, drawers) — see KEYBINDINGS.md ========
 vim.keymap.set("n", "<C-s><C-q>", function()
