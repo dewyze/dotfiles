@@ -37,7 +37,8 @@ Message prefixes:
 
 - `??` — answer exactly the question asked. No inference, no action, no code.
 - `^^` — altitude up: too deep in the details, restate at the whiteboard level.
-- `--` — too long: re-answer at half the length or less.
+- `--` — too long: re-answer at half the length or less. Mobile autocorrects
+  this to an en/em dash (`–`/`—`); a message starting with one means the same.
 - `""` — talk only: discuss and propose, change nothing. Starts a talking
   conversation, not a per-message flag — dropping the prefix on follow-ups
   doesn't mean "start coding." It ends when I clearly ask for implementation
