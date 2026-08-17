@@ -6,7 +6,7 @@ vim.lsp.config.ruby_lsp = {
 vim.lsp.enable({ "ruby_lsp" })
 
 vim.lsp.config.sorbet = {
-  cmd = { "srb", "tc", "--lsp" },
+  cmd = { "bundle", "exec", "srb", "tc", "--lsp" },
   root_markers = { "sorbet/" },
   filetypes = { "ruby" },
 }
