@@ -4,6 +4,22 @@ return {
 		vim.g.projectionist_heuristics = {
 			-- Rails app using RSpec
 			["app/&spec/"] = {
+				-- controllers are tested via request specs; spec/controllers is not a thing
+				["app/controllers/*_controller.rb"] = {
+					alternate = {
+						"spec/requests/{}_spec.rb",
+						"spec/requests/{}_controller_spec.rb",
+					},
+					type = "source",
+				},
+				["spec/requests/*_controller_spec.rb"] = {
+					alternate = "app/controllers/{}_controller.rb",
+					type = "test",
+				},
+				["spec/requests/*_spec.rb"] = {
+					alternate = "app/controllers/{}_controller.rb",
+					type = "test",
+				},
 				["app/*.rb"] = { alternate = "spec/{}_spec.rb", type = "source" },
 				["spec/*_spec.rb"] = { alternate = "app/{}.rb", type = "test" },
 			},
@@ -21,6 +37,25 @@ return {
 			["lib/&test/&*.gemspec"] = {
 				["lib/*.rb"] = { alternate = "test/{}_test.rb", type = "source" },
 				["test/*_test.rb"] = { alternate = "lib/{}.rb", type = "test" },
+			},
+		}
+
+		-- Inside a real Rails app, rails.vim (not projectionist) owns :A, and its
+		-- built-in alternate for controllers is spec/controllers. Teach it the
+		-- request-spec mapping too. "test" also makes :Rails / :Runner run the
+		-- request spec from the controller.
+		vim.g.rails_projections = {
+			["app/controllers/*_controller.rb"] = {
+				test = {
+					"spec/requests/{}_spec.rb",
+					"spec/requests/{}_controller_spec.rb",
+				},
+			},
+			["spec/requests/*_controller_spec.rb"] = {
+				alternate = "app/controllers/{}_controller.rb",
+			},
+			["spec/requests/*_spec.rb"] = {
+				alternate = "app/controllers/{}_controller.rb",
 			},
 		}
 
