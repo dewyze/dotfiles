@@ -10,6 +10,7 @@ vim.o.number = true
 vim.o.smartcase = true
 vim.o.scrolloff = 5
 vim.o.showmatch = true
+vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.undofile = true
 vim.o.foldenable = false
