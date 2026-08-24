@@ -6,6 +6,7 @@ return {
   "tpope/vim-abolish",
   "tpope/vim-endwise",
   "tpope/vim-fugitive",
+  "tpope/vim-rhubarb",
   "tpope/vim-surround",
   "tpope/vim-ragtag",
   "tpope/vim-repeat",

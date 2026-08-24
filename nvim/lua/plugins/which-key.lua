@@ -12,6 +12,7 @@ return {
 			{ "<leader>s", group = "search" },
 			{ "<leader>e", group = "explain" },
 			{ "<leader>r", group = "refactor" },
+			{ "<leader>y", group = "yank" },
 			{ "gr", group = "go: lsp + rails" },
 			{ "<C-s>", group = "show" },
 		})

@@ -10,6 +10,7 @@ vim.o.number = true
 vim.o.smartcase = true
 vim.o.scrolloff = 5
 vim.o.showmatch = true
+vim.o.splitright = true
 vim.o.undofile = true
 vim.o.foldenable = false
 vim.o.wildignore =
@@ -54,8 +55,42 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- " ========= Commands ========
-vim.cmd('command! Yankfname let @* = expand("%")')
-vim.keymap.set("n", "<C-G>", ":Yankfname<CR> <C-G>")
+-- " ========= Yank domain (\y) ========
+-- 'clipboard' is unset on purpose, so @0 and @+ stay separate and nothing
+-- reaches the system clipboard by accident. These ferry it across on request.
+-- Paths are cwd-relative, which is the project root in practice.
+vim.cmd('command! Clip let @+ = @0')
+
+local function clip(text)
+  vim.fn.setreg("+", text)
+  vim.notify(text)
+end
+
+-- Visual range as start[-end]; line("v") is the other end of the selection.
+local function selected_lines()
+  local a, b = vim.fn.line("v"), vim.fn.line(".")
+  if a > b then
+    a, b = b, a
+  end
+  return a == b and tostring(a) or (a .. "-" .. b)
+end
+
+vim.keymap.set("n", "<leader>yy", ":Clip<CR>", { silent = true, desc = "yank: last yank to clipboard" })
+vim.keymap.set("x", "<leader>yy", '"+y', { desc = "yank: selection to clipboard" })
+vim.keymap.set("n", "<leader>yf", ":%y+<CR>", { silent = true, desc = "yank: whole file to clipboard" })
+vim.keymap.set("n", "<leader>yn", function() clip(vim.fn.expand("%")) end, { desc = "yank: path (relative)" })
+vim.keymap.set("n", "<leader>yN", function() clip(vim.fn.expand("%:p")) end, { desc = "yank: path (absolute)" })
+vim.keymap.set("n", "<leader>yl", function()
+  clip(vim.fn.expand("%") .. ":" .. vim.fn.line("."))
+end, { desc = "yank: path:line" })
+vim.keymap.set("x", "<leader>yl", function()
+  clip(vim.fn.expand("%") .. ":" .. selected_lines())
+end, { desc = "yank: path:lines" })
+-- GBrowse! copies the forge URL instead of opening it; rhubarb resolves GitHub.
+-- The '.' range matters: bare GBrowse! yields a branch URL with no line anchor,
+-- which moves under you. Given a range, fugitive pins the SHA and the lines.
+vim.keymap.set("n", "<leader>yg", ":.GBrowse!<CR>", { silent = true, desc = "yank: git permalink" })
+vim.keymap.set("x", "<leader>yg", ":GBrowse!<CR>", { silent = true, desc = "yank: git permalink (lines)" })
 
 vim.cmd([[
   if (has("termguicolors"))

@@ -61,6 +61,7 @@ Leader domains — the whole list:
 | `\s` **search** (by content) | `\ss` live grep · `\sw` word under cursor | |
 | `\e` **explain** | `\ee` error float · `\ed` docs | `K` stays bare for hover |
 | `\r` **refactor** (transforms) | `\rr` rename · `\ra` code action · `\rf` format · `\rw`/`\ru` wrap/unwrap ruby block | core `grn`/`gra` stay bound as freebies |
+| `\y` **yank** (to system clipboard) | `\yy` last yank (visual: selection) · `\yf` whole file · `\yn`/`\yN` path relative/absolute · `\yl` path:line (visual: range) · `\yg` git permalink | `'clipboard'` stays unset so ordinary edits never touch the pasteboard; these are the deliberate way across |
 | `\p` **palette** | command palette (future) | singleton |
 
 g layer (jumps): `gd` `gD` `grr` references `gri` implementation `grt`
@@ -76,7 +77,7 @@ C layer: `C-w` windows (incl. `C-w m` maximize) · `C-T s/n/t/,/q` tabs ·
 `C-s` **show namespace**: `C-s C-s` main drawer · `C-s C-f` reveal file ·
 `C-s C-q` quickfix · `C-s C-t` terminal split · `C-/` comment · `C-c` (also
 native `C-l`) clear
-highlight (native) · `C-G` yank filename · insert `C-s` signature help
+highlight (native) · insert `C-s` signature help
 (core default, unshadowed — our `C-s` maps are normal-mode only) ·
 t-mode `Esc Esc` exits terminal mode.
 
