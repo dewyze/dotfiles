@@ -127,4 +127,14 @@ return function(p)
   hl("@function.builtin.ruby", { fg = p.blue })
   hl("@function.builtin.rails", { fg = p.purple })
   hl("@variable.parameter.keyword", { fg = p.royal })
+
+  -- LSP semantic tokens paint above treesitter (priority 125 vs 100) once the
+  -- server warms up, so any group left on its default link repaints seconds
+  -- after open. Align the ruby-relevant ones with the treesitter colors above
+  -- so the repaint is invisible. Method is cleared, not colored: the server
+  -- flattens def-site and call-site into one token, and treesitter's
+  -- yellow-def/plain-call distinction should win.
+  hl("@lsp.type.class", { fg = p.red })
+  hl("@lsp.type.namespace", { fg = p.red })
+  hl("@lsp.type.method", {})
 end
