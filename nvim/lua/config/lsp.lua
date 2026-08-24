@@ -15,6 +15,15 @@ vim.lsp.config.sorbet = {
 if vim.fn.isdirectory("sorbet") == 1 then
   vim.lsp.enable({ "sorbet" })
 end
+vim.lsp.config.ts_ls = {
+  cmd = { "typescript-language-server", "--stdio" },
+  -- Nested first: in a monorepo a tsconfig outranks a closer package.json.
+  root_markers = { { "tsconfig.json", "jsconfig.json" }, "package.json" },
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+  init_options = { hostInfo = "neovim" },
+}
+vim.lsp.enable({ "ts_ls" })
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)

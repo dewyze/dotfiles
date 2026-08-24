@@ -20,6 +20,9 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # System
+cpf() {
+  cat "$1" | pbcopy
+}
 alias cpwd='pwd | pbcopy'
 alias python="python3"
 alias pip="pip3"
