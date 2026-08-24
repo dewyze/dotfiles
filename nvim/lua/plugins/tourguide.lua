@@ -1,4 +1,4 @@
 return {
-	dir = "~/dev/tourguide",
+	"dewyze/tourguide",
 	name = "tourguide.nvim",
 }
