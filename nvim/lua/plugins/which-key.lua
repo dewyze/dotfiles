@@ -3,7 +3,13 @@ return {
 	event = "VeryLazy",
 	config = function()
 		local wk = require("which-key")
-		wk.setup({})
+		wk.setup({
+			-- Popup delay; stock is 200ms, which surfaces the menu mid-thought.
+			-- Keep the special popups (registers, marks) instant.
+			delay = function(ctx)
+				return ctx.plugin and 0 or 600
+			end,
+		})
 
 		-- The domain words — see KEYBINDINGS.md
 		wk.add({
