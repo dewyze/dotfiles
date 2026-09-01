@@ -1,6 +1,9 @@
 return {
   "gcmt/taboo.vim",
   config = function()
+    -- Naming only: lualine draws the tabline (see lualine.lua). Without this,
+    -- taboo seizes 'tabline' on VimEnter, which fires after lazy config runs.
+    vim.g.taboo_tabline = 0
     vim.cmd([[
       function TabWithName(Func)
       call inputsave()
