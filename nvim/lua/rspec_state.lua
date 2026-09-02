@@ -99,4 +99,86 @@ function M.resolve(bufnr, lnum, col)
 	return { anchor = anchor, entries = entries }
 end
 
+-- Aligned "kind name :lnum" rows, override chains trailing.
+local function render(entries)
+	local kind_width, name_width = 0, 0
+	for _, entry in ipairs(entries) do
+		kind_width = math.max(kind_width, #entry.kind)
+		name_width = math.max(name_width, #entry.name)
+	end
+	local lines = {}
+	for _, entry in ipairs(entries) do
+		local line = string.format(
+			"%-" .. kind_width .. "s  %-" .. name_width .. "s  :%d",
+			entry.kind,
+			entry.name,
+			entry.lnum
+		)
+		if #entry.overridden > 0 then
+			local refs = {}
+			for _, shadowed in ipairs(entry.overridden) do
+				table.insert(refs, ":" .. shadowed.lnum)
+			end
+			line = line .. "  (overrides " .. table.concat(refs, ", ") .. ")"
+		end
+		table.insert(lines, line)
+	end
+	return lines
+end
+
+function M.show()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local source_win = vim.api.nvim_get_current_win()
+	local pos = vim.api.nvim_win_get_cursor(source_win)
+	local result = M.resolve(bufnr, pos[1], pos[2])
+	if not result.anchor then
+		vim.notify("rspec_state: no enclosing it/context/describe", vim.log.levels.INFO)
+		return
+	end
+
+	local lines = render(result.entries)
+	if #lines == 0 then
+		lines = { "(no let/subject state)" }
+	end
+	local width = 0
+	for _, line in ipairs(lines) do
+		width = math.max(width, vim.fn.strdisplaywidth(line))
+	end
+
+	-- Above the anchor line so the state reads as belonging to what's below;
+	-- flip below when the window has no room above (border needs 2 rows).
+	local rows_above = result.anchor.lnum - vim.fn.line("w0", source_win)
+	local placement = { anchor = "SW", bufpos = { result.anchor.lnum - 1, 0 } }
+	if rows_above < #lines + 2 then
+		placement = { anchor = "NW", bufpos = { result.anchor.lnum, 0 } }
+	end
+
+	local float_buf = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_buf_set_lines(float_buf, 0, -1, false, lines)
+	vim.bo[float_buf].modifiable = false
+	local float_win = vim.api.nvim_open_win(float_buf, true, {
+		relative = "win",
+		win = source_win,
+		bufpos = placement.bufpos,
+		anchor = placement.anchor,
+		width = width,
+		height = #lines,
+		style = "minimal",
+		border = "rounded",
+	})
+
+	vim.keymap.set("n", "<CR>", function()
+		local entry = result.entries[vim.api.nvim_win_get_cursor(float_win)[1]]
+		vim.api.nvim_win_close(float_win, true)
+		if entry then
+			vim.api.nvim_win_set_cursor(source_win, { entry.lnum, 0 })
+		end
+	end, { buffer = float_buf })
+	for _, key in ipairs({ "q", "<Esc>" }) do
+		vim.keymap.set("n", key, function()
+			vim.api.nvim_win_close(float_win, true)
+		end, { buffer = float_buf })
+	end
+end
+
 return M
