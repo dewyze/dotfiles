@@ -142,9 +142,19 @@ alias unbind="rgc -l \"^\s*binding.pry\"| xargs sed -i '' -e 's/binding\.pry/# b
 alias rebind="rgc -l \"# binding.pry\" | xargs sed -i '' -e 's/# binding\.pry/binding.pry/'"
 
 # Git
-alias gg="git grep"
 alias g="git"
+alias gam="git commit --amend --no-edit"
+alias gca="git commit --amend"
+alias gcv="git commit -v"
 alias gd="git diff"
+alias gdc="git diff --cached"
+alias gg="git grep"
+alias gpp="git push --force-with-lease"
+alias gsd="gh stack down"
+alias gsp="gh stack push"
+alias gss="gh stack sync"
+alias gsu="gh stack up"
+alias gsv="gh stack view"
 
 # npm
 alias nbuild="npm run build"
