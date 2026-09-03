@@ -28,8 +28,16 @@ local function def_entry(call, bufnr)
 	else
 		return nil
 	end
-	local row = call:range()
-	return { name = name, kind = kind, lnum = row + 1 }
+
+	local start_row, start_col, end_row = call:range()
+	local source = vim.api.nvim_buf_get_lines(bufnr, start_row, end_row + 1, false)
+	for i, line in ipairs(source) do
+		if line:sub(1, start_col):match("^%s*$") then
+			source[i] = line:sub(start_col + 1)
+		end
+	end
+
+	return { name = name, kind = kind, lnum = start_row + 1, source = source }
 end
 
 -- Direct statements of a group's block, skipping the body wrapper node.
@@ -99,31 +107,25 @@ function M.resolve(bufnr, lnum, col)
 	return { anchor = anchor, entries = entries }
 end
 
--- Aligned "kind name :lnum" rows, override chains trailing.
+-- Each definition's own source, with line number and override chain as a
+-- trailing comment on its first line. entry_at maps float row -> entry.
 local function render(entries)
-	local kind_width, name_width = 0, 0
+	local lines, entry_at = {}, {}
 	for _, entry in ipairs(entries) do
-		kind_width = math.max(kind_width, #entry.kind)
-		name_width = math.max(name_width, #entry.name)
-	end
-	local lines = {}
-	for _, entry in ipairs(entries) do
-		local line = string.format(
-			"%-" .. kind_width .. "s  %-" .. name_width .. "s  :%d",
-			entry.kind,
-			entry.name,
-			entry.lnum
-		)
+		local annotation = "  # :" .. entry.lnum
 		if #entry.overridden > 0 then
 			local refs = {}
 			for _, shadowed in ipairs(entry.overridden) do
 				table.insert(refs, ":" .. shadowed.lnum)
 			end
-			line = line .. "  (overrides " .. table.concat(refs, ", ") .. ")"
+			annotation = annotation .. " (overrides " .. table.concat(refs, ", ") .. ")"
 		end
-		table.insert(lines, line)
+		for i, source_line in ipairs(entry.source) do
+			table.insert(lines, i == 1 and source_line .. annotation or source_line)
+			entry_at[#lines] = entry
+		end
 	end
-	return lines
+	return lines, entry_at
 end
 
 function M.show()
@@ -136,9 +138,9 @@ function M.show()
 		return
 	end
 
-	local lines = render(result.entries)
+	local lines, entry_at = render(result.entries)
 	if #lines == 0 then
-		lines = { "(no let/subject state)" }
+		lines = { "# no let/subject state" }
 	end
 	local width = 0
 	for _, line in ipairs(lines) do
@@ -156,6 +158,9 @@ function M.show()
 	local float_buf = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_buf_set_lines(float_buf, 0, -1, false, lines)
 	vim.bo[float_buf].modifiable = false
+	-- Highlight without setting the filetype, so ruby ftplugins don't run
+	-- against the float buffer.
+	vim.treesitter.start(float_buf, "ruby")
 	local float_win = vim.api.nvim_open_win(float_buf, true, {
 		relative = "win",
 		win = source_win,
@@ -168,7 +173,7 @@ function M.show()
 	})
 
 	vim.keymap.set("n", "<CR>", function()
-		local entry = result.entries[vim.api.nvim_win_get_cursor(float_win)[1]]
+		local entry = entry_at[vim.api.nvim_win_get_cursor(float_win)[1]]
 		vim.api.nvim_win_close(float_win, true)
 		if entry then
 			vim.api.nvim_win_set_cursor(source_win, { entry.lnum, 0 })

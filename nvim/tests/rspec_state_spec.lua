@@ -183,6 +183,26 @@ describe("rspec_state.resolve", function()
 		assert.are.equal(2, result.entries[1].overridden[1].lnum)
 	end)
 
+	it("carries each definition's dedented source", function()
+		local buf = make_buf({
+			"describe User do",
+			"  let(:account) do",
+			"    create(:account, owner: user)",
+			"  end",
+			'  it "is valid" do',
+			"  end",
+			"end",
+		})
+
+		local result = rspec_state.resolve(buf, 6, 2)
+
+		assert.are.same({
+			"let(:account) do",
+			"  create(:account, owner: user)",
+			"end",
+		}, result.entries[1].source)
+	end)
+
 	it("includes definitions below the cursor in the same block", function()
 		local buf = make_buf({
 			"describe User do",
@@ -244,11 +264,13 @@ describe("rspec_state.show", function()
 		assert.is_not_nil(win)
 		assert.are.equal("SW", config.anchor)
 		assert.are.same({ 7, 0 }, { config.bufpos[1], config.bufpos[2] })
-		local lines = vim.api.nvim_buf_get_lines(vim.api.nvim_win_get_buf(win), 0, -1, false)
+		local float_buf = vim.api.nvim_win_get_buf(win)
+		local lines = vim.api.nvim_buf_get_lines(float_buf, 0, -1, false)
 		assert.are.same({
-			"let   user     :5  (overrides :2)",
-			"let!  account  :6",
+			"let(:user) { build(:user, :admin) }  # :5 (overrides :2)",
+			"let!(:account) { create(:account) }  # :6",
 		}, lines)
+		assert.is_not_nil(vim.treesitter.highlighter.active[float_buf])
 	end)
 
 	it("jumps to the definition under the cursor on <CR>", function()
@@ -273,6 +295,29 @@ describe("rspec_state.show", function()
 		assert.is_nil(find_float())
 		assert.are.equal(source_win, vim.api.nvim_get_current_win())
 		assert.are.equal(3, vim.api.nvim_win_get_cursor(source_win)[1])
+	end)
+
+	it("jumps from a body line of a multi-line definition", function()
+		local buf = make_buf({
+			"describe User do",
+			"  let(:account) do",
+			"    create(:account, owner: user)",
+			"  end",
+			'  it "is valid" do',
+			"    expect(user).to be_valid",
+			"  end",
+			"end",
+		})
+		vim.api.nvim_set_current_buf(buf)
+		local source_win = vim.api.nvim_get_current_win()
+		vim.api.nvim_win_set_cursor(0, { 6, 6 })
+
+		rspec_state.show()
+		vim.api.nvim_win_set_cursor(0, { 2, 0 })
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "x", false)
+
+		assert.is_nil(find_float())
+		assert.are.equal(2, vim.api.nvim_win_get_cursor(source_win)[1])
 	end)
 
 	it("closes on q and <Esc> without moving the cursor", function()
