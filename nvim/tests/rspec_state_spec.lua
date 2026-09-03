@@ -349,4 +349,19 @@ describe("ruby ftplugin", function()
 
 		assert.is_not_nil(vim.api.nvim_buf_get_commands(buf, {}).RspecState)
 	end)
+
+	it("binds the state float under the explain domain", function()
+		local buf = make_buf({ "describe User do", "end" })
+		vim.api.nvim_set_current_buf(buf)
+		vim.bo[buf].filetype = "ruby"
+
+		local mapping
+		for _, map in ipairs(vim.api.nvim_buf_get_keymap(buf, "n")) do
+			if map.lhs == "\\es" then
+				mapping = map
+			end
+		end
+		assert.is_not_nil(mapping)
+		assert.are.equal("explain: state", mapping.desc)
+	end)
 end)
