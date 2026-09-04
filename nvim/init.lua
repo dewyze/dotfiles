@@ -79,13 +79,13 @@ end
 vim.keymap.set("n", "<leader>yy", ":Clip<CR>", { silent = true, desc = "yank: last yank to clipboard" })
 vim.keymap.set("x", "<leader>yy", '"+y', { desc = "yank: selection to clipboard" })
 vim.keymap.set("n", "<leader>yf", ":%y+<CR>", { silent = true, desc = "yank: whole file to clipboard" })
-vim.keymap.set("n", "<leader>yn", function() clip(vim.fn.expand("%")) end, { desc = "yank: path (relative)" })
+vim.keymap.set("n", "<leader>yn", function() clip(vim.fn.expand("%:p:.")) end, { desc = "yank: path (relative)" })
 vim.keymap.set("n", "<leader>yN", function() clip(vim.fn.expand("%:p")) end, { desc = "yank: path (absolute)" })
 vim.keymap.set("n", "<leader>yl", function()
-  clip(vim.fn.expand("%") .. ":" .. vim.fn.line("."))
+  clip(vim.fn.expand("%:p:.") .. ":" .. vim.fn.line("."))
 end, { desc = "yank: path:line" })
 vim.keymap.set("x", "<leader>yl", function()
-  clip(vim.fn.expand("%") .. ":" .. selected_lines())
+  clip(vim.fn.expand("%:p:.") .. ":" .. selected_lines())
 end, { desc = "yank: path:lines" })
 -- GBrowse! copies the forge URL instead of opening it; rhubarb resolves GitHub.
 -- The '.' range matters: bare GBrowse! yields a branch URL with no line anchor,
