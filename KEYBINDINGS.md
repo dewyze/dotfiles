@@ -58,7 +58,7 @@ Leader domains — the whole list:
 |---|---|---|
 | `\t` **test** | `\tt` nearest · `\tf` file · `\ts` suite · `\tl` last · `\tc` context (ruby) | |
 | `\f` **find** (nameable) | `\ff` files · `\fb` buffers | `C-p` = fast alias of `\ff` |
-| `\s` **search** (by content) | `\ss` live grep · `\sw` word under cursor — both app code (no specs/tests) · `\sS`/`\sW` everywhere variants | |
+| `\s` **search** (by content) | `\ss` live grep · `\sw` word under cursor — both skip specs/tests · `\sS`/`\sW` everywhere variants | |
 | `\e` **explain** | `\ee` error float · `\ed` docs · `\es` let/subject state (ruby) | `K` stays bare for hover |
 | `\r` **refactor** (transforms) | `\rr` rename · `\ra` code action · `\rf` format · `\rw`/`\ru` wrap/unwrap ruby block | core `grn`/`gra` stay bound as freebies |
 | `\y` **yank** (to system clipboard) | `\yy` last yank (visual: selection) · `\yf` whole file · `\yn`/`\yN` path relative/absolute · `\yl` path:line (visual: range) · `\yg` git permalink | `'clipboard'` stays unset so ordinary edits never touch the pasteboard; these are the deliberate way across |
