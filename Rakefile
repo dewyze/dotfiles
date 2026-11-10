@@ -22,6 +22,7 @@ CONFIGS = [
 
   AppConfig.new("alacritty.toml", app: "alacritty"),
   AppConfig.new("ripgreprc",      app: "ripgrep"),
+  AppConfig.new("config.yml",     app: "gh-dash"),
 
   ClaudeConfig.new("CLAUDE.md"),
   ClaudeConfig.new("commands"),

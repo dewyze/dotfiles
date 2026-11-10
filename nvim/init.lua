@@ -39,6 +39,9 @@ vim.keymap.set("n", "[t", ":tabprevious<CR>", { silent = true, desc = "step: pre
 vim.keymap.set("n", "]g", ":TourNext<CR>", { silent = true, desc = "step: next tour stop" })
 vim.keymap.set("n", "[g", ":TourPrev<CR>", { silent = true, desc = "step: previous tour stop" })
 
+-- ========= Revert layer (BS: take back to a known state) — see KEYBINDINGS.md ========
+vim.keymap.set("n", "<BS>r", ":edit!<CR>", { silent = true, desc = "revert: reload file from disk" })
+
 -- ========= Show namespace (C-s: panels, drawers) — see KEYBINDINGS.md ========
 vim.keymap.set("n", "<C-s><C-q>", function()
 	local qf_open = vim.fn.getqflist({ winid = 0 }).winid ~= 0

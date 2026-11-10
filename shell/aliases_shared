@@ -136,6 +136,10 @@ alias r="bin/rails"
 alias rubo="bin/rubocop"
 alias rdbm="bin/rails db:migrate"
 alias rdbr="bin/rails db:reset"
+alias rdbtp="bin/rails db:test:prepare"
+alias rdbdo="bin/rails db:drop db:create db:migrate db:seed && RAILS_ENV=test bin/rails db:drop db:create db:migrate db:seed"
+
+alias bard="bundle && rdbm"
 
 # Search (ripgrep)
 alias rgc="rg --glob='!*_test.rb' --glob='!*_spec.rb' --glob='!*.rbi' --glob='!*.json' --glob='!*test.tsx' --glob='!*test.jsx' --glob='!*.graphql'"
@@ -145,18 +149,52 @@ alias rebind="rgc -l \"# binding.pry\" | xargs sed -i '' -e 's/# binding\.pry/bi
 
 # Git
 alias g="git"
-alias gam="git commit --amend --no-edit"
+alias gam="git amend"
+alias gap="git add . && git amend && git please"
 alias gca="git commit --amend"
 alias gcv="git commit -v"
 alias gd="git diff"
 alias gdc="git diff --cached"
 alias gg="git grep"
 alias gpp="git push --force-with-lease"
+alias gwip="git commit -m 'WIP'"
+
+# Git stacks
+alias gsb="gh stack bottom"
+alias gsc="gh stack checkout"
 alias gsd="gh stack down"
 alias gsp="gh stack push"
 alias gss="gh stack sync"
+alias gst="gh stack top"
 alias gsu="gh stack up"
 alias gsv="gh stack view"
+
+
+# Delete local branches whose PR merged, skipping worktree checkouts and
+# branches with commits after the merge. A branch that is behind the merged
+# head, or matches its contents under a different commit, is deleted.
+# Pass --dry-run to preview.
+gprune() {
+  git for-each-ref refs/heads --format="%(if)%(worktreepath)%(then)%(else)%(refname:short)%(end)" |
+    grep . |
+    while read -r branch; do
+      merged=$(gh pr list --head "$branch" --state merged --json number,headRefOid -q '.[:1][] | "\(.number) \(.headRefOid)"')
+      [[ -z "$merged" ]] && continue
+
+      pr_number=${merged% *}
+      merged_sha=${merged#* }
+      git cat-file -e "$merged_sha^{commit}" 2>/dev/null || git fetch -q origin "pull/$pr_number/head"
+
+      if ! git merge-base --is-ancestor "refs/heads/$branch" "$merged_sha" 2>/dev/null &&
+         ! git diff --quiet "$merged_sha" "refs/heads/$branch" 2>/dev/null; then
+        echo "Keeping $branch: local commits after merge"
+      elif [[ "$1" == --dry-run ]]; then
+        echo "Would delete $branch"
+      else
+        git branch -D -- "$branch"
+      fi
+    done
+}
 
 # npm
 alias nbuild="npm run build"

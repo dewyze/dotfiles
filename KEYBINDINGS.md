@@ -60,7 +60,7 @@ Leader domains — the whole list:
 | `\f` **find** (nameable) | `\ff` files · `\fb` buffers | `C-p` = fast alias of `\ff` |
 | `\s` **search** (by content) | `\ss` live grep · `\sw` word under cursor — both skip specs/tests · `\sS`/`\sW` everywhere variants | |
 | `\e` **explain** | `\ee` error float · `\ed` docs · `\es` let/subject state (ruby) | `K` stays bare for hover |
-| `\r` **refactor** (transforms) | `\rr` rename · `\ra` code action · `\rf` format · `\rw`/`\ru` wrap/unwrap ruby block | core `grn`/`gra` stay bound as freebies |
+| `\r` **refactor** (transforms) | `\rr` rename · `\ra` code action · `\rf` format · `\rw`/`\ru` wrap/unwrap ruby block · `\rt` test: `\rtlv` let → var | core `grn`/`gra` stay bound as freebies |
 | `\y` **yank** (to system clipboard) | `\yy` last yank (visual: selection) · `\yf` whole file · `\yn`/`\yN` path relative/absolute · `\yl` path:line (visual: range) · `\yg` git permalink | `'clipboard'` stays unset so ordinary edits never touch the pasteboard; these are the deliberate way across |
 | `\p` **palette** | command palette (future) | singleton |
 
@@ -72,6 +72,9 @@ feature · native `gc`/`gcc` comment operator, `gS`/`gJ` splitjoin.
 Brackets: `]f`/`[f` (+`]m` aliases) functions · `]d`/`[d` diagnostics (core) ·
 `]t`/`[t` tabs (shadows core's ctags-match stepping — a pre-LSP system
 never used here) · `]b`/`[b` buffers, `]q`/`[q` quickfix (core freebies).
+
+BS layer (revert — take back to a known state): `BS r` reload file from
+disk. Normal-mode BS was a redundant `h`; `u` undoes a stray reload.
 
 C layer: `C-w` windows (incl. `C-w m` maximize) · `C-T s/n/t/,/q` tabs ·
 `C-s` **show namespace**: `C-s C-s` main drawer · `C-s C-f` reveal file ·

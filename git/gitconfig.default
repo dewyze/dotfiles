@@ -32,6 +32,7 @@
   sh  = show
   st = status
   ut = ls-files -z -o --exclude-standard
+  wip = commit -m "WIP"
 
   amend = commit --amend --no-edit
   blank = !git reset --hard HEAD && git clean -d -f
@@ -50,8 +51,8 @@
   cur = log --pretty=format:'%ad %h %d' --abbrev-commit --date=short -1
 
   precommit = diff --cached --diff-algorithm=minimal -w
-[alias "push"]
-  please = push --force-with-lease
+[alias "push.please"]
+  command = push --force-with-lease
 [push]
   default = current
 [core]
