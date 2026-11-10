@@ -134,6 +134,8 @@ alias js="bundle exec jekyll serve"
 # Rails
 alias r="bin/rails"
 alias rubo="bin/rubocop"
+alias rdbm="bin/rails db:migrate"
+alias rdbr="bin/rails db:reset"
 
 # Search (ripgrep)
 alias rgc="rg --glob='!*_test.rb' --glob='!*_spec.rb' --glob='!*.rbi' --glob='!*.json' --glob='!*test.tsx' --glob='!*test.jsx' --glob='!*.graphql'"
