@@ -1,7 +1,6 @@
 return {
   "arthurxavierx/vim-caser",
   "dewyze/vim-ruby-block-helpers",
-  "dewyze/vim-tada",
   "mattn/emmet-vim",
   "tpope/vim-abolish",
   "tpope/vim-endwise",

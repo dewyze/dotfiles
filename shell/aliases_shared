@@ -26,6 +26,7 @@ cpf() {
 alias cpwd='pwd | pbcopy'
 alias python="python3"
 alias pip="pip3"
+alias rf="rm -rf"
 
 if [ -s /usr/bin/vim ]; then
   alias vi="/usr/bin/vim"

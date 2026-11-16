@@ -22,6 +22,7 @@ return {
 			{ "<leader>y", group = "yank" },
 			{ "gr", group = "go: lsp + rails" },
 			{ "<C-s>", group = "show" },
+			{ "<C-q>", group = "plan" },
 		})
 	end,
 }

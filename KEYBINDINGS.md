@@ -78,7 +78,11 @@ disk. Normal-mode BS was a redundant `h`; `u` undoes a stray reload.
 
 C layer: `C-w` windows (incl. `C-w m` maximize) · `C-T s/n/t/,/q` tabs ·
 `C-s` **show namespace**: `C-s C-s` main drawer · `C-s C-f` reveal file ·
-`C-s C-q` quickfix · `C-s C-t` terminal split · `C-/` comment · `C-c` (also
+`C-s C-q` quickfix · `C-s C-t` terminal split ·
+`C-q` **plan namespace** (tada): `C-q C-q` plan pane · `C-q C-f` pick a plan ·
+in a plan, `C-q 1/2/3` fold to level, `C-q 0` show all, `C-q o/c` open/close
+topic, `C-q a` archived plans, `C-q A` archive selection (visual) or whole
+plan (normal, confirms) · `C-/` comment · `C-c` (also
 native `C-l`) clear
 highlight (native) · insert `C-s` signature help
 (core default, unshadowed — our `C-s` maps are normal-mode only) ·
